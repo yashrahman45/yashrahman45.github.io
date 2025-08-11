@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Love Games for Tajbiha ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+            .love-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin: 1rem;
+        }
+        
+        .love-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ee5a52, #ff6b6b);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ff9a9e, #fecfef, #fecfef, #ff9a9e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideDown 1s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .game-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .game-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .game-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #e91e63;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .game-description {
+            color: #666;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .play-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .play-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .game-content {
+            display: none;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .quiz-question {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-option {
+            background: #f8f9fa;
+            border: 2px solid #e91e63;
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .quiz-option:hover {
+            background: #e91e63;
+            color: white;
+            transform: scale(1.02);
+        }
+        
+        
+        .heart-catcher {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+        
+        .falling-heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff69b4;
+            animation: fall 3s linear infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes fall {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(350px); }
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e91e63;
+            margin-bottom: 1rem;
+        }
+        
+        .love-letters {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .letter-card {
+            aspect-ratio: 1;
+            background: #ff69b4;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .letter-card:hover {
+            transform: scale(1.1);
+            background: #e91e63;
+        }
+        
+        .letter-card.flipped {
+            background: #4CAF50;
+        }
+
+        .result-message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #e91e63;
+            font-weight: 600;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(233, 30, 99, 0.1);
+            border-radius: 10px;
+        }
+        
+        .back-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+        .loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      width: 100px;
+      aspect-ratio: 1;
+      background: linear-gradient(#dc1818 0 0) bottom/100% 0% no-repeat #ccc;
+
+      /* WebKit mask */
+      -webkit-mask: 
+        radial-gradient(circle at 60% 65%, #000 62%, transparent 65%) top left, 
+        radial-gradient(circle at 40% 65%, #000 62%, transparent 65%) top right, 
+        linear-gradient(to bottom left, #000 42%, transparent 43%) bottom left , 
+        linear-gradient(to bottom right, #000 42%, transparent 43%) bottom right;
+      -webkit-mask-size: 50% 50%;
+      -webkit-mask-repeat: no-repeat;
+
+      /* Standard mask */
+      mask: 
+        radial-gradient(circle at 60% 65%, #000 62%, transparent 65%) top left, 
+        radial-gradient(circle at 40% 65%, #000 62%, transparent 65%) top right, 
+        linear-gradient(to bottom left, #000 42%, transparent 43%) bottom left , 
+        linear-gradient(to bottom right, #000 42%, transparent 43%) bottom right;
+      mask-size: 50% 50%;
+      mask-repeat: no-repeat;
+
+      animation: l19 2s infinite linear;
+    }
+
+    @keyframes l19 {
+      0%   { background-size: 100% 0%; }
+      100% { background-size: 100% 100%; }
+    }
+#loaderOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 9998; /* below the loader itself */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease;
+}
+
+#loaderOverlay.hidden { display: none !important; }
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.6);
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+            .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+        <div id="loaderOverlay">
+      <div id="pageLoader" class="loader"></div>
+        </div>
+    <div class="floating-hearts" id="hearts"></div>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">Love Games for Tajbiha 💕</h1>
+            <p class="subtitle">Play these sweet games made just for you! 🎮❤️</p>
+        </div>
+        
+        <div class="games-grid">
+            <!-- Love Quiz Game -->
+            <div class="game-card">
+                <div class="game-icon">🤔💕</div>
+                <h3 class="game-title">How Well Do You Know Me?</h3>
+                <p class="game-description">Test your knowledge about our relationship and see how well you know your future husband! 😊</p>
+                <button class="play-button" onclick="startQuiz()">Start Quiz</button>
+                
+                <div class="game-content" id="quizContent">
+                    <div id="quizQuestion" class="quiz-question"></div>
+                    <div id="quizOptions" class="quiz-options"></div>
+                    <div id="quizResult" class="result-message hidden"></div>
+                    <button class="back-button" onclick="resetQuiz()">Play Again</button>
+                </div>
+            </div>
+            
+            <!-- Heart Catcher Game -->
+            <div class="game-card">
+                <div class="game-icon">💖🎯</div>
+                <h3 class="game-title">Catch My Love</h3>
+                <p class="game-description">Catch the falling hearts to collect all my love! Each heart represents how much I adore you! 💕</p>
+                <button class="play-button" onclick="startHeartCatcher()">Start Catching</button>
+                
+                <div class="game-content" id="heartContent">
+                    <div class="score-display">Hearts Caught: <span id="heartScore">0</span>/20</div>
+                    <div class="heart-catcher" id="heartCatcher"></div>
+                    <div id="heartResult" class="result-message hidden"></div>
+                    <button class="back-button" onclick="restartHeartCatcher()">Play Again</button>
+                </div>
+            </div>
+            
+            <!-- Love Letters Matching -->
+            <div class="game-card">
+                <div class="game-icon">💌🔤</div>
+                <h3 class="game-title">Love Letters Match</h3>
+                <p class="game-description">Match the letters to spell out romantic words! Find all the hidden love messages! 💝</p>
+                <button class="play-button" onclick="startLetters()">Start Matching</button>
+                
+                <div class="game-content" id="lettersContent">
+                    <div class="score-display">Word: <span id="currentWord">LOVE</span></div>
+                    <div class="love-letters" id="letterGrid"></div>
+                    <div id="letterResult" class="result-message hidden"></div>
+                    <button class="back-button" onclick="newWord()">New Word</button>
+                </div>
+            </div>
+            
+            <!-- Word Association -->
+        </div>
+    </div>
+        <div class="interactive-section">
+            <button class="love-button" onclick="showLove()">Go Back</button>
+        </div>
+
+    <script>
+        // Quiz Game Variables
+        let currentQuestionIndex = 0;
+        let quizScore = 0;
+const quizQuestions = [
+    {
+        question: "What's my favorite time of day to think about you?",
+        options: ["Morning ☀️", "Afternoon 🌤️", "Evening 🌅", "All day long! 💕"],
+        correct: 3,
+        explanation: "Because I think about you every moment of every day! 💖"
+    },
+    {
+        question: "What do I love most about you?",
+        options: ["Your smile 😊", "Your kindness 💝", "Your beautiful soul ✨", "Everything about you! 🥰"],
+        correct: 3,
+        explanation: "How can I pick just one thing when everything about you is perfect? 💕"
+    },
+    {
+        question: "What's our secret ingredient in tea?",
+        options: ["Sugar 🍬", "Love 💕", "Honey 🍯", "Cardamom 🌿"],
+        correct: 1,
+        explanation: "Every cup of tea is better when shared with love! ☕💖"
+    },
+    {
+        question: "What do I call you most often?",
+        options: ["Jaan 💝", "Pakhi 🐦", "Princess 👑", "All of these! 😍"],
+        correct: 3,
+        explanation: "You're my Jaan, my Pakhi, my Princess - all the sweet names in the world! 💕"
+    },
+    {
+        question: "What's my promise to you?",
+        options: ["To always love you 💖", "To marry you 💍", "To make you happy 😊", "All of the above! 🥰"],
+        correct: 3,
+        explanation: "I promise you my heart, my future, and all my love forever! 💕"
+    },
+    {
+        question: "What song reminds me of you the most?",
+        options: ["Perfect by Ed Sheeran 🎶", "Tum Hi Ho 🎤", "All of Me by John Legend 🎹", "Your favorite song ❤️"],
+        correct: 1,
+        explanation: "Every note makes me think of you and us. 🎵"
+    },
+    {
+        question: "What’s the first thing I notice about you?",
+        options: ["Your eyes 👀", "Your smile 😊", "Your laugh 😂", "Your kindness 💕"],
+        correct: 0,
+        explanation: "Your eyes always catch my heart first! 💖"
+    },
+    {
+        question: "If I could take you anywhere, where would it be?",
+        options: ["Beach 🌊", "Mountains 🏞️", "Paris 🇫🇷", "Anywhere with you 💑"],
+        correct: 3,
+        explanation: "Because being with you is the best place to be! 💕"
+    },
+    {
+        question: "What’s my favorite way to spend time together?",
+        options: ["Watching movies 🎬", "Cooking together 🍳", "Going for walks 🚶‍♂️", "Just talking with you ❤️"],
+        correct: 3,
+        explanation: "Our talks mean the world to me. 🥰"
+    },
+    {
+        question: "Which movie best describes our love story?",
+        options: ["The Notebook 💌", "Titanic 🚢", "La La Land 🎭", "Our own unique story 💖"],
+        correct: 3,
+        explanation: "Our love story is one of a kind. 💕"
+    },
+    {
+        question: "What’s my favorite way to surprise you?",
+        options: ["With flowers 🌹", "A handwritten letter 📝", "A romantic dinner 🍽️", "All of these! 🎉"],
+        correct: 3,
+        explanation: "I love making you smile in any way I can! 💖"
+    },
+    {
+        question: "What do I dream about when I think of our future?",
+        options: ["Traveling the world 🌍", "Building a home 🏡", "Growing old together 👵👴", "All of these dreams with you 💕"],
+        correct: 3,
+        explanation: "Every dream involves you by my side. 💖"
+    },
+    {
+        question: "Which season reminds me of you?",
+        options: ["Spring 🌸", "Summer ☀️", "Autumn 🍂", "Winter ❄️"],
+        correct: 3,
+        explanation: "Because we frst met in winter! ❄️"
+    },
+    {
+        question: "What’s my favorite memory of us?",
+        options: ["Our first date ❤️", "Our first trip together ✈️", "That rainy day cuddle ☔", "All the little moments 💖"],
+        correct: 3,
+        explanation: "Every moment with you is special. 🥰"
+    },
+    {
+        question: "If I could describe you in one word, it would be...",
+        options: ["❤️", "❤️", "❤️", "❤️"],
+        correct: [0,1,2,3],
+        explanation: "No words can describe you my love. 💕"
+    },
+    {
+        question: "What’s my go-to way to cheer you up?",
+        options: ["Making you laugh 😂", "Hugging you tight 🤗", "Listening patiently 👂", "All of the above 💖"],
+        correct: 3,
+        explanation: "I’ll always be here to lift you up! 💕"
+    },
+    {
+        question: "What’s my favorite gift you gave me?",
+        options: ["A handwritten note 📝", "A photo  📸", "A surprise 🎁", "All of them! 💝"],
+        correct: 3,
+        explanation: "Every gift from you is a treasure! 🥰"
+    },
+    {
+        question: "What do I want to tell you every day?",
+        options: ["I love you 💖", "You are special 🌟", "Thank you for being you 🙏", "All of these ❤️"],
+        correct: 0,
+        explanation: "I could never say it enough! 💕"
+    },
+    {
+        question: "What’s my favorite way to say goodnight?",
+        options: ["A nice warm hug", "A text message 📱", "A call 📞", "All of the above 💖"],
+        correct: 3,
+        explanation: "I want you to feel loved every moment. 🌙"
+    },
+    {
+        question: "What’s my favorite thing to do on weekends with you?",
+        options: ["Sleep in late 🛌", "Go on adventures 🚗", "Cook together 🍲", "Just relax and talk 🛋️"],
+        correct: 3,
+        explanation: "Relaxing and chatting is my favorite way to connect. 💕"
+    },
+    {
+        question: "What’s the one thing I want to protect about you?",
+        options: ["Your happiness 😊", "Your dreams ✨", "Your heart ❤️", "All of the above 💖"],
+        correct: 3,
+        explanation: "I want to keep everything you hold dear safe. 💕"
+    },
+    {
+        question: "What’s my favorite pet name for you?",
+        options: ["Jaaannn ❤️", "Pakhiii ❤️", "Shona ❤️", "Toruuu ❤️"],
+        correct: [0,1,2,3],
+        explanation: "Every nickname comes from love. 💖"
+    },
+    {
+        question: "What do I cherish the most in our relationship?",
+        options: ["Trust 🤝", "Love ❤️", "Understanding 🤗", "All of the above 💖"],
+        correct: 3,
+        explanation: "Our bond is the strongest because of all these. 🥰"
+    },
+    {
+        question: "What’s my favorite color that reminds me of you?",
+        options: ["Red ❤️", "Blue 💙", "Pink 💕", "All of these because you shine in every color! 🌈"],
+        correct: 0,
+        explanation: "You brighten my world in every hue! 💖"
+    },
+    {
+        question: "What do I think is your best quality?",
+        options: ["Your honesty 🤥", "Your Trust 🕰️", "Your understandingness 🎨", "YOU!!!! 💖"],
+        correct: 3,
+        explanation: "You shine in every way. 💕"
+    },
+    {
+        question: "What’s my favorite way to celebrate special occasions with you?",
+        options: ["A romantic dinner 🍽️", "A surprise party 🎉", "A quiet evening at home 🏠", "Any way, as long as it’s with you! 💖"],
+        correct: 3,
+        explanation: "Tory is what makes moments special. 🥰"
+    },
+    {
+        question: "What’s my favorite way to say 'I miss you'?",
+        options: ["Calling you 📞", "Sending a sweet message 💌", "Planning our Future 🗓️", "All of these! ❤️"],
+        correct: 3,
+        explanation: "Missing you is always on my mind. 💖"
+    },
+    {
+        question: "What’s my favorite thing to do when you’re sad?",
+        options: ["Listen to you 👂", "Make you laugh 😂", "Giving you alottt of cuddles 🤗", "All of the above 💕"],
+        correct: 3,
+        explanation: "I’ll always be there for you. 💖"
+    },
+    {
+        question: "What’s my favorite way to start the day with you?",
+        options: ["With You 😘", "Coffee together ☕", "A sweet message 💌", "All of these! 💕"],
+        correct: 3,
+        explanation: "Starting with you makes my day perfect. 💖"
+    },
+    {
+        question: "What’s one thing I want to learn from you?",
+        options: ["Your Honesty 🕰️", "Your kindness 💝", "Your strength 💪", "Everything about you! 💕"],
+        correct: 3,
+        explanation: "You inspire me every day. 💖"
+    },
+    {
+        question: "What’s my favorite thing to do on a rainy day with you?",
+        options: ["Watch movies 🎬", "Cook together 🍲", "Cuddle and talk 🤗", "All of the above 💕"],
+        correct: 3,
+        explanation: "Rainy days are perfect when spent with you. 💖"
+    },
+    {
+        question: "What’s the one thing I want to thank you for every day?",
+        options: ["Your love 💖", "Your patience 🕰️", "Your support 🙏", "You Being With Me ❤️"],
+        correct: 3,
+        explanation: "I’m grateful for everything you do. 🥰"
+    },
+    {
+        question: "What’s my favorite way to show you I care?",
+        options: ["Acts of kindness 💝", "Listening to you 👂", "Surprising you 🎁", "All of these! 💖"],
+        correct: 3,
+        explanation: "I love showing you how much you mean to me. 💕"
+    }
+];
+
+
+        // Heart Catcher Game Variables
+        let heartScore = 0;
+        let heartInterval;
+        let gameActive = false;
+
+        // Letters Game Variables
+const loveWords = [
+  "LOVE", "JAAN", "WIFEY", "MINE", "SOUL", "HEART", "FOREVER",
+  "DARLING", "HONEY", "QALBI", "SWEETHEART", "BELOVED", "ADORABLE",
+  "PASSION", "ROMANCE", "CHARMING", "PRETTY", "TREASURE", "BEAUTIFUL",
+  "DEAREST", "TORY", "SUNSHINE", "MOONLIGHT", "PORI", "TORU",
+  "SHONA", "CUTIE", "MY LOVE", "KOLIZA", "PAKHI", "BLOSSOM",
+  "POOKIE", "MY PRINCESS", "TAJBIHA", "QUEEN", "CUDDLES", "LOVELY", "OUR TRUE LOVE",
+  "SOULMATES", "HEARTBEAT", "BEAUTY", "JAAN PAKHI", "ALWAYS",
+  "IBADAT", "DEVOTED", "OMULLOBAN SHOMPOD", "MY ENDLESS LOVE 4 U", "SINCERE", "CUTIE PIE","PRETTY LADY"
+];
+
+        let currentWordIndex = 0;
+        let foundLetters = [];
+
+        // Quiz Game Functions
+        function startQuiz() {
+            document.getElementById('quizContent').style.display = 'block';
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            showQuestion();
+        }
+
+function showQuestion() {
+    if (currentQuestionIndex < quizQuestions.length) {
+        const question = quizQuestions[currentQuestionIndex];
+        document.getElementById('quizQuestion').textContent = question.question;
+        
+        const optionsDiv = document.getElementById('quizOptions');
+        optionsDiv.innerHTML = '';
+        
+        question.options.forEach((option, index) => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'quiz-option';
+            optionDiv.textContent = option;
+            optionDiv.onclick = () => selectAnswer(index);
+            optionsDiv.appendChild(optionDiv);
+        });
+        
+        const resultDiv = document.getElementById('quizResult');
+        resultDiv.innerHTML = '';        // **Clear old result text**
+        resultDiv.classList.add('hidden');  // Hide the result area
+    } else {
+        showQuizResult();
+    }
+}
+
+
+function selectAnswer(selectedIndex) {
+    const question = quizQuestions[currentQuestionIndex];
+    const resultDiv = document.getElementById('quizResult');
+
+    // If correct is an array, check if selectedIndex is inside it
+    let isCorrect;
+    if (Array.isArray(question.correct)) {
+        isCorrect = question.correct.includes(selectedIndex);
+    } else {
+        isCorrect = selectedIndex === question.correct;
+    }
+
+    if (isCorrect) {
+        quizScore++;
+        resultDiv.innerHTML = `✅ Correct! ${question.explanation}`;
+        resultDiv.style.background = 'rgba(76, 175, 80, 0.1)';
+        resultDiv.style.color = '#4CAF50';
+    } else {
+        resultDiv.innerHTML = `💕 ${question.explanation}`;
+        resultDiv.style.background = 'rgba(233, 30, 99, 0.1)';
+        resultDiv.style.color = '#e91e63';
+    }
+
+    resultDiv.classList.remove('hidden');
+
+    setTimeout(() => {
+        currentQuestionIndex++;
+        showQuestion();
+    }, 30);
+}
+
+
+        function showQuizResult() {
+            const percentage = (quizScore / quizQuestions.length) * 100;
+            let message = "";
+            
+            if (percentage === 100) {
+                message = "🏆 Perfect! You know me so well! You're definitely my soulmate! 💕";
+            } else if (percentage >= 80) {
+                message = "😍 Amazing! You really pay attention to everything I say! 💖";
+            } else if (percentage >= 60) {
+                message = "🥰 Great job! You know me pretty well, my love! 💝";
+            } else {
+                message = "💕 That's okay! We have forever to learn more about each other! 🌸";
+            }
+            
+            document.getElementById('quizQuestion').textContent = `Quiz Complete! Score: ${quizScore}/${quizQuestions.length}`;
+            document.getElementById('quizOptions').innerHTML = '';
+            document.getElementById('quizResult').innerHTML = message;
+            document.getElementById('quizResult').classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            showQuestion();
+        }
+        // Heart Catcher Game Functions
+        function startHeartCatcher() {
+            document.getElementById('heartContent').style.display = 'block';
+            heartScore = 0;
+            gameActive = true;
+            updateHeartScore();
+            startHeartFall();
+            
+            setTimeout(() => {
+                gameActive = false;
+                clearInterval(heartInterval);
+                showHeartResult();
+            }, 20000); // 15 seconds game
+        }
+
+        function startHeartFall() {
+            heartInterval = setInterval(() => {
+                if (gameActive) {
+                    createFallingHeart();
+                }
+            }, 800);
+        }
+
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'falling-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 90 + '%';
+            heart.onclick = () => catchHeart(heart);
+            
+            document.getElementById('heartCatcher').appendChild(heart);
+            
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, 3000);
+        }
+
+        function catchHeart(heart) {
+            if (gameActive) {
+                heartScore++;
+                updateHeartScore();
+                heart.parentNode.removeChild(heart);
+                
+                // Create catch effect
+                const effect = document.createElement('div');
+                effect.style.position = 'absolute';
+                effect.style.left = heart.style.left;
+                effect.style.top = '50%';
+                effect.style.fontSize = '2rem';
+                effect.innerHTML = '+1 💕';
+                effect.style.color = '#ff69b4';
+                effect.style.fontWeight = 'bold';
+                effect.style.animation = 'fadeOut 1s ease-out forwards';
+                document.getElementById('heartCatcher').appendChild(effect);
+                
+                setTimeout(() => {
+                    if (effect.parentNode) {
+                        effect.parentNode.removeChild(effect);
+                    }
+                }, 1000);
+            }
+        }
+
+        function updateHeartScore() {
+            document.getElementById('heartScore').textContent = heartScore;
+        }
+
+function showHeartResult() {
+    const resultDiv = document.getElementById('heartResult');
+    let message = "";
+    
+    if (heartScore > 20) {
+        message = "💘 Unbelievable! You caught all my love — you’ve truly stolen my heart! 💎";
+    } else if (heartScore >= 15) {
+        message = "💖 Incredible! You caught almost all my love! You're amazing! 🏆";
+    } else if (heartScore >= 10) {
+        message = "😍 Great job! You caught so much of my love! 💕";
+    } else if (heartScore >= 5) {
+        message = "🥰 Good catch! Every heart you caught represents my love for you! 💝";
+    } else {
+        message = "💕 That's okay! You have all my love anyway! 🌸";
+    }
+    
+    resultDiv.innerHTML = `Game Over! You caught ${heartScore} hearts! ${message}`;
+    resultDiv.classList.remove('hidden');
+}
+
+
+        function resetHeartCatcher() {
+            document.getElementById('heartContent').style.display = 'none';
+            document.getElementById('heartCatcher').innerHTML = '';
+            clearInterval(heartInterval);
+        }
+
+        // Letters Game Functions
+        function startLetters() {
+            document.getElementById('lettersContent').style.display = 'block';
+            currentWordIndex = Math.floor(Math.random() * loveWords.length);
+            foundLetters = [];
+            createLetterGrid();
+        }
+
+        function createLetterGrid() {
+            const word = loveWords[currentWordIndex];
+            document.getElementById('currentWord').textContent = word;
+            
+            const grid = document.getElementById('letterGrid');
+            grid.innerHTML = '';
+            
+            // Create letter pool (word letters + random letters)
+            const wordLetters = word.split('');
+            const randomLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+                .filter(letter => !wordLetters.includes(letter))
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 16 - wordLetters.length);
+            
+            const allLetters = [...wordLetters, ...randomLetters].sort(() => 0.5 - Math.random());
+            
+            allLetters.forEach(letter => {
+                const card = document.createElement('div');
+                card.className = 'letter-card';
+                card.textContent = letter;
+                card.onclick = () => selectLetter(card, letter);
+                grid.appendChild(card);
+            });
+        }
+
+        function selectLetter(card, letter) {
+            const word = loveWords[currentWordIndex];
+            
+            if (word.includes(letter) && !foundLetters.includes(letter)) {
+                foundLetters.push(letter);
+                card.classList.add('flipped');
+                
+                if (foundLetters.length === [...new Set(word.split(''))].length) {
+                    setTimeout(() => {
+                        showLetterResult();
+                    }, 500);
+                }
+            } else {
+                // Wrong letter - shake effect
+                card.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    card.style.animation = '';
+                }, 500);
+            }
+        }
+
+        function showLetterResult() {
+            const resultDiv = document.getElementById('letterResult');
+            const messages = [
+  "💖 LOVE: The magic that binds us tighter every day.",
+  "💍 JAAN: My heartbeat, my forever reason.",
+  "👰 WIFEY: The future I dream about every night.",
+  "💝 MINE: No one else could ever have you.",
+  "✨ SOUL: Your soul shines through every smile.",
+  "💗 HEART: You own the key to mine, always.",
+  "♾️ FOREVER: Our love story never ends.",
+  "🌹 DARLING: You’re the sweetest part of my day.",
+  "🍯 HONEY: Sweetness wrapped in your eyes.",
+  "💓 QALBI: The heart(you) I cherish in every language.",
+  "🌸 SWEETHEART: Every moment with you is a gift.",
+  "💞 BELOVED: My love for you knows no bounds.",
+  "😍 ADORABLE: You’re cute and charming, all in one.",
+  "🔥 PASSION: The fire that keeps us alive and burning.",
+  "💌 ROMANCE: Every glance with you is a love letter.",
+  "✨ CHARMING: You light up every room and my life.",
+  "🌷 PRETTY: Beauty that takes my breath away.",
+  "💎 TREASURE: Priceless and precious, just like you.",
+  "🌟 BEAUTIFUL: Your glow outshines the stars.",
+  "💖 DEAREST: You mean the world to me, always.",
+  "🎀 TORY: My forever favorite ❤️.",
+  "☀️ SUNSHINE: You brighten even my darkest days.",
+  "🌙 MOONLIGHT: Soft and glowing, calming my nights.",
+  "🧚 PORI: My magical fairy in real life.",
+  "🌿 TORU: The calm and peace I find in you.",
+  "💛 SHONA: My precious gem, sparkling with love.",
+  "🐥 CUTIE: Irresistibly sweet, my little charm.",
+  "💞 MY LOVE: You’re the center of my universe.",
+  "🌼 KOLIZA: The core of my emotions, where only you reside.",
+  "🦅 PAKHI: My free spirit soaring with you.",
+  "🌺 BLOSSOM: Our love grows stronger every day.",
+  "🐾 POOKIE: The little cuddle buddy I adore.",
+  "👸 MY PRINCESS: You rule my heart with grace.",
+  "🌷 TAJBIHA: The flower I cherish the most.",
+  "👑 QUEEN: You reign over my world, my heart.",
+  "🤗 CUDDLES: Warmth I crave every single moment.",
+  "💐 LOVELY: Simply lovely, inside and out.",
+  "❤️ OUR TRUE LOVE: Written in the stars, just us.",
+  "💞 SOULMATES: Perfectly matched across time and space.",
+  "💓 HEARTBEAT: The rhythm of my life is you.",
+  "🌸 BEAUTY: Your smile lights up my world.",
+  "🕊️ JAAN PAKHI: My beloved bird, always flying close to my heart.",
+  "♾️ ALWAYS: No matter what, I’m yours forever.",
+  "🙏 IBADAT: Loving you feels like my greatest prayer.",
+  "💘 DEVOTED: My heart is loyal only to you and you.",
+  "💎 OMULLOBAN SHOMPOD: You’re my priceless treasure.",
+  "🌟 MY ENDLESS LOVE 4 U: Eternity wouldn’t be enough time.",
+  "🤝 SINCERE: My love for you is always honest and true.",
+  "🐰 CUTIE PIE: Sweet as sugar, cute as a new born baby.",
+  "🌹 PRETTY LADY: Forever stunning, my elegant muse."
+            ];
+            
+            resultDiv.innerHTML = messages[currentWordIndex];
+            resultDiv.classList.remove('hidden');
+        }
+
+        function resetLetters() {
+            document.getElementById('lettersContent').style.display = 'none';
+        }
+        // Add CSS for shake animation
+        const shakeStyle = document.createElement('style');
+        shakeStyle.textContent = `
+            @keyframes shake {
+                0%, 20%, 40%, 60%, 80%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); }
+            }
+        `;
+        document.head.appendChild(shakeStyle);
+        function showLove() {
+             window.location.href = "index.html";
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('loaderOverlay').style.display = 'flex';
+});
+
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('loaderOverlay');
+  overlay.classList.add('hidden');
+  setTimeout(() => overlay.style.display = 'none', 400);
+});
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            const emojis = ['💖', '💗', '💘', '💝', '💞', '💕'];
+            heart.className = 'heart';
+            heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 6 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 9000);
+        }
+        
+        // Create hearts periodically
+        setInterval(createHeart, 400);
+
+    </script>
+
+<script>
+// Added helpers to restart games without hiding the UI
+function newWord() {
+    if (typeof loveWords !== 'undefined' && loveWords.length > 0) {
+        currentWordIndex = Math.floor(Math.random() * loveWords.length);
+    } else {
+        currentWordIndex = 0;
+    }
+    if (typeof foundLetters !== 'undefined') foundLetters = [];
+    const resultDiv = document.getElementById('letterResult');
+    if (resultDiv) resultDiv.classList.add('hidden');
+    if (typeof createLetterGrid === 'function') createLetterGrid();
+    document.getElementById('lettersContent').style.display = 'block';
+}
+
+function restartHeartCatcher() {
+    try { clearInterval(heartInterval); } catch(e){}
+    heartScore = 0;
+    if (typeof updateHeartScore === 'function') updateHeartScore();
+    const catcher = document.getElementById('heartCatcher');
+    if (catcher) catcher.innerHTML = '';
+    const resultDiv = document.getElementById('heartResult');
+    if (resultDiv) resultDiv.classList.add('hidden');
+    const content = document.getElementById('heartContent');
+    if (content) content.style.display = 'block';
+    // small delay then start a fresh game
+    setTimeout(() => {
+        if (typeof startHeartCatcher === 'function') startHeartCatcher();
+    }, 100);
+}
+</script>
+</body>
+</html>

@@ -186,7 +186,7 @@
 
         .polaroid-caption {
             text-align: center;
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Dancing Script';
             font-size: 1.2rem;
             color: #ffffff;
         }
@@ -416,3 +416,56 @@
     50% { transform: translateY(-10px); opacity: 0.3; }
     100% { transform: translateY(-20px); opacity: 0; }
   }
+.loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      width: 100px;
+      aspect-ratio: 1;
+      background: linear-gradient(#dc1818 0 0) bottom/100% 0% no-repeat #ccc;
+
+      /* WebKit mask */
+      -webkit-mask: 
+        radial-gradient(circle at 60% 65%, #000 62%, transparent 65%) top left, 
+        radial-gradient(circle at 40% 65%, #000 62%, transparent 65%) top right, 
+        linear-gradient(to bottom left, #000 42%, transparent 43%) bottom left , 
+        linear-gradient(to bottom right, #000 42%, transparent 43%) bottom right;
+      -webkit-mask-size: 50% 50%;
+      -webkit-mask-repeat: no-repeat;
+
+      /* Standard mask */
+      mask: 
+        radial-gradient(circle at 60% 65%, #000 62%, transparent 65%) top left, 
+        radial-gradient(circle at 40% 65%, #000 62%, transparent 65%) top right, 
+        linear-gradient(to bottom left, #000 42%, transparent 43%) bottom left , 
+        linear-gradient(to bottom right, #000 42%, transparent 43%) bottom right;
+      mask-size: 50% 50%;
+      mask-repeat: no-repeat;
+
+      animation: l19 2s infinite linear;
+    }
+
+    @keyframes l19 {
+      0%   { background-size: 100% 0%; }
+      100% { background-size: 100% 100%; }
+    }
+#loaderOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 9998; /* below the loader itself */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease;
+}
+
+#loaderOverlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}

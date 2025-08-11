@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Beautiful Wifey ❤️</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="loaderOverlay">
+      <div id="pageLoader" class="loader"></div>
+    </div>
+
     <div class="floating-hearts" id="hearts"></div>
     <div class="container">
         <header class="header">
@@ -121,17 +125,13 @@
 </div>
 
         <!-- Music Section -->
-        <!-- <div class="music-section"> -->
-        <!--     <h3>A Song Just For You 🎵</h3> -->
-        <!--     <p>Close your eyes and imagine my voice singing your favorite song... 💕</p> -->
-        <!--     <button class="love-button" onclick="playPersonalSong()">Play My Recording 🎤</button> -->
-        <!--     <div id="musicPlayer" class="hidden"> -->
-        <!--         <p style="margin-top: 1rem; font-style: italic; color: #666;"> -->
-        <!--             🎵 *Imagine beautiful humming/singing here* 🎵<br> -->
-        <!--             (In a real version, your actual recording would play here!) -->
-        <!--         </p> -->
-        <!--     </div> -->
-        <!-- </div> -->
+        <div class="music-section">
+            <h3>Our Songs Together 🎵</h3>
+            <p>A special playlist just for you, filled with all our favorite songs... 💕</p>
+            <div style="margin-top: 1.5rem;">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/524gb2FUyQLGzAjeaRQkiv?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
 
         <!-- Secret Code Section -->
         <div class="secret-section">
@@ -202,7 +202,7 @@
         // Create floating hearts
         function createHeart() {
             const heart = document.createElement('div');
-            const emojis = ['💖', '💗', '💘', '💝', '💞', '💕','❤️'];
+            const emojis = ['💖', '💗', '💘', '💝', '💞', '💕'];
             heart.className = 'heart';
             heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
             heart.style.left = Math.random() * 100 + '%';
@@ -221,25 +221,104 @@
 function updateTimeMessage() {
   const now = new Date();
   const hour = now.getHours();
-
   const greeting = document.getElementById('timeGreeting');
   const message = document.getElementById('timeMessage');
 
+  // Seeded random number based on current date (so it changes daily but remains the same each day)
+  const todaySeed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+  const randIndex = (seed, length) => seed % length;
+
+    const morningMessages = [
+        "Hope your day starts as wonderful as you are! I love you pretty lady ❤️",
+        "A new day, another chance to fall in love with you again 💖",
+        "Morning sunshine! You're the best part of my every day ☀️",
+        "Smile today, my love! You're the reason I smile too 💕",
+        "Every morning I thank the universe for you 🌸",
+        "You light up my mornings just by existing 🌼",
+        "Wake up and shine, jaan! You're my everything ❤️",
+        "Good morning jaan, just wanted to remind you – you're loved deeply 🥰",
+        "My mornings are incomplete without thinking of you 💌",
+        "Rise and shine! You’re my forever favorite ☀️❤️",
+        "Shuvo shokal jaanu! Tomar shundor hashi ta diye din ta shuru koro ☀️",
+        "Apni amar sokaler prothom vabna, ar sharadin er bhalobasha 💖",
+        "Ajker sokal tao tomar motoi shundor, wait nah nah tomar thike kom shundor 💕",
+        "Shudhu apnr kothai vabte vabte sokal ta kete jay ❤️",
+        "Sokal holo – ar amar mon abaro tomar kache gelo ❤️",
+    ];
+
+    const noonMessages = [
+        "Dupur e kintu onk gorom, paani khaio beshi beshi ar rod e jaio nah. Always Thinking of you! 💫",
+        "Hope your lunch is tasty and your day is going smooth 🍛💖",
+        "Take a break and think of me, just like I always do 😘",
+        "Midday reminder: You're amazing and I'm lucky 💛",
+        "Ar ektu pore ei din tao sesh hoye jabe, kintu tomar jonno amar bhalobasha sesh hobe na ❤️",
+        "Ami sure apnake ekhono onk shundor lagche, ei gorom er moddheo 🔥",
+        "Judi pashe thaktam akhn tahole chaya hoye daray thaktam tomar jonno ❤️",
+        "Lunch time toh hoye gelo, apnr khabar er sathe ektu amar bhalobasha o mix kore nien 💕",
+        "apnr hashi dekhle surjo aro jola shuru korbe ☀️",
+    ];
+
+
+    const afternoonMessages = [
+        "Hope your afternoon is as pretty as you are! chaa khaio biscuit er sathe!! 💕",
+        "Afternoon hugs from me to you! Miss you always 💌",
+        "Don't forget to smile, beautiful 🌼",
+        "Sending you warmth and sunshine this afternoon ☀️",
+        "Bhalobasha o chaa moto – tomar sathe aro mishti lage ☕💕",
+        "Afternoon tea with you would be the perfect break 🍪❤️",
+        "Ektu chhaya e bosho, ar rest koro pakhi ❤️",
+        "Mon ta bolche tomar sathe ekta bikal er adda dorkar 🍛",
+        "Cha khaiso biscuit er sathe? Na hole ami delivery pathacchi 😋",
+        "Tomar chinta chara bikal ta khali khali lage 💭",
+        "Afternoon e shobai tired thake, tumi chara 😌",
+        "Btw Tomar chul gula bikal er alo te aro shundor lage 🌇",
+        "Ektu rest koro jaan, amio korchiii 🤗",
+        "Mon chacche tomar pashe boshe boshe chaa khawar ☕",
+    ];
+
+    const eveningMessages = [
+        "Shondha hoye gese sharadin e tired hoye geso nischoi rest koro ektu ! Sending hugs! 🤗",
+        "Evenings are better when I think of you 🌇💖",
+        "Hope your evening is peaceful and warm, just like your heart 🌃",
+        "Sit back, relax, and know I love you endlessly 🥰",
+        "Shondha hoye gese, aar ami tomar kotha chhara kichu bhabte pari na 🥺",
+        "Shundor ekta walk er jonno tumi chara kaoke lage nah 🥹",
+        "Shondha manei tomar chinta 😌",
+        "Ajke shondhay ekta virtual hug pathacchi 🤗"
+    ];
+
+
+    const nightMessages = [
+
+        "Bhalo moto chinta chara ekta ghum daw. I Love you Jaan! ✨❤️",
+        "Sweet dreams my love, you deserve the world 🌙",
+        "Tonight, like always, I’m thinking of you 💭❤️",
+        "Sleep tight, my precious. Tomorrow will be beautiful with you in it 🌌",
+        "Raat jotoi lomba hok, amar bhalobasha tomar sathe thakbe 💖",
+        "Tomake niye nijer sathe nijer golpo korar shomoy hoyechhe abar 🌆",
+        "Shwapno dekha shuru kore dao, ami o achhi oi swapno te 💭❤️",
+        "Tomar ghum amar moner shanti 🕊️",
+        "Tomake niye ajkeo shwapno dekhbo 🌙",
+        "Ei raat ta shudhu tomar kotha bhabte bhabte sesh hoye jabe 💕",
+        "Good night shona, kalke abar tomar bhalobasha diye din shuru korbo ❤️",
+        "Chader alo thekeo beshi shundor tumi, jaan 🌝",
+    ];
+
   if (hour >= 7 && hour < 13) {
     greeting.textContent = "Good Morning, My Love! ☀️❤️";
-    message.textContent = "Hope your day starts as wonderful as you are! I love you pretty lady ❤️";
+    message.textContent = morningMessages[randIndex(todaySeed, morningMessages.length)];
   } else if (hour >= 13 && hour < 16) {
     greeting.textContent = "Good Noon, Sunshine! 🌞";
-    message.textContent = "Dupur e kintu onk gorom, paani khaio beshi beshi ar rod e jaio nah. Always Thinking of you! 💫";
+    message.textContent = noonMessages[randIndex(todaySeed, noonMessages.length)];
   } else if (hour >= 16 && hour < 18) {
     greeting.textContent = "Good Afternoon, Love! 🌤️";
-    message.textContent = "Hope your afternoon is as pretty as you are! chaa khaio biscuit er sathe!! 💕";
+    message.textContent = afternoonMessages[randIndex(todaySeed, afternoonMessages.length)];
   } else if (hour >= 18 && hour < 22) {
     greeting.textContent = "Good Evening, Sweetheart! 🌆";
-    message.textContent = "Shondha hoye gese sharadin e tired hoye geso nischoi rest koro ektu ! Sending hugs! 🤗";
+    message.textContent = eveningMessages[randIndex(todaySeed, eveningMessages.length)];
   } else {
     greeting.textContent = "Good Night Wifey! 🌙❤️";
-    message.textContent = "Bhalo moto chinta chara ekta ghum daw. I Love you Jaan! ✨❤️";
+    message.textContent = nightMessages[randIndex(todaySeed, nightMessages.length)];
   }
 }
 
@@ -476,38 +555,7 @@ function checkSecretCode() {
         
         // Interactive functions
         function showLove() {
-            const messages = [
-                "shomay er obhab e sesh korte pari nai eita ar olpo kichu din daw sesh kore janabo ne"
-            ];
-            
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            
-            // Create floating message
-            const messageDiv = document.createElement('div');
-            messageDiv.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(255,255,255,0.95);
-                padding: 2rem;
-                border-radius: 20px;
-                font-size: 1.5rem;
-                color: #e91e63;
-                box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-                z-index: 1000;
-                animation: fadeIn 0.5s ease-out;
-                text-align: center;
-                backdrop-filter: blur(10px);
-                max-width: 90%;
-            `;
-            messageDiv.innerHTML = randomMessage;
-            document.body.appendChild(messageDiv);
-            
-            setTimeout(() => {
-                messageDiv.style.animation = 'fadeOut 0.5s ease-out';
-                setTimeout(() => messageDiv.remove(), 500);
-            }, 3000);
+             window.location.href = "games.html";
         }
         
         function playMusic() {
@@ -553,6 +601,18 @@ function checkSecretCode() {
 
         // Initialize everything when page loads
         window.addEventListener('load', initializePage);
+        
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('loaderOverlay').style.display = 'flex';
+});
+
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('loaderOverlay');
+  overlay.classList.add('hidden');
+  setTimeout(() => overlay.style.display = 'none', 400);
+});
+
+
     </script>
 </body>
 </html>
