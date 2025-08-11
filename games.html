@@ -670,9 +670,10 @@ const loveWords = [
 ];
 
         let currentWordIndex = 0;
-let letterCount = {};      // letter => count in the word
-let selectedCount = {};    // letter => how many times selected
-let totalLettersToFind = 0; // total number of letters to find (including duplicates)
+let currentWord = '';
+let letterPositions = []; // Array of letters of the current word, spaces removed and uppercase
+let nextLetterIndex = 0;  // The index of next letter user must pick
+let foundLetters = [];    // Keep track of clicked letter cards to disable repeated clicks
         // Quiz Game Functions
         function startQuiz() {
             document.getElementById('quizContent').style.display = 'block';
@@ -883,32 +884,28 @@ function selectLetter(card, letter) {
 }
 
 
+
 function createLetterGrid() {
     const rawWord = loveWords[currentWordIndex];
-    const word = rawWord.replace(/\s+/g, '').toUpperCase();
+    currentWord = rawWord.replace(/\s+/g, '').toUpperCase();
 
     document.getElementById('currentWord').textContent = rawWord;
 
-    letterCount = {};
-    selectedCount = {};
-    totalLettersToFind = word.length;
+    nextLetterIndex = 0;
+    foundLetters = [];
 
-    // Count letters in the word
-    for (const letter of word) {
-        letterCount[letter] = (letterCount[letter] || 0) + 1;
-        selectedCount[letter] = 0;
-    }
+    letterPositions = currentWord.split('');
 
     const grid = document.getElementById('letterGrid');
     grid.innerHTML = '';
 
-    // Random letters excluding word letters
+    // Add all letters of the word (including duplicates)
     const randomLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
-        .filter(letter => !Object.keys(letterCount).includes(letter))
+        .filter(letter => !letterPositions.includes(letter))
         .sort(() => 0.5 - Math.random())
-        .slice(0, 16 - word.length);
+        .slice(0, 16 - letterPositions.length);
 
-    const allLetters = [...word.split(''), ...randomLetters].sort(() => 0.5 - Math.random());
+    const allLetters = [...letterPositions, ...randomLetters].sort(() => 0.5 - Math.random());
 
     allLetters.forEach(letter => {
         const card = document.createElement('div');
@@ -918,30 +915,32 @@ function createLetterGrid() {
         grid.appendChild(card);
     });
 }
+
 function selectLetter(card, letter) {
     letter = letter.toUpperCase();
 
-    if (letterCount[letter] && selectedCount[letter] < letterCount[letter]) {
-        selectedCount[letter]++;
+    // Ignore repeated clicks on same card
+    if (foundLetters.includes(card)) return;
+
+    // Check if letter matches the next letter in sequence
+    if (letter === letterPositions[nextLetterIndex]) {
+        nextLetterIndex++;
+        foundLetters.push(card);
         card.classList.add('flipped');
 
-        // Count total selected letters (including duplicates)
-        const totalSelected = Object.values(selectedCount).reduce((a, b) => a + b, 0);
-
-        if (totalSelected === totalLettersToFind) {
+        if (nextLetterIndex === letterPositions.length) {
             setTimeout(() => {
                 showLetterResult();
             }, 500);
         }
     } else {
-        // Wrong letter or too many selections
+        // Wrong letter
         card.style.animation = 'shake 0.5s ease-in-out';
         setTimeout(() => {
             card.style.animation = '';
         }, 500);
     }
 }
-
 function startLetters() {
     document.getElementById('lettersContent').style.display = 'block';
     currentWordIndex = Math.floor(Math.random() * loveWords.length);
