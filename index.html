@@ -185,24 +185,58 @@
         
         <div class="love-message">
             <h2>A Message Just For You</h2>
-<iframe
-  src=""
-  style="
-    width: 100%;           /* full container width */
-    max-width: 850px;      /* max width */
-    height: 800px;         /* enough height for reading */
-    border: 2px solid #dc1818;  /* a nice red border */
-    border-radius: 12px;   /* rounded corners */
-    box-shadow: 0 8px 20px rgba(220, 24, 24, 0.3); /* subtle shadow */
-    display: block;        /* remove inline default */
-    margin: 20px auto;     /* center horizontally with vertical spacing */
-    @media screen and (max-width: 768px) {
-      iframe { height: 400px !important; }
-}
-  "
-  loading="lazy"
-  allowfullscreen
-></iframe>
+<div id="docWrap" style="max-width:850px;margin:20px auto;border-radius:12px;overflow:hidden;border:2px solid #dc1818;position:relative;">
+  <iframe id="docFrame"
+    src="https://docs.google.com/document/d/e/2PACX-1vTrKrbQ9iSkCRTk205s-CQzOGDd3GSgC5klrpHteoR_BogvNr76aY_LWRIYR-dVDG8Jno_klfm8yao6/pub?embedded=true"
+    style="position:absolute; top:0; left:0; width:1000px; height:1200px; border:0; transform-origin:0 0;"
+    loading="lazy"></iframe>
+</div>
+
+<script>
+(function(){
+  const contentWidth = 450;   // approximate "paper" width inside the viewer — tune this
+  const originalHeight = 1200; // iframe natural height — tune this
+  const wrap = document.getElementById('docWrap');
+  const frame = document.getElementById('docFrame');
+
+  function rescale() {
+    const wrapW = wrap.clientWidth;
+    const scale = wrapW / contentWidth;
+    const dpr = window.devicePixelRatio || 1;
+
+    // prefer CSS zoom (keeps text crisp) for browsers that support it
+    if ('zoom' in document.body.style) {
+      frame.style.width = contentWidth + 'px';
+      frame.style.height = originalHeight + 'px';
+      frame.style.transform = '';         // clear transform fallback
+      frame.style.zoom = scale;           // Chrome/Safari/Edge
+      // center by shifting left (because iframe width is contentWidth*zoom visually)
+      frame.style.left = ((wrapW - contentWidth * scale) / 2) + 'px';
+    } else {
+      // Firefox fallback: render at higher internal resolution then scale down
+      frame.style.zoom = '';              // ensure zoom not set
+      frame.style.width = (contentWidth * dpr) + 'px';
+      frame.style.height = (originalHeight * dpr) + 'px';
+      // scale down by dpr as well to stay crisp
+      const finalScale = (wrapW / contentWidth) / dpr;
+      frame.style.transform = 'scale(' + finalScale + ')';
+      // center: because transform origin is 0 0, compute left offset in unscaled coords
+      const leftUnscaled = (wrapW / finalScale - contentWidth * dpr) / 2;
+      frame.style.left = leftUnscaled + 'px';
+    }
+
+    // wrapper height must match the scaled iframe
+    wrap.style.height = (originalHeight * scale) + 'px';
+  }
+
+  window.addEventListener('resize', rescale);
+  window.addEventListener('orientationchange', rescale);
+  document.addEventListener('DOMContentLoaded', rescale);
+  rescale();
+})();
+</script>
+
+
         </div>
         
         <div class="interactive-section">
