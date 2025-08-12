@@ -142,55 +142,6 @@
             100% { opacity: 0; transform: translateY(-20px); }
         }
 
-        /* Polaroid Gallery */
-        .polaroid-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            margin: 3rem 0;
-            padding: 2rem;
-        }
-
-        .polaroid {
-            background: rgba(0, 0, 0, 0.918);
-            padding: 1rem 1rem 3rem;
-            border-radius: 10px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-            transform: rotate(-3deg);
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease-out;
-            max-width: 250px;
-        }
-
-        .polaroid:nth-child(even) {
-            transform: rotate(2deg);
-        }
-
-        .polaroid:hover {
-            transform: rotate(0deg) scale(1.05);
-            z-index: 10;
-        }
-
-        .polaroid-img {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #ff9a9e, #fecfef);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .polaroid-caption {
-            text-align: center;
-            font-family: 'Dancing Script';
-            font-size: 1.2rem;
-            color: #ffffff;
-        }
-
         /* Daily Compliment */
         .compliment-section {
             background: rgba(255,255,255,0.5);
@@ -469,3 +420,260 @@
   opacity: 0;
   pointer-events: none;
 }
+/* Poems Collection */
+        /* Poems Collection */
+        .poems-collection {
+            margin: 4rem 0;
+            padding: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .collection-title {
+            text-align: center; 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 2.5rem; 
+            color: #e91e63; 
+            margin-bottom: 2rem;
+        }
+
+        .poem-selector {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .poem-dropdown {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #e91e63;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            min-width: 250px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .poem-dropdown:hover {
+            border-color: #ff6b6b;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
+        }
+
+        .poem-dropdown:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+        }
+
+        .poem-display {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .poem-card-single {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            animation: fadeInPoem 0.6s ease-out;
+        }
+
+        @keyframes fadeInPoem {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        @keyframes float-icon {
+            0%, 100% { 
+                transform: translateY(0px); 
+            }
+            50% { 
+                transform: translateY(-5px); 
+            }
+        }
+
+        .poem-card-single::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,182,193,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .poem-card-single:hover::before {
+            left: 100%;
+        }
+
+        .poem-card-single:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.3);
+            border-color: #e91e63;
+        }
+
+        .poem-card-single .poem-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            animation: float-icon 3s ease-in-out infinite;
+        }
+
+        .poem-card-single .poem-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #e91e63;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .poem-card-single .poem-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: center;
+            font-style: italic;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .poem-card-single .poem-content::before {
+            content: '"';
+            font-size: 5rem;
+            color: rgba(233, 30, 99, 0.2);
+            position: absolute;
+            top: -1.5rem;
+            left: 0.5rem;
+            font-family: serif;
+        }
+
+        .poem-card-single .poem-content::after {
+            content: '"';
+            font-size: 5rem;
+            color: rgba(233, 30, 99, 0.2);
+            position: absolute;
+            bottom: -2.5rem;
+            right: 0.5rem;
+            font-family: serif;
+        }
+
+        .poem-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            background: linear-gradient(45deg, #e91e63, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+            background: linear-gradient(45deg, #ff6b6b, #e91e63);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .poem-counter {
+            font-size: 1.1rem;
+            color: #e91e63;
+            font-weight: 600;
+            background: rgba(233, 30, 99, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 2px solid rgba(233, 30, 99, 0.2);
+        }
+
+        .random-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .random-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(45deg, #45a049, #4CAF50);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .poems-collection {
+                padding: 1rem;
+            }
+            
+            .poem-card-single {
+                padding: 2rem 1.5rem;
+            }
+            
+            .poem-card-single .poem-content {
+                padding: 0 1rem;
+                font-size: 1rem;
+            }
+            
+            .poem-card-single .poem-title {
+                font-size: 1.8rem;
+            }
+            
+            .poem-card-single .poem-icon {
+                font-size: 3rem;
+            }
+            
+            .poem-navigation {
+                gap: 1rem;
+            }
+            
+            .nav-button, .random-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .poem-dropdown {
+                min-width: 200px;
+                font-size: 0.9rem;
+            }
+        }

@@ -71,34 +71,51 @@
             <button class="love-button" onclick="generateCompliment()">New Compliment 💕</button>
         </div>
 
-        <!-- Polaroid Gallery -->
-        <!--  <div class="polaroid-gallery"> -->
-        <!--      <div class="polaroid"> -->
-        <!--          <div class="polaroid-img">📸</div> -->
-        <!--          <div class="polaroid-caption">Our first date 💕</div> -->
-        <!--      </div> -->
-        <!--      <div class="polaroid"> -->
-        <!--          <div class="polaroid-img">🌅</div> -->
-        <!--          <div class="polaroid-caption">Morning coffee together</div> -->
-        <!--      </div> -->
-        <!--      <div class="polaroid"> -->
-        <!--          <div class="polaroid-img">🎂</div> -->
-        <!--          <div class="polaroid-caption">Your birthday surprise!</div> -->
-        <!--      </div> -->
-        <!--      <div class="polaroid"> -->
-        <!--          <div class="polaroid-img">🌸</div> -->
-        <!--          <div class="polaroid-caption">Spring walk in the park</div> -->
-        <!--      </div> -->
-        <!--      <div class="polaroid"> -->
-        <!--          <div class="polaroid-img">🎬</div> -->
-        <!--          <div class="polaroid-caption">Movie night cuddles</div> -->
-        <!--      </div> -->
-        <!--      <div class="polaroid"> -->
-        <!--          <div class="polaroid-img">✈️</div> -->
-        <!--          <div class="polaroid-caption">Our weekend adventure</div> -->
-        <!--      </div> -->
-        <!--  </div> -->
+<!-- Poems Gallery -->
+    <div class="poems-collection">
+        <h3 class="collection-title">
+            Poems Written Just For You 📝💕
+        </h3>
+        
+        <div class="poem-selector">
+            <select class="poem-dropdown" id="poemSelect">
+                <option value="0">🌸 Your Beauty</option>
+                <option value="1">🌙 Moonlit Dreams</option>
+                <option value="2">💕 Forever Yours</option>
+                <option value="3">🌹 My Rose</option>
+                <option value="4">☕ Morning Tea</option>
+                <option value="5">✨ My Everything</option>
+            </select>
+        </div>
 
+        <div class="poem-display">
+            <div class="poem-card-single" id="poemCard">
+                <div class="poem-icon" id="poemIcon">🌸</div>
+                <h4 class="poem-title" id="poemTitle">Your Beauty</h4>
+                <div class="poem-content" id="poemContent">
+                    In your eyes I see the stars,<br>
+                    In your smile, the morning light,<br>
+                    Every moment that we share,<br>
+                    Makes my world infinitely bright.<br><br>
+                    
+                    Your laughter fills my heart with joy,<br>
+                    Your voice, a melody so sweet,<br>
+                    With you, my love, I am complete,<br>
+                    My beautiful Tajbiha, so petite. 💖
+                </div>
+            </div>
+        </div>
+
+        <div class="poem-navigation">
+            <button class="nav-button" id="prevBtn" onclick="previousPoem()">⬅️ Previous</button>
+            <div class="poem-counter" id="poemCounter">1 of 6</div>
+            <button class="nav-button" id="nextBtn" onclick="nextPoem()">Next ➡️</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 1rem;">
+            <button class="random-button" onclick="showRandomPoem()">🔄 Show Random Poem</button>
+        </div>
+    </div>
 <!-- Real Moon Phases on Our Birthdays -->
 <div style="display: flex; justify-content: center; gap: 3rem; margin: 3rem 0; flex-wrap: wrap;">
     
@@ -659,6 +676,110 @@ window.addEventListener('load', () => {
 });
 
 
+    </script>
+    <script>
+        const poems = [
+            {
+                icon: "🌸",
+                title: "Your Beauty",
+                content: `Work In Progress 🛠`
+            },
+            {
+                icon: "🌙",
+                title: "Moonlit Dreams",
+                content: `Work In Progress 🛠`
+            },
+            {
+                icon: "💕",
+                title: "Forever Yours",
+                content: `Work In Progress 🛠`
+            },
+            {
+                icon: "🌹",
+                title: "My Rose",
+                content: `Work In Progress 🛠`
+            },
+            {
+                icon: "☕",
+                title: "Morning Tea",
+                content: `Work In Progress 🛠`
+            },
+            {
+                icon: "✨",
+                title: "My Everything",
+                content: `Work In Progress 🛠`
+            }
+        ];
+
+        let currentPoemIndex = 0;
+
+        function displayPoem(index) {
+            const poem = poems[index];
+            const poemCard = document.getElementById('poemCard');
+            
+            // Add fade out effect
+            poemCard.style.opacity = '0';
+            poemCard.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                document.getElementById('poemIcon').textContent = poem.icon;
+                document.getElementById('poemTitle').textContent = poem.title;
+                document.getElementById('poemContent').innerHTML = poem.content;
+                document.getElementById('poemCounter').textContent = `${index + 1} of ${poems.length}`;
+                document.getElementById('poemSelect').value = index;
+                
+                // Update navigation buttons
+                document.getElementById('prevBtn').disabled = index === 0;
+                document.getElementById('nextBtn').disabled = index === poems.length - 1;
+                
+                // Add fade in effect
+                poemCard.style.opacity = '1';
+                poemCard.style.transform = 'translateY(0)';
+            }, 150);
+        }
+
+        function nextPoem() {
+            if (currentPoemIndex < poems.length - 1) {
+                currentPoemIndex++;
+                displayPoem(currentPoemIndex);
+            }
+        }
+
+        function previousPoem() {
+            if (currentPoemIndex > 0) {
+                currentPoemIndex--;
+                displayPoem(currentPoemIndex);
+            }
+        }
+
+        function showRandomPoem() {
+            const randomIndex = Math.floor(Math.random() * poems.length);
+            currentPoemIndex = randomIndex;
+            displayPoem(currentPoemIndex);
+        }
+
+        // Dropdown change handler
+        document.getElementById('poemSelect').addEventListener('change', function() {
+            currentPoemIndex = parseInt(this.value);
+            displayPoem(currentPoemIndex);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextPoem();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousPoem();
+            } else if (e.key === 'r' || e.key === 'R') {
+                e.preventDefault();
+                showRandomPoem();
+            }
+        });
+
+        // Initialize
+        displayPoem(0);
     </script>
 </body>
 </html>
