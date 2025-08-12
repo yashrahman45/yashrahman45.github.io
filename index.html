@@ -196,6 +196,9 @@
     box-shadow: 0 8px 20px rgba(220, 24, 24, 0.3); /* subtle shadow */
     display: block;        /* remove inline default */
     margin: 20px auto;     /* center horizontally with vertical spacing */
+    @media screen and (max-width: 768px) {
+      iframe { height: 400px !important; }
+}
   "
   loading="lazy"
   allowfullscreen
