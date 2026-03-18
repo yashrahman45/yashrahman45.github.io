@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave A Wish ❤️ — Tamim & Rifat </title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f5ede0;
+  --rose:#c9836a;
+  --dusty-rose:#e8c4b0;
+  --deep:#1e1008;
+  --warm-brown:#5c3520;
+  --amber:#d4956a;
+  --mist:#8fa89a;
+  --night:#0d0805;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--night);color:var(--dusty-rose);font-family:'EB Garamond',serif;min-height:100vh;overflow-x:hidden;}
+
+/* ─── LOADER ─── */
+#pageLoader{position:fixed;inset:0;z-index:99999;background:var(--night);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;transition:opacity .6s ease,visibility .6s ease;}
+#pageLoader.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.pl-name{font-family:'Great Vibes',cursive;font-size:clamp(2.5rem,10vw,5rem);color:var(--rose);animation:plPulse 1.5s ease infinite;}
+@keyframes plPulse{0%,100%{opacity:.4;transform:scale(.97);}50%{opacity:1;transform:scale(1);}}
+.pl-bar{width:160px;height:2px;background:rgba(201,131,106,.15);border-radius:100px;overflow:hidden;margin-top:1rem;}
+.pl-fill{height:100%;background:linear-gradient(to right,var(--rose),var(--amber));border-radius:100px;animation:plFill 1.8s ease forwards;}
+@keyframes plFill{0%{width:0%}100%{width:100%}}
+.pl-sub{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,196,176,.4);font-style:italic;}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4;}
+
+/* ─── PETALS ─── */
+.petal{position:fixed;width:8px;height:12px;background:radial-gradient(ellipse,#e8c4b044,#c9836a22);border-radius:50% 0 50% 0;pointer-events:none;z-index:100;animation:fall linear infinite;opacity:0;}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:0;}8%{opacity:0.6;}90%{opacity:0.2;}100%{transform:translateY(110vh) rotate(720deg) translateX(50px);opacity:0;}}
+
+/* ─── HERO ─── */
+.hero{text-align:center;padding:5rem 2rem 3rem;position:relative;}
+.hero-sub{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;}
+.hero-title{font-family:'Great Vibes',cursive;font-size:clamp(3rem,12vw,6rem);color:var(--amber);line-height:1.1;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
+.hero-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,3vw,1.25rem);color:var(--dusty-rose);max-width:480px;margin:1.5rem auto 0;line-height:1.9;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;}
+.hero-divider{width:80px;height:1px;background:linear-gradient(to right,transparent,var(--rose),transparent);margin:2rem auto 0;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── NOTICE BANNER ─── */
+.notice-banner{background:rgba(201,131,106,0.08);border:1px solid rgba(201,131,106,0.2);border-radius:4px;padding:1rem 1.5rem;max-width:560px;margin:0 auto 1.5rem;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.95rem;color:var(--amber);line-height:1.6;}
+.notice-banner strong{font-style:normal;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:0.3rem;color:var(--rose);}
+
+/* ─── FORM CARD ─── */
+.form-wrap{max-width:560px;margin:0 auto;padding:0 1.5rem 5rem;}
+.form-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,131,106,0.2);border-radius:4px;padding:2.5rem;position:relative;opacity:0;animation:fadeUp 0.8s ease 1s forwards;}
+.form-card::before{content:'';position:absolute;inset:0;border-radius:4px;background:radial-gradient(ellipse at 30% 0%,rgba(201,131,106,0.06),transparent 60%);pointer-events:none;}
+.field{margin-bottom:1.5rem;}
+.field label{display:block;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.6rem;}
+.field input,.field textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,131,106,0.25);padding:0.8rem 1rem;font-family:'EB Garamond',serif;font-size:1rem;color:var(--dusty-rose);outline:none;border-radius:2px;transition:border-color 0.3s;resize:none;}
+.field input:focus,.field textarea:focus{border-color:var(--rose);}
+.field input::placeholder,.field textarea::placeholder{color:rgba(232,196,176,0.3);font-style:italic;}
+.field textarea{min-height:120px;line-height:1.7;}
+
+/* ─── EMOJI PICKER ─── */
+.emoji-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.6rem;display:block;}
+.emoji-grid{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem;}
+.emoji-opt{width:44px;height:44px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,131,106,0.2);border-radius:4px;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.emoji-opt:hover{border-color:var(--rose);background:rgba(201,131,106,0.1);}
+.emoji-opt.selected{border-color:var(--amber);background:rgba(212,149,106,0.2);transform:scale(1.1);}
+
+/* ─── SUBMIT ─── */
+.submit-btn{width:100%;background:transparent;border:1px solid var(--rose);color:var(--rose);font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.9rem;cursor:pointer;border-radius:2px;transition:all 0.3s;position:relative;overflow:hidden;}
+.submit-btn::before{content:'';position:absolute;inset:0;background:var(--rose);transform:translateX(-100%);transition:transform 0.3s ease;z-index:-1;}
+.submit-btn:hover{color:var(--cream);}
+.submit-btn:hover::before{transform:translateX(0);}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.submit-msg{text-align:center;margin-top:1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--amber);opacity:0;transition:opacity 0.4s;}
+.submit-msg.show{opacity:1;}
+
+/* ─── WISHES FEED ─── */
+.wishes-section{max-width:560px;margin:2rem auto 0;padding:0 1.5rem;}
+.wishes-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-style:italic;color:var(--cream);margin-bottom:1.5rem;text-align:center;}
+.wishes-title span{color:var(--rose);}
+.wish-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,131,106,0.15);padding:1.5rem;margin-bottom:1rem;border-radius:2px;animation:fadeUp 0.5s ease forwards;opacity:0;position:relative;}
+.wish-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--rose);opacity:0.4;}
+.wish-emoji{font-size:1.6rem;margin-bottom:0.6rem;display:block;}
+.wish-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--amber);margin-bottom:0.4rem;}
+.wish-message{font-size:1rem;line-height:1.7;color:var(--dusty-rose);white-space:pre-wrap;}
+.wish-date{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-top:0.8rem;opacity:0.7;}
+.wishes-empty{text-align:center;font-style:italic;color:var(--mist);font-size:1rem;padding:2rem;}
+
+/* ─── FOOTER ─── */
+footer{text-align:center;padding:3rem 2rem;font-family:'Great Vibes',cursive;font-size:2rem;color:var(--rose);opacity:0.6;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     LOADER
+     → Change the name inside .pl-name to match the couple
+═══════════════════════════════════════════════════════ -->
+<div id="pageLoader">
+  <p class="pl-name">Tamim &amp; Rifat ❤️🌸</p>
+  <div class="pl-bar"><div class="pl-fill"></div></div>
+  <p class="pl-sub">Send Your Wishes ❤️</p>
+</div>
+
+<!-- Petals -->
+<script>
+for(let i=0;i<12;i++){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.style.left=Math.random()*100+'vw';
+  p.style.animationDuration=(10+Math.random()*12)+'s';
+  p.style.animationDelay=(Math.random()*10)+'s';
+  document.body.appendChild(p);
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+     → Edit hero-sub, hero-title, and hero-desc as needed
+═══════════════════════════════════════════════════════ -->
+<div class="hero">
+  <p class="hero-sub">You're Among The Trusted Few</p>
+  <h1 class="hero-title">Send Your Wish For<br>Tamim &amp; Rifat ❤️🌸</h1>
+  <p class="hero-desc">
+    We've made it one whole beautiful year together, alhamdulillah.
+    Leave a message, a memory, or just some love for us —
+    your wish will be shown on our anniversary page. 💕
+  </p>
+  <div class="hero-divider"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     HOW WISHES WORK (template mode)
+     → This banner explains the manual system to your guests
+     → You can delete this block once you go live
+═══════════════════════════════════════════════════════ -->
+
+<!-- FORM -->
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="field">
+      <label>Your Name</label>
+      <input type="text" id="guestName" placeholder="What do they call you?" maxlength="60">
+    </div>
+    <div class="field">
+      <label>Your Wish ❤️</label>
+      <textarea id="guestMessage" placeholder="Write something from the heart — a wish, a memory, a joke, anything..."></textarea>
+    </div>
+    <span class="emoji-label">Pick A Vibe</span>
+    <div class="emoji-grid" id="emojiGrid">
+      <div class="emoji-opt selected" data-emoji="🌸" onclick="selectEmoji(this)">🌸</div>
+      <div class="emoji-opt" data-emoji="🎉" onclick="selectEmoji(this)">🎉</div>
+      <div class="emoji-opt" data-emoji="✨" onclick="selectEmoji(this)">✨</div>
+      <div class="emoji-opt" data-emoji="🥂" onclick="selectEmoji(this)">🥂</div>
+      <div class="emoji-opt" data-emoji="🌹" onclick="selectEmoji(this)">🌹</div>
+      <div class="emoji-opt" data-emoji="😂" onclick="selectEmoji(this)">😂</div>
+      <div class="emoji-opt" data-emoji="🌙" onclick="selectEmoji(this)">🌙</div>
+      <div class="emoji-opt" data-emoji="💌" onclick="selectEmoji(this)">💌</div>
+    </div>
+    <button class="submit-btn" id="submitBtn" onclick="submitWish()">Send My Wish 🌸</button>
+    <p class="submit-msg" id="submitMsg">Your wish has been received! 💕</p>
+  </div>
+
+  <div class="wishes-section" id="wishesSection">
+    <h3 class="wishes-title">Wishes so far <span>❤️</span></h3>
+    <div id="wishesFeed"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     → Change the names and date
+═══════════════════════════════════════════════════════ -->
+<footer>Tamim &amp; Rifat — From 2011 June 23 to Forever ❤️🌸</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   ★  MANUAL WISHES  ★
+   Add wishes here by copying the block format below.
+   Each wish needs: name, message, emoji, date (any readable string).
+
+   To add a new wish, paste this block inside the array and fill it in:
+
+   {
+     name:    "Friend's Name",
+     message: "Their message here.\nSecond line if needed.",
+     emoji:   "🌸",
+     date:    "18 March 2026"
+   },
+
+═══════════════════════════════════════════════════════════════════ */
+const MANUAL_WISHES = [
+  {
+    name:    "Jabid",
+    message: "Happy 1 year to you guys, One year is not just a number it means patience understanding and choosing each other again and again That is something special And apa okay I will admit I am still a little mad at you for stealing my man but jokes aside I can see how much you both care about each other and that matters more than anything . There were times i saw my guy at the lowest and also at his highest becuase of you so take care of himm  No matter what I truly wish you both happiness peace and a relationship that keeps growing stronger with time May this be just the first of many anniversaries together Stay real stay happy and take care of each other always",
+    emoji:   "🌙",
+    date:    "15 March 2026"
+  },
+  {
+    name:    "Rafi",
+    message: "Bhai I never thought I'd see the day but here we are. She's clearly too good for you but somehow it works lmao. Love you both forreal ✨",
+    emoji:   "✨",
+    date:    "13 March 2026"
+  },
+  {
+    name:    "Nadia",
+    message: "You deserve every single bit of joy that comes your way. This one year is just the beginning of something truly beautiful. Proud of you and so happy for you. 🌸",
+    emoji:   "🌸",
+    date:    "12 March 2026"
+  },
+];
+/* ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─── Session wishes (submitted this visit, not permanent) ─── */
+let sessionWishes = [];
+let selectedEmoji = '🌸';
+
+function selectEmoji(el) {
+  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedEmoji = el.dataset.emoji;
+}
+
+function escHtml(s) {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/\n/g, '<br>');
+}
+
+function formatDate(d) {
+  if (typeof d === 'string') return d;
+  return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function renderWishes() {
+  const feed = document.getElementById('wishesFeed');
+  const all = [...sessionWishes, ...MANUAL_WISHES];
+
+  if (!all.length) {
+    feed.innerHTML = '<p class="wishes-empty">Be the first to leave a wish! 🌸</p>';
+    return;
+  }
+
+  feed.innerHTML = all.map((w, i) => `
+    <div class="wish-card" style="animation-delay:${i * 0.08}s">
+      <span class="wish-emoji">${w.emoji || '🌸'}</span>
+      <div class="wish-name">${escHtml(w.name)}</div>
+      <div class="wish-message">${escHtml(w.message)}</div>
+      <div class="wish-date">${formatDate(w.date)}</div>
+    </div>
+  `).join('');
+}
+
+function submitWish() {
+  const name    = document.getElementById('guestName').value.trim();
+  const message = document.getElementById('guestMessage').value.trim();
+  if (!name)    { document.getElementById('guestName').focus(); return; }
+  if (!message) { document.getElementById('guestMessage').focus(); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending... 🌸';
+
+  /* Simulate a brief delay for effect */
+  setTimeout(() => {
+    /* Add to session (visible this visit) */
+    sessionWishes.unshift({
+      name,
+      message,
+      emoji: selectedEmoji,
+      date:  new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    });
+
+    document.getElementById('guestName').value    = '';
+    document.getElementById('guestMessage').value = '';
+    document.getElementById('submitMsg').classList.add('show');
+    btn.textContent = 'Wish sent! 💕';
+
+    renderWishes();
+
+    setTimeout(() => {
+      btn.disabled    = false;
+      btn.textContent = 'Send My Wish 🌸';
+    }, 3000);
+  }, 800);
+}
+
+/* ─── Init ─── */
+renderWishes();
+document.fonts.ready.then(() =>
+  setTimeout(() => document.getElementById('pageLoader').classList.add('hide'), 1800)
+);
+</script>
+</body>
+</html>
