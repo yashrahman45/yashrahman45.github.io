@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Syzygy Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=UnifrakturCook:wght@700&display=swap">
+<style>
+:root{
+  --bg:#0a0a0a; --bg-2:#101010; --surface:#161616; --line:#262626; --line-2:#3b3b3b;
+  --fg:#f3f3f0; --mute:#8f8f8a; --ink:#0a0a0a; --sale:#ff5a5f; --ok:#8bd19a; --warn:#e6b450;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-black:"UnifrakturCook","Old English Text MT",Georgia,serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+html.lock,html.lock body{overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.5 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+h1,h2,h3,p{margin:0}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.mono,.lab,th,.hint{font:500 11px/1.5 var(--f-mono);letter-spacing:.12em;text-transform:uppercase}
+.mute,.hint{color:var(--mute)}
+.brand{font-family:var(--f-black);font-size:30px;line-height:1}
+
+/* buttons + fields */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border:1px solid var(--fg);font:600 11px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap}
+.btn:hover{background:var(--fg);color:var(--ink)}
+.btn.primary{background:var(--fg);color:var(--ink)}
+.btn.primary:hover{background:transparent;color:var(--fg)}
+.btn.small{min-height:36px;padding:0 14px}
+.btn.danger{border-color:var(--sale);color:var(--sale)}
+.btn.danger:hover{background:var(--sale);color:#14090a}
+.btn[disabled]{opacity:.45;pointer-events:none}
+input,select,textarea{width:100%;min-height:44px;background:transparent;color:var(--fg);border:1px solid var(--line-2);padding:10px 12px;font:400 14px var(--f-body);border-radius:0}
+textarea{resize:vertical;min-height:84px}
+input:focus,select:focus,textarea:focus{border-color:var(--fg);outline:0}
+select{appearance:auto;color-scheme:dark;background-color:#0b0b0b;color:#f3f3f0}
+select option,select optgroup{background:#161616;color:#f3f3f0}
+input[type=checkbox],input[type=radio]{width:auto;min-height:0;accent-color:#f3f3f0}
+label{display:grid;gap:6px;font-size:12px;color:#cfcfca}
+label.chk{display:flex;align-items:center;gap:8px;color:var(--fg);font-size:13px;cursor:pointer}
+fieldset{border:1px solid var(--line);padding:12px;margin:0;display:flex;flex-wrap:wrap;gap:8px 18px;min-width:0}
+legend{padding:0 6px;font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+small{color:var(--mute)}
+
+/* auth screen */
+.auth{min-height:100vh;display:grid;place-items:center;padding:24px 16px}
+.auth-c{width:min(420px,100%);display:grid;gap:18px;border:1px solid var(--line-2);padding:28px 24px;background:var(--bg-2)}
+.auth-c h1{font:900 clamp(2.4rem,9vw,3.4rem)/.9 var(--f-body);font-stretch:62%;text-transform:uppercase}
+.auth .or{display:flex;align-items:center;gap:12px;color:var(--mute)}
+.auth .or::before,.auth .or::after{content:"";flex:1;height:1px;background:var(--line)}
+.err{color:var(--sale);font:500 12px/1.5 var(--f-mono);min-height:18px}
+.uid{display:flex;gap:8px}
+.uid code{flex:1;min-width:0;overflow-wrap:anywhere;border:1px dashed var(--line-2);padding:10px;font:500 12px var(--f-mono)}
+
+/* shell */
+.shell{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+.side{position:sticky;top:0;height:100vh;border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:18px;background:var(--bg-2)}
+.side nav{display:grid;gap:2px}
+.side nav a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 12px;text-decoration:none;font:600 11px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;border-left:2px solid transparent;color:#bdbdb8}
+.side nav a:hover{background:var(--surface);color:var(--fg)}
+.side nav a[aria-current="page"]{border-left-color:var(--fg);background:var(--surface);color:var(--fg)}
+.pill{min-width:20px;height:20px;padding:0 6px;background:var(--fg);color:var(--ink);font:700 10px/20px var(--f-body);text-align:center}
+.side .who{margin-top:auto;display:grid;gap:8px;color:var(--mute);font-size:12px;overflow-wrap:anywhere}
+.main{padding:clamp(16px,3vw,36px);min-width:0}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.head h1{font:900 clamp(2.2rem,5vw,3.4rem)/.9 var(--f-body);font-stretch:62%;text-transform:uppercase}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tools input,.tools select{width:auto;min-width:180px;flex:1 1 180px;max-width:320px}
+@media(max-width:860px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:12px}
+  .side nav{display:flex;overflow-x:auto;scrollbar-width:none}
+  .side nav a{border-left:0;border-bottom:2px solid transparent;white-space:nowrap}
+  .side nav a[aria-current="page"]{border-bottom-color:var(--fg)}
+  .side .who{margin-top:0;grid-auto-flow:column;align-items:center;justify-content:space-between}
+}
+
+/* cards + tables */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:26px}
+.cards>div{background:var(--bg);padding:18px;display:grid;gap:8px}
+.cards b{font:900 2.6rem/.9 var(--f-body);font-stretch:70%;font-variant-numeric:tabular-nums}
+.panel{border:1px solid var(--line);margin-bottom:24px;min-width:0}
+.panel>h2{padding:14px 16px;border-bottom:1px solid var(--line);font:600 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase}
+.panel .pad{padding:16px;display:grid;gap:12px}
+.tw{overflow-x:auto;border:1px solid var(--line)}
+.panel .tw{border:0}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th{text-align:left;color:var(--mute);padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface)}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.th{width:48px;aspect-ratio:4/5;background:var(--surface);border:1px solid var(--line);object-fit:cover;display:grid;place-items:center;color:var(--mute);font:500 9px var(--f-mono)}
+.act{display:flex;gap:6px;justify-content:flex-end}
+.tag{display:inline-block;padding:3px 7px;border:1px solid var(--line-2);font:500 10px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.tag.new{background:var(--fg);color:var(--ink);border-color:var(--fg)}
+.tag.ok{color:var(--ok);border-color:var(--ok)}
+.tag.warn{color:var(--warn);border-color:var(--warn)}
+.tag.bad{color:var(--sale);border-color:var(--sale)}
+.empty{padding:36px 16px;color:var(--mute);text-align:center}
+.s-new{color:var(--fg)}
+.stars{color:var(--warn);letter-spacing:2px}
+
+/* modal */
+#modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.75);display:grid;place-items:start center;overflow-y:auto;padding:max(12px,env(safe-area-inset-top,0px)) 12px 40px}
+.m-card{width:min(560px,100%);background:var(--bg);border:1px solid var(--line-2);margin-top:4vh}
+.m-card.wide{width:min(820px,100%)}
+.m-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:2}
+.m-h h2{font:600 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase}
+.x{width:36px;height:36px;font-size:22px;line-height:1;display:grid;place-items:center}
+.m-b{padding:16px;display:grid;gap:14px}
+.m-b form{display:grid;gap:14px}
+.m-f{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;padding-top:6px}
+.g2,.g3{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:640px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row input[type=text],.row input:not([type]){flex:1 1 200px;width:auto}
+.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin-bottom:10px}
+.imgs .it{border:1px solid var(--line);display:grid;gap:0;background:var(--surface)}
+.imgs .it img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.imgs .it .bt{display:flex;justify-content:space-between;border-top:1px solid var(--line)}
+.imgs .it button{flex:1;height:30px;text-align:center;font-size:14px}
+.imgs .it button:hover{background:var(--fg);color:var(--ink)}
+.imgs .it .main{position:absolute}
+.it{position:relative}
+.it .m{position:absolute;top:4px;left:4px;background:var(--fg);color:var(--ink);padding:2px 6px;font:700 9px var(--f-mono);letter-spacing:.1em}
+.imgf{display:grid;gap:8px}
+.imgf .row{align-items:stretch}
+.imgf img{width:96px;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--line)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 18px}
+.kv dt{color:var(--mute);font:500 11px/1.6 var(--f-mono);letter-spacing:.1em;text-transform:uppercase}
+.kv dd{margin:0}
+.sec-t{font:600 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;padding-top:10px;border-top:1px solid var(--line)}
+
+#toast{position:fixed;z-index:80;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none}
+#toast div{background:var(--fg);color:var(--ink);padding:12px 16px;font:600 12px/1.3 var(--f-body);letter-spacing:.08em;text-transform:uppercase;transform:translateY(20px);opacity:0;transition:.3s;max-width:100%}
+#toast div.on{transform:none;opacity:1}
+#toast div.bad{background:var(--sale)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body>
+<div id="app"></div>
+<div id="modal" hidden></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script type="module">
+import {firebaseConfig,imageMode,uploadEndpoint} from './firebase-config.js';
+import {SEED} from './seed.js';
+
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>'৳'+Math.round(Number(n)||0).toLocaleString('en-US');
+const slug=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const app=$('#app');
+let toastT;
+function toast(msg,bad){const t=$('#toast');t.innerHTML=`<div class="${bad?'bad':''}">${esc(msg)}</div>`;const d=t.firstChild;requestAnimationFrame(()=>d.classList.add('on'));clearTimeout(toastT);toastT=setTimeout(()=>d.classList.remove('on'),3200)}
+
+const configured=firebaseConfig&&firebaseConfig.apiKey&&!String(firebaseConfig.apiKey).startsWith('YOUR_');
+if(!configured){
+  app.innerHTML=`<div class="auth"><div class="auth-c"><span class="brand">Syzygy</span><h1>Connect Firebase</h1><p class="mute">Open <b>firebase-config.js</b>, paste your Firebase web app config, then reload this page. The README has the full setup steps.</p></div></div>`;
+} else {
+  await start();
+}
+
+async function start(){
+const V='https://www.gstatic.com/firebasejs/10.12.2/';
+const [{initializeApp},A,F,S]=await Promise.all([
+  import(V+'firebase-app.js'),import(V+'firebase-auth.js'),import(V+'firebase-firestore.js'),import(V+'firebase-storage.js')]);
+const fapp=initializeApp(firebaseConfig),auth=A.getAuth(fapp),db=F.getFirestore(fapp),storage=S.getStorage(fapp);
+
+/* ---------- state ---------- */
+const D={products:[],categories:[],styles:[],orders:[],reviews:[],subscribers:[],admins:[],settings:null};
+const ui={q:'',cat:'all',ost:'all'};
+let unsubs=[],user=null,mImgs=[];
+const route=()=>location.hash.slice(1)||'dashboard';
+const col=n=>F.collection(db,n);
+const dref=(n,id)=>F.doc(db,n,id);
+const toDate=t=>t&&t.toDate?t.toDate():null;
+const fmtDate=t=>{const d=toDate(t);return d?d.toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):'—'};
+const errMsg=e=>({'permission-denied':'Permission denied. Check your Firestore rules and that you are an admin.','unavailable':'Network problem. Try again.'}[e&&e.code]||(e&&e.message)||'Something went wrong.');
+
+/* ---------- auth ---------- */
+const AUTHERR={
+  'auth/invalid-credential':'Wrong email or password.','auth/wrong-password':'Wrong email or password.','auth/user-not-found':'Wrong email or password.',
+  'auth/too-many-requests':'Too many attempts. Wait a minute and try again.',
+  'auth/account-exists-with-different-credential':'This email already signed in with another method. Use that method instead.',
+  'auth/popup-closed-by-user':'The sign-in window was closed.','auth/operation-not-allowed':'This sign-in method is not enabled in Firebase Authentication.',
+  'auth/unauthorized-domain':'Add this domain under Authentication → Settings → Authorized domains.','auth/invalid-email':'Enter a valid email address.'
+};
+function loginView(msg){
+  app.innerHTML=`<div class="auth"><div class="auth-c"><span class="brand">Syzygy</span><h1>Admin</h1><p class="mute">Sign in to manage the store. Only approved admins get in.</p>
+  <button class="btn primary" data-act="login-fb">Continue with Facebook</button>
+  <button class="btn" data-act="login-g">Continue with Google</button>
+  <div class="or mono">or</div>
+  <form id="login-form" style="display:grid;gap:10px"><label>Email<input name="email" type="email" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><button class="btn" type="submit">Sign in with email</button></form>
+  <p class="err" id="login-err" role="alert">${esc(msg||'')}</p></div></div>`;
+}
+function deniedView(u,e){
+  app.innerHTML=`<div class="auth"><div class="auth-c"><span class="brand">Syzygy</span><h1>No access</h1>
+  <p class="mute">${e?esc(errMsg(e)):'You are signed in, but this account is not an admin yet.'}</p>
+  <p class="mute">Ask an existing admin to add this ID, or add it yourself in the Firebase console: Firestore → <b>admins</b> → document ID = the ID below.</p>
+  <div class="uid"><code id="uid">${esc(u.uid)}</code><button class="btn small" data-act="copy-uid">Copy</button></div>
+  <p class="mono mute">${esc(u.email||u.displayName||'')}</p>
+  <button class="btn" data-act="logout">Sign out</button></div></div>`;
+}
+async function social(p){
+  try{await A.signInWithPopup(auth,p)}
+  catch(e){
+    if(e.code==='auth/popup-blocked'||e.code==='auth/cancelled-popup-request'){try{await A.signInWithRedirect(auth,p);return}catch(e2){e=e2}}
+    const m=$('#login-err');if(m)m.textContent=AUTHERR[e.code]||e.message;
+  }
+}
+A.getRedirectResult(auth).catch(e=>{const m=$('#login-err');if(m)m.textContent=AUTHERR[e.code]||e.message});
+
+A.onAuthStateChanged(auth,async u=>{
+  unsubs.forEach(f=>f());unsubs=[];user=u;
+  if(!u){loginView();return}
+  app.innerHTML='<div class="auth"><p class="mono mute">Checking access…</p></div>';
+  try{const s=await F.getDoc(dref('admins',u.uid));if(s.exists())shell();else deniedView(u)}
+  catch(e){deniedView(u,e)}
+});
+
+/* ---------- shell + data ---------- */
+const NAV=[['dashboard','Dashboard'],['products','Products'],['categories','Categories'],['styles','Styles'],['orders','Orders'],['reviews','Reviews'],['subscribers','Subscribers'],['settings','Settings'],['admins','Admins']];
+function shell(){
+  app.innerHTML=`<div class="shell"><aside class="side"><span class="brand">Syzygy</span><nav aria-label="Admin" id="nav"></nav>
+  <div class="who"><span>${esc(user.email||user.displayName||user.uid)}</span><div class="row"><a class="btn small" href="./index.html" target="_blank" rel="noopener">View store</a><button class="btn small" data-act="logout">Sign out</button></div></div></aside>
+  <main class="main" id="view"></main></div>`;
+  const sub=(name,key,q)=>unsubs.push(F.onSnapshot(q||col(name),s=>{D[key]=s.docs.map(d=>({id:d.id,...d.data()}));paint()},e=>toast(name+': '+errMsg(e),true)));
+  sub('products','products');sub('categories','categories');sub('styles','styles');
+  sub('orders','orders',F.query(col('orders'),F.orderBy('createdAt','desc')));
+  sub('reviews','reviews');sub('subscribers','subscribers',F.query(col('subscribers'),F.orderBy('createdAt','desc')));sub('admins','admins');
+  unsubs.push(F.onSnapshot(dref('settings','site'),s=>{D.settings=s.exists()?s.data():null;paint()},e=>toast('settings: '+errMsg(e),true)));
+  paint(true);
+}
+function paint(force){
+  const v=$('#view');if(!v)return;
+  const r=route(),open=$('#modal')&&!$('#modal').hidden;
+  const newOrders=D.orders.filter(o=>o.status==='new').length;
+  $('#nav').innerHTML=NAV.map(([k,n])=>`<a href="#${k}" ${r===k?'aria-current="page"':''}>${n}${k==='orders'&&newOrders?`<span class="pill">${newOrders}</span>`:''}</a>`).join('');
+  if((r==='settings'||open)&&!force&&v.dataset.r===r)return;
+  v.dataset.r=r;v.innerHTML=(VIEWS[r]||VIEWS.dashboard)();
+}
+window.addEventListener('hashchange',()=>{if($('#view'))paint(true)});
+
+/* ---------- views ---------- */
+const catName=id=>(D.categories.find(c=>c.id===id)||{}).name||id;
+const prodName=id=>(D.products.find(p=>p.id===id)||{}).name||'';
+const thumb=p=>p.images&&p.images[0]?`<img class="th" src="${esc(p.images[0])}" alt="" loading="lazy">`:`<span class="th">No photo</span>`;
+const VIEWS={
+dashboard(){
+  const live=D.orders.filter(o=>o.status!=='cancelled'),rev=live.reduce((a,o)=>a+(o.totals&&o.totals.total||0),0);
+  const low=D.products.filter(p=>p.active!==false&&(p.stock??0)<=5);
+  const empty=!D.products.length&&!D.categories.length;
+  return `<div class="head"><h1>Dashboard</h1></div>
+  ${empty?`<div class="panel"><h2>Start here</h2><div class="pad"><p>Your store has no data yet. Import the sample catalogue to get categories, styles, 34 products and default settings, then replace the photos and prices with your own.</p><div><button class="btn primary" data-act="seed">Import sample catalogue</button></div></div></div>`:''}
+  <div class="cards"><div><span class="mono mute">New orders</span><b>${D.orders.filter(o=>o.status==='new').length}</b></div><div><span class="mono mute">Revenue (excl. cancelled)</span><b>${money(rev)}</b></div><div><span class="mono mute">Products</span><b>${D.products.length}</b></div><div><span class="mono mute">Low stock</span><b>${low.length}</b></div><div><span class="mono mute">Subscribers</span><b>${D.subscribers.length}</b></div></div>
+  <div class="panel"><h2>Recent orders</h2>${D.orders.length?`<div class="tw"><table><thead><tr><th>Order</th><th>Date</th><th>Customer</th><th>Total</th><th>Status</th></tr></thead><tbody>${D.orders.slice(0,6).map(o=>`<tr><td><button data-act="ord-open" data-id="${o.id}"><b>${esc(o.no||o.id)}</b></button></td><td>${fmtDate(o.createdAt)}</td><td>${esc(o.customer&&o.customer.name)}</td><td class="num">${money(o.totals&&o.totals.total)}</td><td>${statusTag(o.status)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="empty">No orders yet.</p>'}</div>
+  <div class="panel"><h2>Low stock (5 or fewer)</h2>${low.length?`<div class="tw"><table><tbody>${low.map(p=>`<tr><td style="width:64px">${thumb(p)}</td><td>${esc(p.name)}</td><td class="num"><span class="tag ${p.stock<=0?'bad':'warn'}">${p.stock<=0?'Sold out':p.stock+' left'}</span></td><td class="act"><button class="btn small" data-act="prod-edit" data-id="${p.id}">Edit</button></td></tr>`).join('')}</tbody></table></div>`:'<p class="empty">Everything is stocked.</p>'}</div>`;
+},
+products(){
+  return `<div class="head"><h1>Products</h1><button class="btn primary" data-act="prod-new">Add product</button></div>
+  <div class="tools"><input id="f-q" type="search" placeholder="Search products" value="${esc(ui.q)}" aria-label="Search products"><select id="f-cat" aria-label="Category"><option value="all">All categories</option>${D.categories.map(c=>`<option value="${esc(c.id)}" ${ui.cat===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div>
+  <div id="list">${productList()}</div>`;
+},
+categories(){return taxView('categories','Categories')},
+styles(){return taxView('styles','Styles')},
+orders(){
+  return `<div class="head"><h1>Orders</h1><button class="btn" data-act="ord-export">Export CSV</button></div>
+  <div class="tools"><select id="f-ost" aria-label="Status"><option value="all">All statuses</option>${STATUS.map(s=>`<option value="${s}" ${ui.ost===s?'selected':''}>${s}</option>`).join('')}</select></div>
+  <div id="list">${orderList()}</div>`;
+},
+reviews(){
+  return `<div class="head"><h1>Reviews</h1><button class="btn primary" data-act="rev-new">Add review</button></div>
+  <p class="hint" style="margin-bottom:14px">Only published reviews show on the store.</p>
+  ${D.reviews.length?`<div class="tw"><table><thead><tr><th>Rating</th><th>Review</th><th>Name</th><th>Product</th><th>Status</th><th></th></tr></thead><tbody>${D.reviews.map(r=>`<tr><td><span class="stars">${'★'.repeat(r.rating||0)}</span></td><td style="min-width:240px">${esc(r.text)}</td><td>${esc(r.name)}</td><td>${esc(prodName(r.productId))}</td><td>${r.published?'<span class="tag ok">Published</span>':'<span class="tag">Hidden</span>'}</td><td class="act"><button class="btn small" data-act="rev-pub" data-id="${r.id}">${r.published?'Hide':'Publish'}</button><button class="btn small" data-act="rev-edit" data-id="${r.id}">Edit</button><button class="btn small danger" data-act="rev-del" data-id="${r.id}">Delete</button></td></tr>`).join('')}</tbody></table></div>`:'<p class="empty">No reviews yet.</p>'}`;
+},
+subscribers(){
+  return `<div class="head"><h1>Subscribers</h1><button class="btn" data-act="sub-export">Export CSV</button></div>
+  ${D.subscribers.length?`<div class="tw"><table><thead><tr><th>Email</th><th>Joined</th><th></th></tr></thead><tbody>${D.subscribers.map(s=>`<tr><td>${esc(s.email)}</td><td>${fmtDate(s.createdAt)}</td><td class="act"><button class="btn small danger" data-act="sub-del" data-id="${s.id}">Remove</button></td></tr>`).join('')}</tbody></table></div>`:'<p class="empty">No subscribers yet.</p>'}`;
+},
+settings(){return settingsView()},
+admins(){
+  return `<div class="head"><h1>Admins</h1></div>
+  <div class="panel"><h2>Current admins</h2><div class="tw"><table><thead><tr><th>Label</th><th>User ID</th><th></th></tr></thead><tbody>${D.admins.map(a=>`<tr><td>${esc(a.email||'—')}${a.id===user.uid?' <span class="tag">You</span>':''}</td><td><code style="font:500 12px var(--f-mono);overflow-wrap:anywhere">${esc(a.id)}</code></td><td class="act">${a.id===user.uid?'':`<button class="btn small danger" data-act="adm-del" data-id="${a.id}">Remove</button>`}</td></tr>`).join('')}</tbody></table></div></div>
+  <div class="panel"><h2>Add an admin</h2><form class="pad" id="aform"><p class="mute">Ask the person to open this page and sign in. They will see a User ID. Paste it here.</p><div class="g2"><label>User ID<input name="uid" required></label><label>Label (email or name)<input name="email"></label></div><div><button class="btn primary" type="submit">Add admin</button></div></form></div>`;
+}};
+
+/* products */
+function productList(){
+  const q=ui.q.toLowerCase().trim();
+  const l=D.products.filter(p=>(ui.cat==='all'||p.cat===ui.cat)&&(!q||[p.name,p.id,p.material,catName(p.cat)].join(' ').toLowerCase().includes(q))).sort((a,b)=>(a.order??0)-(b.order??0));
+  if(!l.length)return `<p class="empty">${D.products.length?'No products match.':'No products yet. Add one, or import the sample catalogue from the dashboard.'}</p>`;
+  return `<div class="tw"><table><thead><tr><th></th><th>Product</th><th>Category</th><th class="num">Price</th><th class="num">Stock</th><th>Badge</th><th>Status</th><th></th></tr></thead><tbody>${l.map(p=>`<tr><td style="width:64px">${thumb(p)}</td><td><b>${esc(p.name)}</b><br><span class="mute mono">${esc(p.id)}</span></td><td>${esc(catName(p.cat))}</td><td class="num">${money(p.price)}${p.was?`<br><s class="mute">${money(p.was)}</s>`:''}</td><td class="num"><span class="tag ${(p.stock??0)<=0?'bad':p.stock<=5?'warn':''}">${p.stock??0}</span></td><td>${p.badge?`<span class="tag">${esc(p.badge)}</span>`:''}${p.drop?' <span class="tag">drop</span>':''}</td><td><button data-act="prod-toggle" data-id="${p.id}">${p.active===false?'<span class="tag">Hidden</span>':'<span class="tag ok">Live</span>'}</button></td><td class="act"><button class="btn small" data-act="prod-edit" data-id="${p.id}">Edit</button><button class="btn small danger" data-act="prod-del" data-id="${p.id}">Delete</button></td></tr>`).join('')}</tbody></table></div>`;
+}
+const sel=(a,b)=>String(a)===String(b)?'selected':'';
+function productModal(p){
+  const isNew=!p;
+  p=p||{id:'',name:'',cat:(D.categories[0]||{}).id||'',price:'',was:'',stock:10,badge:'',finish:'silver',material:'',styles:[],desc:'',options:null,drop:false,active:true,order:Math.max(-1,...D.products.map(x=>x.order??0))+1,images:[]};
+  mImgs=[...(p.images||[])];
+  modal(isNew?'Add product':'Edit product',`<form id="pform" data-id="${esc(p.id)}" data-new="${isNew}">
+  <div class="g2"><label>Name<input name="name" required value="${esc(p.name)}"></label>
+  <label>Category<select name="cat" required>${D.categories.map(c=>`<option value="${esc(c.id)}" ${sel(c.id,p.cat)}>${esc(c.name)}</option>`).join('')}</select></label></div>
+  <div class="g3"><label>Price (৳)<input name="price" type="number" min="1" step="1" required value="${esc(p.price)}"></label>
+  <label>Original price (৳)<input name="was" type="number" min="0" step="1" value="${p.was||''}"><small>Fill in to show a sale</small></label>
+  <label>Stock<input name="stock" type="number" min="0" step="1" required value="${esc(p.stock??0)}"></label></div>
+  <div class="g3"><label>Badge<select name="badge"><option value="">None</option><option value="new" ${sel('new',p.badge)}>New</option><option value="best" ${sel('best',p.badge)}>Best seller</option></select></label>
+  <label>Finish<select name="finish">${['silver','black','gold','rose gold','mixed'].map(f=>`<option ${sel(f,p.finish)}>${f}</option>`).join('')}</select></label>
+  <label>Material<input name="material" value="${esc(p.material)}"></label></div>
+  <fieldset><legend>Styles</legend>${D.styles.map(s=>`<label class="chk"><input type="checkbox" name="styles" value="${esc(s.id)}" ${(p.styles||[]).includes(s.id)?'checked':''}> ${esc(s.name)}</label>`).join('')||'<small>Add styles first.</small>'}</fieldset>
+  <label>Description<textarea name="desc" rows="3">${esc(p.desc)}</textarea></label>
+  <div class="g2"><label>Option name<input name="optLabel" placeholder="Size" value="${esc(p.options&&p.options.label||'')}"></label><label>Option values, comma separated<input name="optVals" placeholder="S, M, L" value="${esc((p.options&&p.options.vals||[]).join(', '))}"></label></div>
+  <div class="row"><label class="chk"><input type="checkbox" name="drop" ${p.drop?'checked':''}> Part of the limited drop</label><label class="chk"><input type="checkbox" name="active" ${p.active!==false?'checked':''}> Visible in store</label></div>
+  <div><span class="lab mute">Photos (first one is the main image, second shows on hover)</span><div id="m-imgs" class="imgs" style="margin-top:8px"></div>
+  <div class="row"><label class="btn small" style="display:inline-flex">Upload photos<input type="file" id="m-file" accept="image/*" multiple hidden></label><input id="m-url" type="url" placeholder="or paste an image URL" aria-label="Image URL"><button type="button" class="btn small" data-act="img-url">Add URL</button></div><p class="hint" id="m-st" style="margin-top:6px"></p></div>
+  <div class="m-f"><button type="button" class="btn" data-act="m-close">Cancel</button><button class="btn primary" type="submit">Save product</button></div></form>`,true);
+  imgGrid();
+}
+function imgGrid(){
+  const g=$('#m-imgs');if(!g)return;
+  g.innerHTML=mImgs.length?mImgs.map((u,i)=>`<div class="it">${i===0?'<span class="m">MAIN</span>':''}<img src="${esc(u)}" alt="Photo ${i+1}"><div class="bt"><button type="button" data-act="img-left" data-i="${i}" aria-label="Move earlier">←</button><button type="button" data-act="img-rm" data-i="${i}" aria-label="Remove photo">✕</button><button type="button" data-act="img-right" data-i="${i}" aria-label="Move later">→</button></div></div>`).join(''):'<p class="mute">No photos yet. The store shows placeholder artwork until you add one.</p>';
+}
+async function toBlob(file,max,q){
+  const bmp=await createImageBitmap(file),sc=Math.min(1,max/Math.max(bmp.width,bmp.height)),c=document.createElement('canvas');
+  c.width=Math.round(bmp.width*sc);c.height=Math.round(bmp.height*sc);
+  const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(bmp,0,0,c.width,c.height);
+  return new Promise(r=>c.toBlob(r,'image/jpeg',q));
+}
+async function uploadImage(file,folder){
+  if(uploadEndpoint){
+    try{
+      const blob=await toBlob(file,1600,.86),tok=await auth.currentUser.getIdToken();
+      const r=await fetch(uploadEndpoint,{method:'POST',headers:{authorization:'Bearer '+tok,'content-type':'image/jpeg','x-file-name':(file.name||'photo').replace(/\.\w+$/,'')+'.jpg'},body:blob});
+      const j=await r.json();if(!r.ok||!j.url)throw new Error(j.error||r.status);return j.url;
+    }catch(e){console.warn(e);toast('UploadThing upload failed: '+e.message,true);throw e}
+  }
+  if(imageMode==='storage'){
+    try{
+      const blob=await toBlob(file,1600,.86),r=S.ref(storage,`${folder}/${Date.now()}-${Math.random().toString(36).slice(2,7)}.jpg`);
+      await S.uploadBytes(r,blob,{contentType:'image/jpeg'});return await S.getDownloadURL(r);
+    }catch(e){console.warn(e);toast('Storage upload failed. Saving the photo inside the document instead.',true)}
+  }
+  const blob=await toBlob(file,900,.72);
+  return await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(blob)});
+}
+
+/* taxonomy (categories + styles) */
+function taxView(kind,title){
+  const l=[...D[kind]].sort((a,b)=>(a.order??0)-(b.order??0));
+  return `<div class="head"><h1>${title}</h1><button class="btn primary" data-act="tax-new" data-kind="${kind}">Add ${kind==='styles'?'style':'category'}</button></div>
+  ${l.length?`<div class="tw"><table><thead><tr><th></th><th>Name</th><th>Description</th><th>Products</th><th class="num">Order</th><th></th></tr></thead><tbody>${l.map(c=>{const n=D.products.filter(p=>kind==='styles'?(p.styles||[]).includes(c.id):p.cat===c.id).length;return `<tr><td style="width:64px">${c.image?`<img class="th" src="${esc(c.image)}" alt="" loading="lazy">`:'<span class="th">Auto</span>'}</td><td><b>${esc(c.name)}</b><br><span class="mono mute">${esc(c.id)}</span></td><td>${esc(c.desc)}</td><td>${n}</td><td class="num">${c.order??0}</td><td class="act"><button class="btn small" data-act="tax-edit" data-kind="${kind}" data-id="${c.id}">Edit</button><button class="btn small danger" data-act="tax-del" data-kind="${kind}" data-id="${c.id}">Delete</button></td></tr>`}).join('')}</tbody></table></div>`:'<p class="empty">Nothing here yet.</p>'}`;
+}
+function imgField(name,val){
+  return `<div class="imgf"><div class="row"><input name="${name}" type="url" value="${esc(val||'')}" placeholder="Image URL (optional)" aria-label="${name}"><label class="btn small" style="display:inline-flex">Upload<input type="file" accept="image/*" hidden data-up="${name}"></label></div>${val?`<img src="${esc(val)}" alt="">`:''}</div>`;
+}
+function taxModal(kind,c){
+  const isNew=!c,one=kind==='styles'?'style':'category';
+  c=c||{id:'',name:'',desc:'',rep:'',image:'',order:Math.max(-1,...D[kind].map(x=>x.order??0))+1};
+  modal((isNew?'Add ':'Edit ')+one,`<form id="tform" data-kind="${kind}" data-id="${esc(c.id)}" data-new="${isNew}">
+  <label>Name<input name="name" required value="${esc(c.name)}"></label>
+  <label>Short description<input name="desc" value="${esc(c.desc)}"></label>
+  <label>Cover product (used for the tile when there is no image)<select name="rep"><option value="">First product</option>${D.products.map(p=>`<option value="${esc(p.id)}" ${sel(p.id,c.rep)}>${esc(p.name)}</option>`).join('')}</select></label>
+  <div><span class="lab mute">Tile image (optional)</span>${imgField('image',c.image)}</div>
+  <label>Sort order<input name="order" type="number" step="1" value="${c.order??0}"></label>
+  <div class="m-f"><button type="button" class="btn" data-act="m-close">Cancel</button><button class="btn primary" type="submit">Save</button></div></form>`);
+}
+
+/* orders */
+const STATUS=['new','confirmed','shipped','delivered','cancelled'];
+const statusTag=s=>`<span class="tag ${s==='new'?'new':s==='delivered'?'ok':s==='cancelled'?'bad':'warn'}">${esc(s||'new')}</span>`;
+function orderList(){
+  const l=D.orders.filter(o=>ui.ost==='all'||o.status===ui.ost);
+  if(!l.length)return '<p class="empty">No orders.</p>';
+  return `<div class="tw"><table><thead><tr><th>Order</th><th>Date</th><th>Customer</th><th>Phone</th><th>Items</th><th class="num">Total</th><th>Status</th></tr></thead><tbody>${l.map(o=>`<tr><td><button data-act="ord-open" data-id="${o.id}"><b>${esc(o.no||o.id)}</b></button></td><td>${fmtDate(o.createdAt)}</td><td>${esc(o.customer&&o.customer.name)}<br><span class="mute">${esc(o.customer&&o.customer.district)}</span></td><td>${esc(o.customer&&o.customer.phone)}</td><td>${(o.items||[]).reduce((a,i)=>a+i.qty,0)}</td><td class="num">${money(o.totals&&o.totals.total)}</td><td>${statusTag(o.status)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function orderModal(o){
+  const c=o.customer||{},t=o.totals||{};
+  modal('Order '+(o.no||o.id),`<dl class="kv"><dt>Placed</dt><dd>${fmtDate(o.createdAt)}</dd><dt>Customer</dt><dd>${esc(c.name)}</dd><dt>Phone</dt><dd>${esc(c.phone)}</dd><dt>Address</dt><dd>${esc(c.addr)}, ${esc(c.district)}</dd><dt>Payment</dt><dd>${esc({cod:'Cash on delivery',bkash:'bKash',nagad:'Nagad'}[o.pay]||o.pay)}</dd>${o.promo?`<dt>Code</dt><dd>${esc(o.promo)}</dd>`:''}</dl>
+  <div class="tw"><table style="min-width:0"><thead><tr><th>Item</th><th>Option</th><th class="num">Qty</th><th class="num">Price</th></tr></thead><tbody>${(o.items||[]).map(i=>`<tr><td>${esc(i.name)}</td><td>${esc(i.opt||'—')}</td><td class="num">${i.qty}</td><td class="num">${money(i.price*i.qty)}</td></tr>`).join('')}</tbody></table></div>
+  <dl class="kv"><dt>Subtotal</dt><dd>${money(t.sub)}</dd>${t.promo?`<dt>Discount</dt><dd>−${money(t.promo)}</dd>`:''}<dt>Delivery</dt><dd>${t.ship?money(t.ship):'Free'}</dd><dt>Total</dt><dd><b>${money(t.total)}</b></dd></dl>
+  <label>Status<select id="o-status" data-id="${o.id}">${STATUS.map(s=>`<option ${sel(s,o.status)}>${s}</option>`).join('')}</select></label>
+  <div class="m-f"><button class="btn danger" data-act="ord-del" data-id="${o.id}">Delete order</button><button class="btn" data-act="m-close">Close</button></div>`,true);
+}
+
+/* reviews */
+function reviewModal(r){
+  const isNew=!r;r=r||{name:'',rating:5,text:'',productId:'',published:true};
+  modal(isNew?'Add review':'Edit review',`<form id="rform" data-id="${esc(r.id||'')}">
+  <div class="g2"><label>Customer name<input name="name" required value="${esc(r.name)}"></label><label>Rating<select name="rating">${[5,4,3,2,1].map(n=>`<option ${sel(n,r.rating)}>${n}</option>`).join('')}</select></label></div>
+  <label>Product<select name="productId"><option value="">None</option>${D.products.map(p=>`<option value="${esc(p.id)}" ${sel(p.id,r.productId)}>${esc(p.name)}</option>`).join('')}</select></label>
+  <label>Review<textarea name="text" rows="4" required>${esc(r.text)}</textarea></label>
+  <label class="chk"><input type="checkbox" name="published" ${r.published?'checked':''}> Published on the store</label>
+  <div class="m-f"><button type="button" class="btn" data-act="m-close">Cancel</button><button class="btn primary" type="submit">Save review</button></div></form>`);
+}
+
+/* settings */
+const SET=[
+ ['Announcement bar',[['announcements','Messages, one per line','lines']]],
+ ['Hero',[['heroEyebrow','Small line above the headline'],['heroLine1','Headline line 1'],['heroLine2','Headline line 2'],['heroCopy','Supporting copy','area'],['heroTag','Tag at the bottom of the hero']]],
+ ['Delivery and discounts',[['freeShip','Free delivery above (৳)','number'],['shipDhaka','Delivery inside Dhaka (৳)','number'],['shipOther','Delivery outside Dhaka (৳)','number'],['promoCode','Promo code (leave empty to disable)'],['promoPct','Promo discount (%)','number']]],
+ ['Limited drop',[['dropEyebrow','Small label'],['dropTitle','Title (new line allowed)','area'],['dropLead','Description','area'],['dropEnds','Ends at','datetime']]],
+ ['About',[['aboutHeadline','Headline'],['aboutP1','Paragraph 1','area'],['aboutP2','Paragraph 2','area']]],
+ ['Contact',[['instagram','Instagram URL'],['whatsapp','WhatsApp number (digits, with country code, e.g. 8801XXXXXXXXX)'],['email','Email (optional)']]],
+ ['Feature images',[['imgDark','The Dark Edit image','image'],['imgSignature','Signature Details image','image'],['imgAfterdark','After Dark image','image'],['imgDrop','Limited drop image','image'],['imgStyles','Shop by style tile image','image']]],
+ ['Policies (one paragraph per line)',[['policy_shipping','Shipping','area6'],['policy_returns','Returns and refunds','area6'],['policy_sizing','Size guide','area6'],['policy_privacy','Privacy policy','area6'],['policy_terms','Terms of service','area6']]]
+];
+const toLocalIn=iso=>{if(!iso)return '';const d=new Date(iso);if(isNaN(d))return '';const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`};
+function settingsView(){
+  const s={...SEED.settings,...(D.settings||{})};
+  const field=([k,l,t])=>{
+    const v=s[k]??'';
+    if(t==='lines')return `<label>${l}<textarea name="${k}" rows="4">${esc((Array.isArray(v)?v:[]).join('\n'))}</textarea></label>`;
+    if(t==='area'||t==='area6')return `<label>${l}<textarea name="${k}" rows="${t==='area6'?6:3}">${esc(v)}</textarea></label>`;
+    if(t==='number')return `<label>${l}<input name="${k}" type="number" step="1" value="${esc(v)}"></label>`;
+    if(t==='datetime')return `<label>${l}<input name="${k}" type="datetime-local" value="${toLocalIn(v)}"></label>`;
+    if(t==='image')return `<div><span class="lab mute">${l}</span>${imgField(k,v)}</div>`;
+    return `<label>${l}<input name="${k}" value="${esc(v)}"></label>`;
+  };
+  return `<div class="head"><h1>Settings</h1></div>${D.settings?'':'<p class="hint" style="margin-bottom:14px">Nothing is saved yet. Saving creates the settings document and switches the store to live data.</p>'}
+  <form id="sform" style="display:grid;gap:18px;max-width:760px">${SET.map(([t,f])=>`<h2 class="sec-t">${t}</h2>${f.map(field).join('')}`).join('')}
+  <div class="m-f" style="justify-content:flex-start"><button class="btn primary" type="submit">Save settings</button></div></form>
+  <div class="panel" style="margin-top:34px;max-width:760px"><h2>Sample data</h2><div class="pad"><p class="mute">Writes the sample categories, styles, products and default settings. Items with the same ID are overwritten.</p><div><button class="btn danger" data-act="seed">Import sample catalogue</button></div></div></div>`;
+}
+
+/* ---------- modal ---------- */
+function modal(title,body,wide){
+  const m=$('#modal');m.innerHTML=`<div class="m-card ${wide?'wide':''}" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="m-h"><h2>${esc(title)}</h2><button class="x" data-act="m-close" aria-label="Close">×</button></div><div class="m-b">${body}</div></div>`;
+  m.hidden=false;document.documentElement.classList.add('lock');
+  setTimeout(()=>{const f=$('input:not([type=hidden]):not([hidden]),select,textarea,button.btn',m);if(f)f.focus()},30);
+}
+function closeModal(){const m=$('#modal');m.hidden=true;m.innerHTML='';document.documentElement.classList.remove('lock')}
+
+/* ---------- csv ---------- */
+function csv(name,rows){
+  const t=rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+t],{type:'text/csv'}));a.download=name;document.body.appendChild(a);a.click();a.remove();
+}
+
+/* ---------- seed ---------- */
+async function seedAll(){
+  if(!confirm('Import the sample catalogue? Items with the same ID will be overwritten.'))return;
+  try{
+    const b=F.writeBatch(db);
+    b.set(dref('settings','site'),{...SEED.settings,...(D.settings||{})},{merge:true});
+    SEED.categories.forEach(c=>{const {id,...r}=c;b.set(dref('categories',id),r)});
+    SEED.styles.forEach(c=>{const {id,...r}=c;b.set(dref('styles',id),r)});
+    SEED.products.forEach(c=>{const {id,...r}=c;b.set(dref('products',id),{...r,createdAt:F.serverTimestamp()})});
+    await b.commit();toast('Sample catalogue imported');
+  }catch(e){toast(errMsg(e),true)}
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('[data-act]');if(!t)return;
+  const a=t.dataset.act,id=t.dataset.id;
+  try{
+  switch(a){
+   case 'login-fb':return social(new A.FacebookAuthProvider());
+   case 'login-g':return social(new A.GoogleAuthProvider());
+   case 'logout':return A.signOut(auth);
+   case 'copy-uid':try{await navigator.clipboard.writeText($('#uid').textContent);toast('Copied')}catch(_){const r=document.createRange();r.selectNodeContents($('#uid'));getSelection().removeAllRanges();getSelection().addRange(r)}return;
+   case 'm-close':return closeModal();
+   case 'seed':return seedAll();
+   // products
+   case 'prod-new':return productModal();
+   case 'prod-edit':return productModal(D.products.find(p=>p.id===id));
+   case 'prod-toggle':{const p=D.products.find(x=>x.id===id);await F.updateDoc(dref('products',id),{active:p.active===false});return}
+   case 'prod-del':if(confirm('Delete this product? This cannot be undone.')){await F.deleteDoc(dref('products',id));toast('Product deleted')}return;
+   case 'img-url':{const i=$('#m-url'),u=i.value.trim();if(!/^https?:\/\//i.test(u)){toast('Paste a full image URL starting with https://',true);return}mImgs.push(u);i.value='';imgGrid();return}
+   case 'img-rm':mImgs.splice(+t.dataset.i,1);return imgGrid();
+   case 'img-left':{const i=+t.dataset.i;if(i>0){[mImgs[i-1],mImgs[i]]=[mImgs[i],mImgs[i-1]];imgGrid()}return}
+   case 'img-right':{const i=+t.dataset.i;if(i<mImgs.length-1){[mImgs[i+1],mImgs[i]]=[mImgs[i],mImgs[i+1]];imgGrid()}return}
+   // taxonomy
+   case 'tax-new':return taxModal(t.dataset.kind);
+   case 'tax-edit':return taxModal(t.dataset.kind,D[t.dataset.kind].find(c=>c.id===id));
+   case 'tax-del':{const k=t.dataset.kind,n=D.products.filter(p=>k==='styles'?(p.styles||[]).includes(id):p.cat===id).length;
+     if(confirm(n?`${n} product(s) use this. They will be hidden from the store (categories) or lose the tag (styles) until you reassign them. Delete anyway?`:'Delete this item?')){await F.deleteDoc(dref(k,id));toast('Deleted')}return}
+   // orders
+   case 'ord-open':return orderModal(D.orders.find(o=>o.id===id));
+   case 'ord-del':if(confirm('Delete this order permanently?')){await F.deleteDoc(dref('orders',id));closeModal();toast('Order deleted')}return;
+   case 'ord-export':return csv('orders.csv',[['Order','Date','Name','Phone','District','Address','Payment','Items','Subtotal','Discount','Delivery','Total','Status']].concat(D.orders.map(o=>{const c=o.customer||{},t2=o.totals||{};return [o.no,fmtDate(o.createdAt),c.name,c.phone,c.district,c.addr,o.pay,(o.items||[]).map(i=>`${i.qty}x ${i.name}${i.opt?' ('+i.opt+')':''}`).join('; '),t2.sub,t2.promo,t2.ship,t2.total,o.status]})));
+   // reviews
+   case 'rev-new':return reviewModal();
+   case 'rev-edit':return reviewModal(D.reviews.find(r=>r.id===id));
+   case 'rev-pub':{const r=D.reviews.find(x=>x.id===id);await F.updateDoc(dref('reviews',id),{published:!r.published});return}
+   case 'rev-del':if(confirm('Delete this review?')){await F.deleteDoc(dref('reviews',id));toast('Review deleted')}return;
+   // subscribers
+   case 'sub-del':await F.deleteDoc(dref('subscribers',id));return toast('Removed');
+   case 'sub-export':return csv('subscribers.csv',[['Email','Joined']].concat(D.subscribers.map(s=>[s.email,fmtDate(s.createdAt)])));
+   // admins
+   case 'adm-del':if(confirm('Remove this admin?')){await F.deleteDoc(dref('admins',id));toast('Admin removed')}return;
+  }
+  }catch(err){console.warn(err);toast(errMsg(err),true)}
+});
+
+document.addEventListener('submit',async e=>{
+  const f=e.target;e.preventDefault();
+  try{
+  if(f.id==='login-form'){
+    const m=$('#login-err');m.textContent='';
+    try{await A.signInWithEmailAndPassword(auth,f.email.value.trim(),f.password.value)}catch(er){m.textContent=AUTHERR[er.code]||er.message}
+    return;
+  }
+  if(f.id==='pform'){
+    const fd=new FormData(f),isNew=f.dataset.new==='true';let id=f.dataset.id;
+    const name=fd.get('name').trim();if(!name)return;
+    if(isNew){id=slug(name)||'item';let n=id,i=2;while(D.products.some(p=>p.id===n))n=id+'-'+i++;id=n}
+    const vals=String(fd.get('optVals')||'').split(',').map(x=>x.trim()).filter(Boolean);
+    const price=Number(fd.get('price')),was=Number(fd.get('was'))||0;
+    if(!(price>0)){toast('Enter a price above zero',true);return}
+    const data={name,cat:fd.get('cat'),price,was:was>price?was:0,stock:Math.max(0,Math.floor(Number(fd.get('stock'))||0)),badge:fd.get('badge'),finish:fd.get('finish'),material:fd.get('material').trim(),
+      styles:fd.getAll('styles'),desc:fd.get('desc').trim(),options:vals.length?{label:fd.get('optLabel').trim()||'Option',vals}:null,
+      drop:fd.has('drop'),active:fd.has('active'),images:mImgs,updatedAt:F.serverTimestamp()};
+    if(isNew){data.order=Math.max(-1,...D.products.map(x=>x.order??0))+1;data.createdAt=F.serverTimestamp();data.art=null}
+    const total=JSON.stringify(mImgs).length;
+    if(total>800000){toast('Photos are too large for one document. Use Storage or paste image URLs.',true);return}
+    await F.setDoc(dref('products',id),data,{merge:true});
+    closeModal();toast('Product saved');return;
+  }
+  if(f.id==='tform'){
+    const fd=new FormData(f),kind=f.dataset.kind,isNew=f.dataset.new==='true';let id=f.dataset.id;
+    const name=fd.get('name').trim();if(!name)return;
+    if(isNew){id=slug(name)||'item';let n=id,i=2;while(D[kind].some(p=>p.id===n))n=id+'-'+i++;id=n}
+    await F.setDoc(dref(kind,id),{name,desc:fd.get('desc').trim(),rep:fd.get('rep'),image:fd.get('image').trim(),order:Number(fd.get('order'))||0},{merge:true});
+    closeModal();toast('Saved');return;
+  }
+  if(f.id==='rform'){
+    const fd=new FormData(f),id=f.dataset.id,data={name:fd.get('name').trim(),rating:Number(fd.get('rating')),productId:fd.get('productId'),text:fd.get('text').trim(),published:fd.has('published')};
+    if(id)await F.updateDoc(dref('reviews',id),data);else await F.addDoc(col('reviews'),{...data,createdAt:F.serverTimestamp()});
+    closeModal();toast('Review saved');return;
+  }
+  if(f.id==='aform'){
+    const fd=new FormData(f),uid=fd.get('uid').trim();if(!uid)return;
+    await F.setDoc(dref('admins',uid),{email:fd.get('email').trim(),addedBy:user.uid,addedAt:F.serverTimestamp()});
+    f.reset();toast('Admin added');return;
+  }
+  if(f.id==='sform'){
+    const fd=new FormData(f),out={};
+    for(const [,fields] of SET)for(const [k,,t] of fields){
+      const v=fd.get(k);
+      if(t==='lines')out[k]=String(v||'').split('\n').map(x=>x.trim()).filter(Boolean);
+      else if(t==='number')out[k]=Number(v)||0;
+      else if(t==='datetime')out[k]=v?new Date(v).toISOString():'';
+      else out[k]=String(v??'').trim();
+    }
+    out.updatedAt=F.serverTimestamp();
+    await F.setDoc(dref('settings','site'),out,{merge:true});toast('Settings saved');return;
+  }
+  }catch(err){console.warn(err);toast(errMsg(err),true)}
+});
+
+document.addEventListener('input',e=>{
+  if(e.target.id==='f-q'){ui.q=e.target.value;const l=$('#list');if(l)l.innerHTML=productList()}
+});
+document.addEventListener('change',async e=>{
+  const t=e.target;
+  try{
+  if(t.id==='f-cat'){ui.cat=t.value;const l=$('#list');if(l)l.innerHTML=productList();return}
+  if(t.id==='f-ost'){ui.ost=t.value;const l=$('#list');if(l)l.innerHTML=orderList();return}
+  if(t.id==='o-status'){await F.updateDoc(dref('orders',t.dataset.id),{status:t.value});toast('Status updated');return}
+  if(t.id==='m-file'){
+    const st=$('#m-st');let n=0;
+    for(const file of t.files){n++;st.textContent=`Uploading ${n} of ${t.files.length}…`;mImgs.push(await uploadImage(file,'products'));imgGrid()}
+    st.textContent='Done. Save the product to keep the photos.';t.value='';return;
+  }
+  if(t.dataset.up){
+    const inp=$(`input[name="${t.dataset.up}"]`,t.closest('.imgf'));if(!t.files[0])return;
+    inp.value=await uploadImage(t.files[0],'site');
+    let img=$('img',t.closest('.imgf'));if(!img){img=document.createElement('img');img.alt='';t.closest('.imgf').appendChild(img)}img.src=inp.value;t.value='';
+  }
+  }catch(err){console.warn(err);toast(errMsg(err),true)}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#modal').hidden)closeModal()});
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+}
+</script>
+</body></html>
