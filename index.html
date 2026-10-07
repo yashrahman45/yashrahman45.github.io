@@ -1,301 +1,1876 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leave A Wish ❤️ — Tamim & Rifat </title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-<style>
-:root{
-  --cream:#f5ede0;
-  --rose:#c9836a;
-  --dusty-rose:#e8c4b0;
-  --deep:#1e1008;
-  --warm-brown:#5c3520;
-  --amber:#d4956a;
-  --mist:#8fa89a;
-  --night:#0d0805;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--night);color:var(--dusty-rose);font-family:'EB Garamond',serif;min-height:100vh;overflow-x:hidden;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(name) | Curated Second-Hand Archive & Luxury Thrift</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-/* ─── LOADER ─── */
-#pageLoader{position:fixed;inset:0;z-index:99999;background:var(--night);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;transition:opacity .6s ease,visibility .6s ease;}
-#pageLoader.hide{opacity:0;visibility:hidden;pointer-events:none;}
-.pl-name{font-family:'Great Vibes',cursive;font-size:clamp(2.5rem,10vw,5rem);color:var(--rose);animation:plPulse 1.5s ease infinite;}
-@keyframes plPulse{0%,100%{opacity:.4;transform:scale(.97);}50%{opacity:1;transform:scale(1);}}
-.pl-bar{width:160px;height:2px;background:rgba(201,131,106,.15);border-radius:100px;overflow:hidden;margin-top:1rem;}
-.pl-fill{height:100%;background:linear-gradient(to right,var(--rose),var(--amber));border-radius:100px;animation:plFill 1.8s ease forwards;}
-@keyframes plFill{0%{width:0%}100%{width:100%}}
-.pl-sub{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,196,176,.4);font-style:italic;}
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FBFBF9',
+                        'cream-dark': '#F4F4EE',
+                        'cream-card': '#FAF9F5',
+                        charcoal: '#111111',
+                        'charcoal-light': '#2A2A2A',
+                        muted: '#666660',
+                        'subtle-border': '#E6E5DF',
+                        accent: '#8C2D19',
+                        'accent-soft': '#F5EBE8'
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FBFBF9;
+            color: #111111;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .font-serif-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
 
-/* ─── GRAIN OVERLAY ─── */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4;}
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FBFBF9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4D3CC;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B0AFA6;
+        }
 
-/* ─── PETALS ─── */
-.petal{position:fixed;width:8px;height:12px;background:radial-gradient(ellipse,#e8c4b044,#c9836a22);border-radius:50% 0 50% 0;pointer-events:none;z-index:100;animation:fall linear infinite;opacity:0;}
-@keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:0;}8%{opacity:0.6;}90%{opacity:0.2;}100%{transform:translateY(110vh) rotate(720deg) translateX(50px);opacity:0;}}
+        /* Image reveal & smooth zoom effects */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom-container img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-zoom-container:hover img {
+            transform: scale(1.05);
+        }
 
-/* ─── HERO ─── */
-.hero{text-align:center;padding:5rem 2rem 3rem;position:relative;}
-.hero-sub{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;}
-.hero-title{font-family:'Great Vibes',cursive;font-size:clamp(3rem,12vw,6rem);color:var(--amber);line-height:1.1;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
-.hero-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,3vw,1.25rem);color:var(--dusty-rose);max-width:480px;margin:1.5rem auto 0;line-height:1.9;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;}
-.hero-divider{width:80px;height:1px;background:linear-gradient(to right,transparent,var(--rose),transparent);margin:2rem auto 0;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+        /* Hover secondary image switch */
+        .product-card .secondary-img {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .product-card:hover .secondary-img {
+            opacity: 1;
+        }
 
-/* ─── NOTICE BANNER ─── */
-.notice-banner{background:rgba(201,131,106,0.08);border:1px solid rgba(201,131,106,0.2);border-radius:4px;padding:1rem 1.5rem;max-width:560px;margin:0 auto 1.5rem;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.95rem;color:var(--amber);line-height:1.6;}
-.notice-banner strong{font-style:normal;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:0.3rem;color:var(--rose);}
+        /* Drawer overlay transition */
+        .drawer-backdrop {
+            background-color: rgba(17, 17, 17, 0.4);
+            backdrop-filter: blur(4px);
+            transition: opacity 0.3s ease-in-out;
+        }
 
-/* ─── FORM CARD ─── */
-.form-wrap{max-width:560px;margin:0 auto;padding:0 1.5rem 5rem;}
-.form-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,131,106,0.2);border-radius:4px;padding:2.5rem;position:relative;opacity:0;animation:fadeUp 0.8s ease 1s forwards;}
-.form-card::before{content:'';position:absolute;inset:0;border-radius:4px;background:radial-gradient(ellipse at 30% 0%,rgba(201,131,106,0.06),transparent 60%);pointer-events:none;}
-.field{margin-bottom:1.5rem;}
-.field label{display:block;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.6rem;}
-.field input,.field textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,131,106,0.25);padding:0.8rem 1rem;font-family:'EB Garamond',serif;font-size:1rem;color:var(--dusty-rose);outline:none;border-radius:2px;transition:border-color 0.3s;resize:none;}
-.field input:focus,.field textarea:focus{border-color:var(--rose);}
-.field input::placeholder,.field textarea::placeholder{color:rgba(232,196,176,0.3);font-style:italic;}
-.field textarea{min-height:120px;line-height:1.7;}
+        .drawer-content {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-/* ─── EMOJI PICKER ─── */
-.emoji-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-bottom:0.6rem;display:block;}
-.emoji-grid{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem;}
-.emoji-opt{width:44px;height:44px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,131,106,0.2);border-radius:4px;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
-.emoji-opt:hover{border-color:var(--rose);background:rgba(201,131,106,0.1);}
-.emoji-opt.selected{border-color:var(--amber);background:rgba(212,149,106,0.2);transform:scale(1.1);}
+        /* Editorial typography rules */
+        .editorial-heading {
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+        }
 
-/* ─── SUBMIT ─── */
-.submit-btn{width:100%;background:transparent;border:1px solid var(--rose);color:var(--rose);font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.9rem;cursor:pointer;border-radius:2px;transition:all 0.3s;position:relative;overflow:hidden;}
-.submit-btn::before{content:'';position:absolute;inset:0;background:var(--rose);transform:translateX(-100%);transition:transform 0.3s ease;z-index:-1;}
-.submit-btn:hover{color:var(--cream);}
-.submit-btn:hover::before{transform:translateX(0);}
-.submit-btn:disabled{opacity:0.5;cursor:not-allowed;}
-.submit-msg{text-align:center;margin-top:1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--amber);opacity:0;transition:opacity 0.4s;}
-.submit-msg.show{opacity:1;}
-
-/* ─── WISHES FEED ─── */
-.wishes-section{max-width:560px;margin:2rem auto 0;padding:0 1.5rem;}
-.wishes-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-style:italic;color:var(--cream);margin-bottom:1.5rem;text-align:center;}
-.wishes-title span{color:var(--rose);}
-.wish-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,131,106,0.15);padding:1.5rem;margin-bottom:1rem;border-radius:2px;animation:fadeUp 0.5s ease forwards;opacity:0;position:relative;}
-.wish-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--rose);opacity:0.4;}
-.wish-emoji{font-size:1.6rem;margin-bottom:0.6rem;display:block;}
-.wish-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--amber);margin-bottom:0.4rem;}
-.wish-message{font-size:1rem;line-height:1.7;color:var(--dusty-rose);white-space:pre-wrap;}
-.wish-date{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-top:0.8rem;opacity:0.7;}
-.wishes-empty{text-align:center;font-style:italic;color:var(--mist);font-size:1rem;padding:2rem;}
-
-/* ─── FOOTER ─── */
-footer{text-align:center;padding:3rem 2rem;font-family:'Great Vibes',cursive;font-size:2rem;color:var(--rose);opacity:0.6;}
-</style>
+        /* Badge pulse animation */
+        @keyframes softPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); }
+        }
+        .animate-soft-pulse {
+            animation: softPulse 3s infinite ease-in-out;
+        }
+    </style>
 </head>
-<body>
+<body class="selection:bg-charcoal selection:text-cream relative min-h-screen flex flex-col">
 
-<!-- ═══════════════════════════════════════════════════════
-     LOADER
-     → Change the name inside .pl-name to match the couple
-═══════════════════════════════════════════════════════ -->
-<div id="pageLoader">
-  <p class="pl-name">Tamim &amp; Rifat ❤️🌸</p>
-  <div class="pl-bar"><div class="pl-fill"></div></div>
-  <p class="pl-sub">Send Your Wishes ❤️</p>
-</div>
-
-<!-- Petals -->
-<script>
-for(let i=0;i<12;i++){
-  const p=document.createElement('div');
-  p.className='petal';
-  p.style.left=Math.random()*100+'vw';
-  p.style.animationDuration=(10+Math.random()*12)+'s';
-  p.style.animationDelay=(Math.random()*10)+'s';
-  document.body.appendChild(p);
-}
-</script>
-
-<!-- ═══════════════════════════════════════════════════════
-     HERO
-     → Edit hero-sub, hero-title, and hero-desc as needed
-═══════════════════════════════════════════════════════ -->
-<div class="hero">
-  <p class="hero-sub">You're Among The Trusted Few</p>
-  <h1 class="hero-title">Send Your Wish For<br>Tamim &amp; Rifat ❤️🌸</h1>
-  <p class="hero-desc">
-    We've made it one whole beautiful year together, alhamdulillah.
-    Leave a message, a memory, or just some love for us —
-    your wish will be shown on our anniversary page. 💕
-  </p>
-  <div class="hero-divider"></div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════
-     HOW WISHES WORK (template mode)
-     → This banner explains the manual system to your guests
-     → You can delete this block once you go live
-═══════════════════════════════════════════════════════ -->
-
-<!-- FORM -->
-<div class="form-wrap">
-  <div class="form-card">
-    <div class="field">
-      <label>Your Name</label>
-      <input type="text" id="guestName" placeholder="What do they call you?" maxlength="60">
+    <div id="announcement-bar" class="bg-charcoal text-cream text-[11px] tracking-widest uppercase py-2 px-4 text-center font-medium border-b border-charcoal-light flex justify-between items-center z-50 relative">
+        <div class="hidden md:block w-1/4 text-left font-mono text-[10px] text-neutral-400">ARCHIVE DROP 04 // LIMITED PIECES</div>
+        <div class="w-full md:w-2/4 flex items-center justify-center gap-2">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>Hand-Curated Thrifted Archive • Free Express Shipping on Orders Over ৳3,000</span>
+        </div>
+        <div class="hidden md:block w-1/4 text-right font-mono text-[10px] text-neutral-400">100% QUALITY CHECKED</div>
     </div>
-    <div class="field">
-      <label>Your Wish ❤️</label>
-      <textarea id="guestMessage" placeholder="Write something from the heart — a wish, a memory, a joke, anything..."></textarea>
+
+    <header class="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b border-subtle-border transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+            
+            <!-- Left: Mobile Menu Toggle & Desktop Nav -->
+            <div class="flex items-center gap-6 w-1/3">
+                <button id="mobile-menu-btn" class="lg:hidden text-charcoal hover:opacity-70 transition p-1" aria-label="Open menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                
+                <nav class="hidden lg:flex items-center gap-6 text-xs uppercase tracking-wider font-medium text-charcoal/80">
+                    <a href="#shop" class="hover:text-charcoal transition hover:underline underline-offset-8">Shop All</a>
+                    <a href="#categories" class="hover:text-charcoal transition hover:underline underline-offset-8">Categories</a>
+                    <a href="#office-siren" class="hover:text-charcoal transition hover:underline underline-offset-8 text-accent font-semibold">Office Siren</a>
+                    <a href="#philosophy" class="hover:text-charcoal transition hover:underline underline-offset-8">Philosophy</a>
+                    <a href="#care" class="hover:text-charcoal transition hover:underline underline-offset-8">Care Guide</a>
+                </nav>
+            </div>
+
+            <!-- Center: Brand Logo -->
+            <div class="w-1/3 text-center">
+                <a href="#" class="inline-block group">
+                    <span class="font-serif-title text-2xl sm:text-3xl md:text-4xl font-normal tracking-[0.2em] text-charcoal uppercase block leading-none">(name)</span>
+                    <span class="text-[9px] uppercase tracking-[0.3em] text-neutral-500 font-sans block mt-0.5">Thrift Archive</span>
+                </a>
+            </div>
+
+            <!-- Right: Actions (Search, Wishlist, Bag) -->
+            <div class="flex items-center justify-end gap-3 sm:gap-5 w-1/3">
+                <!-- Search Button -->
+                <button id="open-search-btn" class="p-2 text-charcoal hover:opacity-70 transition flex items-center gap-1.5" aria-label="Search items">
+                    <i data-lucide="search" class="w-5 h-5 stroke-[1.5]"></i>
+                    <span class="hidden xl:inline text-xs tracking-wider uppercase">Search</span>
+                </button>
+
+                <!-- Wishlist Trigger -->
+                <button id="open-wishlist-btn" class="p-2 text-charcoal hover:opacity-70 transition relative" aria-label="Wishlist">
+                    <i data-lucide="heart" class="w-5 h-5 stroke-[1.5]"></i>
+                    <span id="wishlist-count-badge" class="hidden absolute -top-1 -right-1 bg-charcoal text-cream text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Cart Bag Trigger -->
+                <button id="open-cart-btn" class="p-2 text-charcoal hover:opacity-70 transition relative flex items-center gap-2 border border-charcoal/20 px-3 py-1.5 rounded-none hover:border-charcoal bg-white/50" aria-label="Shopping Bag">
+                    <i data-lucide="shopping-bag" class="w-4 h-4 stroke-[1.5]"></i>
+                    <span class="text-xs uppercase tracking-wider font-semibold">Bag</span>
+                    <span id="cart-count-badge" class="bg-charcoal text-cream text-[10px] font-medium px-1.5 py-0.2 min-w-[18px] text-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="search-modal" class="fixed inset-0 z-50 hidden bg-cream/98 backdrop-blur-xl transition-all duration-300 flex flex-col p-6 md:p-12">
+        <div class="max-w-4xl mx-auto w-full flex justify-between items-center mb-8 border-b border-subtle-border pb-4">
+            <span class="text-xs uppercase tracking-widest font-mono text-neutral-500">Search Archive</span>
+            <button id="close-search-btn" class="p-2 text-charcoal hover:opacity-70">
+                <i data-lucide="x" class="w-6 h-6 stroke-[1.5]"></i>
+            </button>
+        </div>
+        <div class="max-w-3xl mx-auto w-full">
+            <div class="relative">
+                <input type="text" id="search-input" placeholder="Search by item, color, or style (e.g. Poplin, Silk, Desi, Blazer)..." 
+                    class="w-full bg-transparent text-2xl sm:text-3xl md:text-4xl font-serif-title border-b-2 border-charcoal pb-4 focus:outline-none placeholder:text-neutral-400">
+                <i data-lucide="arrow-right" class="absolute right-0 top-3 w-8 h-8 text-neutral-400"></i>
+            </div>
+            <div class="mt-8 flex flex-wrap gap-2 items-center">
+                <span class="text-xs uppercase tracking-wider font-medium text-neutral-400 mr-2">Popular Searches:</span>
+                <button class="search-tag text-xs border border-subtle-border px-3 py-1 hover:border-charcoal transition bg-white">Button-Down Poplin</button>
+                <button class="search-tag text-xs border border-subtle-border px-3 py-1 hover:border-charcoal transition bg-white">Office Siren</button>
+                <button class="search-tag text-xs border border-subtle-border px-3 py-1 hover:border-charcoal transition bg-white">White Silk</button>
+                <button class="search-tag text-xs border border-subtle-border px-3 py-1 hover:border-charcoal transition bg-white">Desi Kurti</button>
+                <button class="search-tag text-xs border border-subtle-border px-3 py-1 hover:border-charcoal transition bg-white">Vintage Leather Bag</button>
+            </div>
+            
+            <div id="search-results-container" class="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-h-[50vh] overflow-y-auto pr-2">
+                <!-- Search Live Results Rendered Here -->
+            </div>
+        </div>
     </div>
-    <span class="emoji-label">Pick A Vibe</span>
-    <div class="emoji-grid" id="emojiGrid">
-      <div class="emoji-opt selected" data-emoji="🌸" onclick="selectEmoji(this)">🌸</div>
-      <div class="emoji-opt" data-emoji="🎉" onclick="selectEmoji(this)">🎉</div>
-      <div class="emoji-opt" data-emoji="✨" onclick="selectEmoji(this)">✨</div>
-      <div class="emoji-opt" data-emoji="🥂" onclick="selectEmoji(this)">🥂</div>
-      <div class="emoji-opt" data-emoji="🌹" onclick="selectEmoji(this)">🌹</div>
-      <div class="emoji-opt" data-emoji="😂" onclick="selectEmoji(this)">😂</div>
-      <div class="emoji-opt" data-emoji="🌙" onclick="selectEmoji(this)">🌙</div>
-      <div class="emoji-opt" data-emoji="💌" onclick="selectEmoji(this)">💌</div>
+
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 hidden">
+        <div id="mobile-menu-backdrop" class="fixed inset-0 drawer-backdrop opacity-0"></div>
+        <div id="mobile-menu-content" class="fixed inset-y-0 left-0 max-w-xs w-full bg-cream p-6 border-r border-subtle-border drawer-content -translate-x-full flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center pb-6 border-b border-subtle-border">
+                    <span class="font-serif-title text-xl font-bold tracking-widest uppercase">(name)</span>
+                    <button id="close-mobile-menu-btn" class="p-2 text-charcoal">
+                        <i data-lucide="x" class="w-6 h-6 stroke-[1.5]"></i>
+                    </button>
+                </div>
+                <nav class="mt-8 flex flex-col gap-5 text-sm uppercase tracking-widest font-medium">
+                    <a href="#shop" class="mobile-nav-link hover:text-accent transition">Shop Archive</a>
+                    <a href="#categories" class="mobile-nav-link hover:text-accent transition">Categories</a>
+                    <a href="#office-siren" class="mobile-nav-link text-accent font-semibold flex items-center justify-between">
+                        <span>Office Siren Edit</span>
+                        <span class="text-[9px] bg-accent text-white px-2 py-0.5 rounded-none">Trending</span>
+                    </a>
+                    <a href="#philosophy" class="mobile-nav-link hover:text-accent transition">Philosophy</a>
+                    <a href="#care" class="mobile-nav-link hover:text-accent transition">Care & Quality Guide</a>
+                    <a href="#policy" class="mobile-nav-link hover:text-accent transition">Return Policy</a>
+                    <a href="#reviews" class="mobile-nav-link hover:text-accent transition">Client Reviews</a>
+                </nav>
+            </div>
+            <div class="pt-6 border-t border-subtle-border text-xs text-neutral-500 flex flex-col gap-2">
+                <p class="font-mono text-[10px]">DHAKA, BANGLADESH • EST. 2024</p>
+                <p>© 2026 (name) ARCHIVE STORE</p>
+            </div>
+        </div>
     </div>
-    <button class="submit-btn" id="submitBtn" onclick="submitWish()">Send My Wish 🌸</button>
-    <p class="submit-msg" id="submitMsg">Your wish has been received! 💕</p>
-  </div>
 
-  <div class="wishes-section" id="wishesSection">
-    <h3 class="wishes-title">Wishes so far <span>❤️</span></h3>
-    <div id="wishesFeed"></div>
-  </div>
-</div>
+    <section class="relative border-b border-subtle-border overflow-hidden bg-cream pt-8 sm:pt-12 pb-16 md:pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                <!-- Left Column: Editorial Headline & Copy -->
+                <div class="lg:col-span-7 flex flex-col justify-center pr-0 lg:pr-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-cream-dark border border-subtle-border w-fit mb-6 text-[11px] uppercase tracking-widest font-mono text-neutral-600">
+                        <span class="w-1.5 h-1.5 bg-accent rounded-full"></span>
+                        <span>Pre-Loved • Curated Archive Drop 04</span>
+                    </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     FOOTER
-     → Change the names and date
-═══════════════════════════════════════════════════════ -->
-<footer>Tamim &amp; Rifat — From 2011 June 23 to Forever ❤️🌸</footer>
+                    <h1 class="font-serif-title text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[0.95] tracking-tight text-charcoal mb-6 editorial-heading">
+                        Wear it again, <br><span class="italic font-light">beautifully.</span>
+                    </h1>
 
-<script>
-/* ═══════════════════════════════════════════════════════════════════
-   ★  MANUAL WISHES  ★
-   Add wishes here by copying the block format below.
-   Each wish needs: name, message, emoji, date (any readable string).
+                    <p class="text-neutral-600 text-sm sm:text-base md:text-lg max-w-xl font-light leading-relaxed mb-8">
+                        Thoughtfully sourced second-hand pieces. Each garment hand-picked for timeless silhouette, premium condition, and quiet vintage elegance.
+                    </p>
 
-   To add a new wish, paste this block inside the array and fill it in:
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                        <a href="#shop" class="bg-charcoal text-cream px-8 py-4 text-xs uppercase tracking-[0.2em] font-semibold text-center hover:bg-neutral-800 transition duration-300 flex items-center justify-center gap-3">
+                            <span>Explore the Edit</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#office-siren" class="border border-charcoal text-charcoal px-8 py-4 text-xs uppercase tracking-[0.2em] font-semibold text-center hover:bg-charcoal hover:text-cream transition duration-300">
+                            The Office Siren Edit
+                        </a>
+                    </div>
 
-   {
-     name:    "Friend's Name",
-     message: "Their message here.\nSecond line if needed.",
-     emoji:   "🌸",
-     date:    "18 March 2026"
-   },
+                    <!-- Editorial Stats Strip -->
+                    <div class="grid grid-cols-3 gap-6 pt-10 mt-10 border-t border-subtle-border text-center sm:text-left">
+                        <div>
+                            <span class="font-serif-title text-2xl sm:text-3xl text-charcoal block">100%</span>
+                            <span class="text-[10px] uppercase tracking-widest text-neutral-500 font-sans">Authenticated</span>
+                        </div>
+                        <div>
+                            <span class="font-serif-title text-2xl sm:text-3xl text-charcoal block">9.5+</span>
+                            <span class="text-[10px] uppercase tracking-widest text-neutral-500 font-sans">Condition Score</span>
+                        </div>
+                        <div>
+                            <span class="font-serif-title text-2xl sm:text-3xl text-charcoal block">1-of-1</span>
+                            <span class="text-[10px] uppercase tracking-widest text-neutral-500 font-sans">Unique Archive</span>
+                        </div>
+                    </div>
+                </div>
 
-═══════════════════════════════════════════════════════════════════ */
-const MANUAL_WISHES = [
-  {
-    name:    "Jabid",
-    message: "Happy 1 year to you guys, One year is not just a number it means patience understanding and choosing each other again and again That is something special And apa okay I will admit I am still a little mad at you for stealing my man but jokes aside I can see how much you both care about each other and that matters more than anything . There were times i saw my guy at the lowest and also at his highest becuase of you so take care of himm  No matter what I truly wish you both happiness peace and a relationship that keeps growing stronger with time May this be just the first of many anniversaries together Stay real stay happy and take care of each other always",
-    emoji:   "🌙",
-    date:    "15 March 2026"
-  },
-  {
-    name:    "Rafi",
-    message: "Bhai I never thought I'd see the day but here we are. She's clearly too good for you but somehow it works lmao. Love you both forreal ✨",
-    emoji:   "✨",
-    date:    "13 March 2026"
-  },
-  {
-    name:    "Nadia",
-    message: "You deserve every single bit of joy that comes your way. This one year is just the beginning of something truly beautiful. Proud of you and so happy for you. 🌸",
-    emoji:   "🌸",
-    date:    "12 March 2026"
-  },
-];
-/* ═══════════════════════════════════════════════════════════════════ */
+                <!-- Right Column: Editorial Visual Photo Collage -->
+                <div class="lg:col-span-5 relative mt-6 lg:mt-0">
+                    <div class="relative z-10 grid grid-cols-2 gap-4">
+                        <div class="img-zoom-container bg-cream-dark aspect-[3/4] border border-subtle-border shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1598554747436-c9293d6a588f?q=80&w=800&auto=format&fit=crop" 
+                                 alt="Editorial Fashion Poplin Shirt" class="w-full h-full object-cover">
+                        </div>
+                        <div class="img-zoom-container bg-cream-dark aspect-[3/4] border border-subtle-border shadow-sm mt-8">
+                            <img src="https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?q=80&w=800&auto=format&fit=crop" 
+                                 alt="Vintage Tailored Pants Editorial" class="w-full h-full object-cover">
+                        </div>
+                    </div>
 
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -left-6 bg-cream border border-charcoal p-4 z-20 shadow-xl hidden sm:block">
+                        <p class="font-serif-title text-lg italic font-semibold">"Slow Fashion, Timeless Taste."</p>
+                        <p class="text-[9px] uppercase tracking-widest text-neutral-500 mt-1 font-mono">(name) CURATED ARCHIVE</p>
+                    </div>
+                </div>
 
-/* ─── Session wishes (submitted this visit, not permanent) ─── */
-let sessionWishes = [];
-let selectedEmoji = '🌸';
+            </div>
+        </div>
+    </section>
 
-function selectEmoji(el) {
-  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedEmoji = el.dataset.emoji;
-}
+    <section id="categories" class="py-16 md:py-20 border-b border-subtle-border bg-cream-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 pb-4 border-b border-subtle-border">
+                <div>
+                    <span class="text-[10px] uppercase tracking-[0.25em] font-mono text-neutral-500 block mb-1">01 / ARCHIVE DIRECTORY</span>
+                    <h2 class="font-serif-title text-3xl sm:text-4xl md:text-5xl font-normal text-charcoal">Browse Categories</h2>
+                </div>
+                <p class="text-xs text-neutral-500 uppercase tracking-widest mt-2 sm:mt-0">Click to filter store archive</p>
+            </div>
 
-function escHtml(s) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/\n/g, '<br>');
-}
+            <!-- Categories Grid (7 Core Categories from (name)) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4" id="category-cards-grid">
+                <!-- 01 Button-Downs -->
+                <button data-category="button-downs" class="category-card-btn group text-left bg-cream p-4 sm:p-5 border border-subtle-border hover:border-charcoal transition-all duration-300 flex flex-col justify-between h-40">
+                    <div class="flex justify-between items-start">
+                        <span class="font-mono text-[11px] text-neutral-400 group-hover:text-charcoal transition">01</span>
+                        <span class="text-base text-neutral-600 group-hover:text-charcoal transition">◻</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-title text-lg font-medium text-charcoal group-hover:underline underline-offset-4">Button-Downs</h3>
+                        <p class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Oversized & Poplin</p>
+                    </div>
+                </button>
 
-function formatDate(d) {
-  if (typeof d === 'string') return d;
-  return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-}
+                <!-- 02 All White -->
+                <button data-category="all-white" class="category-card-btn group text-left bg-cream p-4 sm:p-5 border border-subtle-border hover:border-charcoal transition-all duration-300 flex flex-col justify-between h-40">
+                    <div class="flex justify-between items-start">
+                        <span class="font-mono text-[11px] text-neutral-400 group-hover:text-charcoal transition">02</span>
+                        <span class="text-base text-neutral-600 group-hover:text-charcoal transition">○</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-title text-lg font-medium text-charcoal group-hover:underline underline-offset-4">All White</h3>
+                        <p class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Monochrome Edit</p>
+                    </div>
+                </button>
 
-function renderWishes() {
-  const feed = document.getElementById('wishesFeed');
-  const all = [...sessionWishes, ...MANUAL_WISHES];
+                <!-- 03 Desi Wear -->
+                <button data-category="desi-wear" class="category-card-btn group text-left bg-cream p-4 sm:p-5 border border-subtle-border hover:border-charcoal transition-all duration-300 flex flex-col justify-between h-40">
+                    <div class="flex justify-between items-start">
+                        <span class="font-mono text-[11px] text-neutral-400 group-hover:text-charcoal transition">03</span>
+                        <span class="text-base text-neutral-600 group-hover:text-charcoal transition">❋</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-title text-lg font-medium text-charcoal group-hover:underline underline-offset-4">Desi Wear</h3>
+                        <p class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Kurtis & Handloom</p>
+                    </div>
+                </button>
 
-  if (!all.length) {
-    feed.innerHTML = '<p class="wishes-empty">Be the first to leave a wish! 🌸</p>';
-    return;
-  }
+                <!-- 04 Summer Tops -->
+                <button data-category="summer-tops" class="category-card-btn group text-left bg-cream p-4 sm:p-5 border border-subtle-border hover:border-charcoal transition-all duration-300 flex flex-col justify-between h-40">
+                    <div class="flex justify-between items-start">
+                        <span class="font-mono text-[11px] text-neutral-400 group-hover:text-charcoal transition">04</span>
+                        <span class="text-base text-neutral-600 group-hover:text-charcoal transition">☀</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-title text-lg font-medium text-charcoal group-hover:underline underline-offset-4">Summer Tops</h3>
+                        <p class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Light Linen & Camis</p>
+                    </div>
+                </button>
 
-  feed.innerHTML = all.map((w, i) => `
-    <div class="wish-card" style="animation-delay:${i * 0.08}s">
-      <span class="wish-emoji">${w.emoji || '🌸'}</span>
-      <div class="wish-name">${escHtml(w.name)}</div>
-      <div class="wish-message">${escHtml(w.message)}</div>
-      <div class="wish-date">${formatDate(w.date)}</div>
+                <!-- 05 Bottoms -->
+                <button data-category="bottoms" class="category-card-btn group text-left bg-cream p-4 sm:p-5 border border-subtle-border hover:border-charcoal transition-all duration-300 flex flex-col justify-between h-40">
+                    <div class="flex justify-between items-start">
+                        <span class="font-mono text-[11px] text-neutral-400 group-hover:text-charcoal transition">05</span>
+                        <span class="text-base text-neutral-600 group-hover:text-charcoal transition">▱</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-title text-lg font-medium text-charcoal group-hover:underline underline-offset-4">Bottoms</h3>
+                        <p class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Tailored Trousers</p>
+                    </div>
+                </button>
+
+                <!-- 06 Jerseys & Knits -->
+                <button data-category="jerseys-knits" class="category-card-btn group text-left bg-cream p-4 sm:p-5 border border-subtle-border hover:border-charcoal transition-all duration-300 flex flex-col justify-between h-40">
+                    <div class="flex justify-between items-start">
+                        <span class="font-mono text-[11px] text-neutral-400 group-hover:text-charcoal transition">06</span>
+                        <span class="text-base text-neutral-600 group-hover:text-charcoal transition">#</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-title text-lg font-medium text-charcoal group-hover:underline underline-offset-4">Jerseys & Knits</h3>
+                        <p class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Sweaters & Cardigans</p>
+                    </div>
+                </button>
+
+                <!-- 07 Vintage Bags -->
+                <button data-category="vintage-bags" class="category-card-btn group text-left bg-cream p-4 sm:p-5 border border-subtle-border hover:border-charcoal transition-all duration-300 flex flex-col justify-between h-40 col-span-2 md:col-span-1">
+                    <div class="flex justify-between items-start">
+                        <span class="font-mono text-[11px] text-neutral-400 group-hover:text-charcoal transition">07</span>
+                        <span class="text-base text-neutral-600 group-hover:text-charcoal transition">◇</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-title text-lg font-medium text-charcoal group-hover:underline underline-offset-4">Vintage Bags</h3>
+                        <p class="text-[10px] text-neutral-500 tracking-wider uppercase mt-1">Leather & Totes</p>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="office-siren" class="py-16 md:py-20 border-b border-subtle-border bg-charcoal text-cream relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <div class="lg:col-span-6 z-10">
+                    <div class="inline-block border border-neutral-700 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-neutral-300 mb-4">
+                        FEATURED ARCHIVE CAPSULE
+                    </div>
+                    <h2 class="font-serif-title text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white mb-6">
+                        "The Office Siren"
+                    </h2>
+                    <p class="text-neutral-300 text-sm sm:text-base font-light leading-relaxed mb-8 max-w-lg">
+                        Sharp 90s corporate tailoring meets sultry minimalist aesthetics. Pinstripe poplins, high-waisted pleated trousers, sleek leather shoulder bags, and structured coats.
+                    </p>
+                    <button id="filter-office-siren-btn" class="bg-cream text-charcoal px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-neutral-200 transition duration-300 inline-flex items-center gap-3">
+                        <span>Shop Office Siren Edit</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <div class="lg:col-span-6 relative">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="aspect-[3/4] bg-neutral-800 border border-neutral-700 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=800&auto=format&fit=crop" 
+                                 alt="Office Siren Tailored Pants" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-700">
+                        </div>
+                        <div class="aspect-[3/4] bg-neutral-800 border border-neutral-700 overflow-hidden mt-6">
+                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop" 
+                                 alt="Office Siren Vintage Shoulder Bag" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-700">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="py-16 md:py-24 border-b border-subtle-border bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-subtle-border gap-4">
+                <div>
+                    <span class="text-[10px] uppercase tracking-[0.25em] font-mono text-neutral-500 block mb-1">02 / CURATED PIECES</span>
+                    <h2 class="font-serif-title text-3xl sm:text-4xl md:text-5xl font-normal text-charcoal">The Archive Collection</h2>
+                </div>
+                <div class="text-xs text-neutral-500 font-mono" id="results-counter">
+                    Showing <span id="item-count-text">12</span> Archival Items
+                </div>
+            </div>
+
+            <!-- Filter Controls Strip -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-12">
+                
+                <!-- Category Filter Pills -->
+                <div class="flex flex-wrap items-center gap-2" id="filter-pills-container">
+                    <button data-filter="all" class="filter-btn active text-xs uppercase tracking-wider px-4 py-2 border border-charcoal bg-charcoal text-cream font-medium transition">All Items</button>
+                    <button data-filter="button-downs" class="filter-btn text-xs uppercase tracking-wider px-4 py-2 border border-subtle-border bg-white text-charcoal hover:border-charcoal transition">Button-Downs</button>
+                    <button data-filter="all-white" class="filter-btn text-xs uppercase tracking-wider px-4 py-2 border border-subtle-border bg-white text-charcoal hover:border-charcoal transition">All White</button>
+                    <button data-filter="desi-wear" class="filter-btn text-xs uppercase tracking-wider px-4 py-2 border border-subtle-border bg-white text-charcoal hover:border-charcoal transition">Desi Wear</button>
+                    <button data-filter="summer-tops" class="filter-btn text-xs uppercase tracking-wider px-4 py-2 border border-subtle-border bg-white text-charcoal hover:border-charcoal transition">Summer Tops</button>
+                    <button data-filter="bottoms" class="filter-btn text-xs uppercase tracking-wider px-4 py-2 border border-subtle-border bg-white text-charcoal hover:border-charcoal transition">Bottoms</button>
+                    <button data-filter="jerseys-knits" class="filter-btn text-xs uppercase tracking-wider px-4 py-2 border border-subtle-border bg-white text-charcoal hover:border-charcoal transition">Jerseys & Knits</button>
+                    <button data-filter="vintage-bags" class="filter-btn text-xs uppercase tracking-wider px-4 py-2 border border-subtle-border bg-white text-charcoal hover:border-charcoal transition">Vintage Bags</button>
+                </div>
+
+                <!-- Secondary Aesthetic Tag & Sorting -->
+                <div class="flex items-center gap-4">
+                    <select id="sort-select" class="bg-white border border-subtle-border text-xs uppercase tracking-wider px-3 py-2 text-charcoal focus:outline-none focus:border-charcoal cursor-pointer">
+                        <option value="featured">Sort: Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest Drops</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Main Product Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8" id="products-grid">
+                <!-- Dynamically Rendered Product Cards -->
+            </div>
+
+            <!-- Empty Grid Feedback -->
+            <div id="no-products-msg" class="hidden text-center py-20 bg-cream-card border border-subtle-border">
+                <i data-lucide="package-search" class="w-12 h-12 stroke-[1] text-neutral-400 mx-auto mb-4"></i>
+                <h3 class="font-serif-title text-2xl font-normal text-charcoal mb-2">No Matching Archive Items</h3>
+                <p class="text-neutral-500 text-xs tracking-wider uppercase mb-6">Try selecting a different category or clearing search filters</p>
+                <button id="reset-filters-btn" class="bg-charcoal text-cream px-6 py-2.5 text-xs uppercase tracking-widest">Reset Filters</button>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="product-modal" class="fixed inset-0 z-50 hidden">
+        <div id="product-modal-backdrop" class="fixed inset-0 drawer-backdrop opacity-0"></div>
+        <div class="fixed inset-0 overflow-y-auto p-4 sm:p-6 md:p-10 flex items-center justify-center">
+            <div id="product-modal-container" class="relative bg-cream border border-subtle-border max-w-4xl w-full p-6 sm:p-10 shadow-2xl transition-all duration-300 scale-95 opacity-0 my-auto">
+                
+                <button id="close-product-modal-btn" class="absolute top-4 right-4 p-2 text-charcoal hover:opacity-70 z-10" aria-label="Close detail view">
+                    <i data-lucide="x" class="w-6 h-6 stroke-[1.5]"></i>
+                </button>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start" id="modal-product-content">
+                    <!-- Injected via JavaScript -->
+                </div>
+
+            </div>
+        </div>
     </div>
-  `).join('');
-}
 
-function submitWish() {
-  const name    = document.getElementById('guestName').value.trim();
-  const message = document.getElementById('guestMessage').value.trim();
-  if (!name)    { document.getElementById('guestName').focus(); return; }
-  if (!message) { document.getElementById('guestMessage').focus(); return; }
+    <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+        <div id="cart-backdrop" class="fixed inset-0 drawer-backdrop opacity-0"></div>
+        <div id="cart-drawer-content" class="fixed inset-y-0 right-0 max-w-md w-full bg-cream border-l border-subtle-border drawer-content translate-x-full flex flex-col justify-between p-6 shadow-2xl">
+            
+            <!-- Cart Header -->
+            <div>
+                <div class="flex justify-between items-center pb-4 border-b border-subtle-border">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        <span class="font-serif-title text-2xl font-normal text-charcoal">Your Shopping Bag</span>
+                    </div>
+                    <button id="close-cart-btn" class="p-2 text-charcoal hover:opacity-70">
+                        <i data-lucide="x" class="w-5 h-5 stroke-[1.5]"></i>
+                    </button>
+                </div>
 
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.textContent = 'Sending... 🌸';
+                <!-- Free Shipping Progress -->
+                <div class="py-3 px-4 bg-cream-card border border-subtle-border mt-4">
+                    <div class="flex justify-between text-[11px] font-mono text-neutral-600 mb-1.5">
+                        <span id="shipping-progress-text">Add ৳1,050 for Free Express Shipping</span>
+                        <span id="shipping-percent-text">65%</span>
+                    </div>
+                    <div class="w-full bg-subtle-border h-1 rounded-none overflow-hidden">
+                        <div id="shipping-progress-bar" class="bg-charcoal h-full transition-all duration-500" style="width: 65%;"></div>
+                    </div>
+                </div>
+            </div>
 
-  /* Simulate a brief delay for effect */
-  setTimeout(() => {
-    /* Add to session (visible this visit) */
-    sessionWishes.unshift({
-      name,
-      message,
-      emoji: selectedEmoji,
-      date:  new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-    });
+            <!-- Cart Items List Container -->
+            <div id="cart-items-container" class="my-6 overflow-y-auto flex-1 pr-1 flex flex-col gap-4">
+                <!-- Injected via JS -->
+            </div>
 
-    document.getElementById('guestName').value    = '';
-    document.getElementById('guestMessage').value = '';
-    document.getElementById('submitMsg').classList.add('show');
-    btn.textContent = 'Wish sent! 💕';
+            <!-- Cart Footer Summary & Checkout CTA -->
+            <div class="pt-4 border-t border-subtle-border bg-cream">
+                
+                <!-- Promo Code Box -->
+                <div class="flex gap-2 mb-4">
+                    <input type="text" id="promo-input" placeholder="Promo Code ((name)10)" class="flex-1 bg-white border border-subtle-border px-3 py-2 text-xs uppercase tracking-wider focus:outline-none focus:border-charcoal">
+                    <button id="apply-promo-btn" class="bg-charcoal text-cream px-4 py-2 text-xs uppercase tracking-wider hover:bg-neutral-800 transition">Apply</button>
+                </div>
+                <div id="promo-message" class="text-[11px] font-mono mb-2 hidden"></div>
 
-    renderWishes();
+                <div class="space-y-1.5 text-xs text-neutral-600 font-sans mb-4">
+                    <div class="flex justify-between">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal-text" class="font-mono text-charcoal font-semibold">৳0</span>
+                    </div>
+                    <div class="flex justify-between text-emerald-700 hidden" id="discount-row">
+                        <span>Discount (10% (name)10)</span>
+                        <span id="cart-discount-text" class="font-mono">-৳0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Estimated Shipping (Bangladesh)</span>
+                        <span id="cart-shipping-text" class="font-mono text-charcoal">৳80</span>
+                    </div>
+                    <div class="flex justify-between text-sm font-semibold text-charcoal pt-2 border-t border-subtle-border">
+                        <span>Total Amount</span>
+                        <span id="cart-total-text" class="font-mono text-base">৳0</span>
+                    </div>
+                </div>
 
-    setTimeout(() => {
-      btn.disabled    = false;
-      btn.textContent = 'Send My Wish 🌸';
-    }, 3000);
-  }, 800);
-}
+                <button id="checkout-btn" class="w-full bg-charcoal text-cream py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-neutral-800 transition flex items-center justify-center gap-2">
+                    <span>Proceed to Checkout</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+                <p class="text-[10px] text-center text-neutral-400 mt-2 font-mono uppercase">100% Secure Checkout • Cash on Delivery & bKash Available</p>
+            </div>
 
-/* ─── Init ─── */
-renderWishes();
-document.fonts.ready.then(() =>
-  setTimeout(() => document.getElementById('pageLoader').classList.add('hide'), 1800)
-);
-</script>
+        </div>
+    </div>
+
+    <div id="wishlist-drawer" class="fixed inset-0 z-50 hidden">
+        <div id="wishlist-backdrop" class="fixed inset-0 drawer-backdrop opacity-0"></div>
+        <div id="wishlist-drawer-content" class="fixed inset-y-0 right-0 max-w-md w-full bg-cream border-l border-subtle-border drawer-content translate-x-full flex flex-col justify-between p-6 shadow-2xl">
+            <div>
+                <div class="flex justify-between items-center pb-4 border-b border-subtle-border">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="heart" class="w-5 h-5 text-accent"></i>
+                        <span class="font-serif-title text-2xl font-normal text-charcoal">Saved Wishlist</span>
+                    </div>
+                    <button id="close-wishlist-btn" class="p-2 text-charcoal hover:opacity-70">
+                        <i data-lucide="x" class="w-5 h-5 stroke-[1.5]"></i>
+                    </button>
+                </div>
+
+                <div id="wishlist-items-container" class="mt-6 overflow-y-auto max-h-[70vh] flex flex-col gap-4">
+                    <!-- Wishlist items injected here -->
+                </div>
+            </div>
+            
+            <button id="close-wishlist-bottom-btn" class="w-full border border-charcoal text-charcoal py-3 text-xs uppercase tracking-widest">
+                Continue Browsing Archive
+            </button>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden">
+        <div id="checkout-backdrop" class="fixed inset-0 drawer-backdrop opacity-0"></div>
+        <div class="fixed inset-0 overflow-y-auto p-4 sm:p-6 md:p-10 flex items-center justify-center">
+            <div id="checkout-modal-container" class="relative bg-cream border border-subtle-border max-w-2xl w-full p-6 sm:p-10 shadow-2xl transition-all duration-300 scale-95 opacity-0 my-auto">
+                <button id="close-checkout-modal-btn" class="absolute top-4 right-4 p-2 text-charcoal hover:opacity-70">
+                    <i data-lucide="x" class="w-6 h-6 stroke-[1.5]"></i>
+                </button>
+
+                <h2 class="font-serif-title text-3xl font-normal text-charcoal mb-2">Checkout Details</h2>
+                <p class="text-xs text-neutral-500 uppercase tracking-widest mb-6">Complete your archive order</p>
+
+                <form id="checkout-form" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Full Name *</label>
+                            <input type="text" required placeholder="Amina Rahman" class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Phone Number *</label>
+                            <input type="tel" required placeholder="+880 1700 000000" class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Delivery Address *</label>
+                        <input type="text" required placeholder="House, Road, Area, Dhaka" class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Delivery Zone</label>
+                            <select id="delivery-zone-select" class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal">
+                                <option value="dhaka">Inside Dhaka (৳80 Express)</option>
+                                <option value="outside">Outside Dhaka (৳150 Courier)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Payment Method</label>
+                            <select class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal">
+                                <option value="cod">Cash on Delivery</option>
+                                <option value="bkash">bKash / Nagad Mobile Payment</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary Box -->
+                    <div class="p-4 bg-cream-card border border-subtle-border mt-4 text-xs font-mono space-y-1">
+                        <div class="flex justify-between font-sans text-neutral-600"><span>Items Total</span><span id="checkout-summary-subtotal">৳0</span></div>
+                        <div class="flex justify-between font-sans text-neutral-600"><span>Delivery Charge</span><span id="checkout-summary-shipping">৳80</span></div>
+                        <div class="flex justify-between font-sans font-bold text-charcoal text-sm pt-2 border-t border-subtle-border mt-2">
+                            <span>Final Payable</span><span id="checkout-summary-total">৳0</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-charcoal text-cream py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-neutral-800 transition mt-4">
+                        Confirm Archive Order
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="order-success-modal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 drawer-backdrop"></div>
+        <div class="fixed inset-0 overflow-y-auto p-4 flex items-center justify-center">
+            <div class="relative bg-cream border border-charcoal max-w-lg w-full p-8 text-center shadow-2xl my-auto">
+                <div class="w-12 h-12 bg-charcoal text-cream rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="check" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[10px] font-mono uppercase tracking-widest text-neutral-500">ORDER CONFIRMED</span>
+                <h2 class="font-serif-title text-3xl font-normal text-charcoal my-2">Thank You For Choosing (name)</h2>
+                <p class="text-xs text-neutral-600 mb-6 font-light">
+                    Your unique pre-loved piece has been reserved. Order ID: <span id="confirmed-order-id" class="font-mono font-bold text-charcoal">#RV-84920</span>.
+                    Our archive team will contact you shortly for dispatch details.
+                </p>
+                <button id="close-success-btn" class="bg-charcoal text-cream px-8 py-3 text-xs uppercase tracking-widest w-full">
+                    Return To Archive
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <section id="philosophy" class="py-20 md:py-28 border-b border-subtle-border bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <span class="text-[10px] uppercase tracking-[0.3em] font-mono text-neutral-500 block mb-2">OUR MANIFESTO</span>
+                <h2 class="font-serif-title text-4xl sm:text-5xl md:text-6xl font-normal text-charcoal leading-tight">
+                    "Fashion should be circular, deliberate, and deeply personal."
+                </h2>
+                <div class="w-12 h-[1px] bg-charcoal mx-auto my-6"></div>
+                <p class="text-neutral-600 text-sm sm:text-base font-light leading-relaxed">
+                    At (name), we reject mass fast-fashion overproduction. We scour vintage archives and deadstock closets to bring you hand-curated garments with genuine history, rich tailoring, and zero environmental cost.
+                </p>
+            </div>
+
+            <!-- 4 Editorial Feature Badges -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-cream-card p-6 border border-subtle-border text-center">
+                    <span class="font-mono text-xs text-neutral-400 block mb-3">01</span>
+                    <h3 class="font-serif-title text-xl font-medium text-charcoal mb-2">Hand-Curated</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed font-light">Every single item is individually selected for cut, fabric quality, and timeless relevance.</p>
+                </div>
+
+                <div class="bg-cream-card p-6 border border-subtle-border text-center">
+                    <span class="font-mono text-xs text-neutral-400 block mb-3">02</span>
+                    <h3 class="font-serif-title text-xl font-medium text-charcoal mb-2">Quality Checked</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed font-light">Rigorous 10-point inspection covering seams, buttons, zippers, and fabric integrity.</p>
+                </div>
+
+                <div class="bg-cream-card p-6 border border-subtle-border text-center">
+                    <span class="font-mono text-xs text-neutral-400 block mb-3">03</span>
+                    <h3 class="font-serif-title text-xl font-medium text-charcoal mb-2">Sustainable Choice</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed font-light">Giving pre-loved garments a second life prevents landfill waste and reduces water footprints.</p>
+                </div>
+
+                <div class="bg-cream-card p-6 border border-subtle-border text-center">
+                    <span class="font-mono text-xs text-neutral-400 block mb-3">04</span>
+                    <h3 class="font-serif-title text-xl font-medium text-charcoal mb-2">Slow Fashion</h3>
+                    <p class="text-xs text-neutral-500 leading-relaxed font-light">One-of-one rare archive pieces that ensure you never match anyone else in the room.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="care" class="py-16 md:py-24 border-b border-subtle-border bg-cream-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 pb-4 border-b border-subtle-border">
+                <div>
+                    <span class="text-[10px] uppercase tracking-[0.25em] font-mono text-neutral-500 block mb-1">03 / GARMENT CARE</span>
+                    <h2 class="font-serif-title text-3xl sm:text-4xl md:text-5xl font-normal text-charcoal">Caring for Thrifted Pieces</h2>
+                </div>
+                <p class="text-xs text-neutral-500 uppercase tracking-widest mt-2 sm:mt-0">Preserve longevity & drape</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-cream p-6 border border-subtle-border flex flex-col justify-between">
+                    <div>
+                        <div class="w-8 h-8 border border-charcoal flex items-center justify-center font-mono text-xs mb-4">1</div>
+                        <h3 class="font-serif-title text-xl font-medium text-charcoal mb-2">Arrives Clean & Ready</h3>
+                        <p class="text-xs text-neutral-600 font-light leading-relaxed">
+                            Every piece in our shop is professionally steam sanitized and eco-laundered before listing.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest mt-6">SANITAION VERIFIED</span>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-cream p-6 border border-subtle-border flex flex-col justify-between">
+                    <div>
+                        <div class="w-8 h-8 border border-charcoal flex items-center justify-center font-mono text-xs mb-4">2</div>
+                        <h3 class="font-serif-title text-xl font-medium text-charcoal mb-2">Store With Care</h3>
+                        <p class="text-xs text-neutral-600 font-light leading-relaxed">
+                            Use padded hangers for silks and tailored blazers. Fold knits and sweaters to maintain shape.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest mt-6">PRESERVE SHAPE</span>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-cream p-6 border border-subtle-border flex flex-col justify-between">
+                    <div>
+                        <div class="w-8 h-8 border border-charcoal flex items-center justify-center font-mono text-xs mb-4">3</div>
+                        <h3 class="font-serif-title text-xl font-medium text-charcoal mb-2">Gentle Hand Wash</h3>
+                        <p class="text-xs text-neutral-600 font-light leading-relaxed">
+                            Wash cotton poplin and delicate desi Kurtis in cool water using mild detergent. Air dry in shade.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest mt-6">COOL TEMPERATURE</span>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-cream p-6 border border-subtle-border flex flex-col justify-between">
+                    <div>
+                        <div class="w-8 h-8 border border-charcoal flex items-center justify-center font-mono text-xs mb-4">4</div>
+                        <h3 class="font-serif-title text-xl font-medium text-charcoal mb-2">Spot Clean & Air Dry</h3>
+                        <p class="text-xs text-neutral-600 font-light leading-relaxed">
+                            Avoid harsh machine tumble drying. Steam or spot clean vintage leather bags gently.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest mt-6">NATURAL AIRING</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="policy" class="py-16 md:py-24 border-b border-subtle-border bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mb-12">
+                <span class="text-[10px] uppercase tracking-[0.25em] font-mono text-neutral-500 block mb-1">04 / TRANSPARENCY</span>
+                <h2 class="font-serif-title text-3xl sm:text-4xl font-normal text-charcoal">Return & Refund Policy</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 bg-cream-card border border-subtle-border">
+                    <h3 class="font-serif-title text-lg font-medium text-charcoal mb-2">Final Sale Policy</h3>
+                    <p class="text-xs text-neutral-600 font-light leading-relaxed">
+                        Due to the unique 1-of-1 nature of thrifted and archive pieces, all sales are final once delivered. Please check exact measurements carefully before purchasing.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-cream-card border border-subtle-border">
+                    <h3 class="font-serif-title text-lg font-medium text-charcoal mb-2">Defective/Damaged Exceptions</h3>
+                    <p class="text-xs text-neutral-600 font-light leading-relaxed">
+                        If an item arrives with an undisclosed defect or severe unlisted flaw, we offer immediate replacement credit or exchange.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-cream-card border border-subtle-border">
+                    <h3 class="font-serif-title text-lg font-medium text-charcoal mb-2">24-Hour Reporting Window</h3>
+                    <p class="text-xs text-neutral-600 font-light leading-relaxed">
+                        Issues must be reported within 24 hours of delivery with photo proof via Instagram DM (@(name).store) or email support.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-16 md:py-24 border-b border-subtle-border bg-cream-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 pb-4 border-b border-subtle-border">
+                <div>
+                    <span class="text-[10px] uppercase tracking-[0.25em] font-mono text-neutral-500 block mb-1">05 / CLIENT FEEDBACK</span>
+                    <h2 class="font-serif-title text-3xl sm:text-4xl md:text-5xl font-normal text-charcoal">Editorial Reviews</h2>
+                </div>
+                <div class="flex items-center gap-4 mt-4 sm:mt-0">
+                    <div class="flex items-center gap-1 text-amber-500">
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-500"></i>
+                        <span class="font-mono text-sm font-bold text-charcoal">4.9 / 5.0</span>
+                        <span class="text-xs text-neutral-500">(184 verified orders)</span>
+                    </div>
+                    <button id="write-review-btn" class="bg-charcoal text-cream px-4 py-2 text-xs uppercase tracking-wider hover:bg-neutral-800 transition">Write Review</button>
+                </div>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviews-grid">
+                <!-- Injected via JavaScript -->
+            </div>
+
+        </div>
+    </section>
+
+    <div id="review-modal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 drawer-backdrop opacity-100"></div>
+        <div class="fixed inset-0 overflow-y-auto p-4 flex items-center justify-center">
+            <div class="relative bg-cream border border-subtle-border max-w-lg w-full p-6 sm:p-8 shadow-2xl my-auto">
+                <button id="close-review-modal-btn" class="absolute top-4 right-4 text-charcoal">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                
+                <h3 class="font-serif-title text-2xl font-normal text-charcoal mb-2">Leave an Archive Review</h3>
+                <p class="text-xs text-neutral-500 uppercase tracking-widest mb-6">Share your fit experience with the community</p>
+
+                <form id="review-form" class="space-y-4">
+                    <div>
+                        <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Your Name *</label>
+                        <input type="text" required id="rev-author" placeholder="Farah K." class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Purchased Item *</label>
+                        <input type="text" required id="rev-item" placeholder="Pinstripe Poplin Shirt" class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Rating</label>
+                        <select id="rev-rating" class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal">
+                            <option value="5">★★★★★ (5/5) Perfect condition & fit</option>
+                            <option value="4">★★★★☆ (4/5) Very good</option>
+                            <option value="3">★★★☆☆ (3/5) Average</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] uppercase tracking-wider font-medium text-neutral-600 mb-1">Your Review Comment *</label>
+                        <textarea required id="rev-comment" rows="3" placeholder="The quality was unbelievable and measurements were 100% accurate!" class="w-full bg-white border border-subtle-border px-3 py-2 text-xs focus:outline-none focus:border-charcoal"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-charcoal text-cream py-3 text-xs uppercase tracking-widest font-semibold hover:bg-neutral-800 transition">
+                        Submit Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-charcoal text-cream pt-16 pb-12 border-t border-charcoal-light mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-neutral-800">
+                
+                <!-- Col 1: Brand Info -->
+                <div class="md:col-span-5">
+                    <a href="#" class="font-serif-title text-3xl font-normal tracking-[0.2em] text-white uppercase block mb-3">(name)</a>
+                    <p class="text-neutral-400 text-xs font-light leading-relaxed max-w-sm mb-6">
+                        A curated archive of second-hand luxury and thrifted fashion in Dhaka. Sourced for quality, condition, and quiet elegance.
+                    </p>
+                    
+                    <!-- Newsletter Form -->
+                    <div class="max-w-sm">
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-400 font-mono block mb-2">JOIN ARCHIVE DROP NOTIFICATIONS</span>
+                        <form id="newsletter-form" class="flex">
+                            <input type="email" required placeholder="Enter your email..." class="bg-neutral-900 border border-neutral-700 text-cream px-3 py-2 text-xs flex-1 focus:outline-none focus:border-neutral-400">
+                            <button type="submit" class="bg-cream text-charcoal px-4 text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition">Join</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div class="md:col-span-3">
+                    <h4 class="text-xs uppercase tracking-[0.2em] font-mono text-neutral-400 mb-4">ARCHIVE DIRECTORY</h4>
+                    <ul class="space-y-2 text-xs text-neutral-300 font-light">
+                        <li><a href="#shop" class="hover:text-white transition">Shop All Archive</a></li>
+                        <li><a href="#categories" class="hover:text-white transition">Category Index</a></li>
+                        <li><a href="#office-siren" class="hover:text-white transition text-accent">Office Siren Edit</a></li>
+                        <li><a href="#philosophy" class="hover:text-white transition">Brand Philosophy</a></li>
+                        <li><a href="#care" class="hover:text-white transition">Care Guide</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Customer Care & Social -->
+                <div class="md:col-span-4">
+                    <h4 class="text-xs uppercase tracking-[0.2em] font-mono text-neutral-400 mb-4">CONNECT & SUPPORT</h4>
+                    <ul class="space-y-2 text-xs text-neutral-300 font-light mb-6">
+                        <li>Instagram: <a href="https://instagram.com" target="_blank" class="underline hover:text-white">@(name).store</a></li>
+                        <li>Support Email: concierge@(name).store</li>
+                        <li>Dhaka, Bangladesh</li>
+                    </ul>
+                    <div class="flex items-center gap-3 text-neutral-400">
+                        <i data-lucide="instagram" class="w-5 h-5 hover:text-white transition cursor-pointer"></i>
+                        <i data-lucide="facebook" class="w-5 h-5 hover:text-white transition cursor-pointer"></i>
+                        <i data-lucide="mail" class="w-5 h-5 hover:text-white transition cursor-pointer"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Bottom Strip -->
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] font-mono text-neutral-500 gap-4">
+                <div>© 2026 (name) ARCHIVE STORE. ALL RIGHTS RESERVED.</div>
+                <div class="flex gap-6">
+                    <span>EST. 2024</span>
+                    <span>PRIVACY POLICY</span>
+                    <span>TERMS OF SERVICE</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <script>
+        // Sample Product Catalogue Database matching (name) aesthetic
+        const PRODUCTS_DATA = [
+            {
+                id: 'p1',
+                title: 'Pinstripe Oversized Poplin Shirt',
+                category: 'button-downs',
+                categoryLabel: 'Button-Downs',
+                price: 1950,
+                tags: ['Office Siren', 'Minimalist'],
+                images: [
+                    'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.5/10 Like New',
+                measurements: { bust: '42"', length: '29"', shoulder: '18.5"', sleeve: '24"' },
+                description: 'Crisp vintage cotton poplin shirt with subtle vertical blue pinstripes. Features mother-of-pearl buttons, a tailored collar, and relaxed drop shoulders. Perfectly paired tucked into high-waisted trousers.',
+                stylingNote: 'Unbutton top two buttons and roll up sleeves for that effortless Parisian corporate style.',
+                isSoldOut: false
+            },
+            {
+                id: 'p2',
+                title: 'Cream Silk Satin Bow Blouse',
+                category: 'all-white',
+                categoryLabel: 'All White',
+                price: 2200,
+                tags: ['Office Siren', 'Minimalist'],
+                images: [
+                    'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1551803091-e20673f15770?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.0/10 Excellent',
+                measurements: { bust: '38"', length: '25"', shoulder: '15.5"', sleeve: '22"' },
+                description: 'Fluid ivory silk blouse with a high scarf neck collar that can be tied into a statement bow or left unfastened. Heavyweight lustrous silk crepe drape.',
+                stylingNote: 'Pair with vintage leather shoulder bag and dark structured denim.',
+                isSoldOut: false
+            },
+            {
+                id: 'p3',
+                title: 'Block-Printed Handloom Kurti Top',
+                category: 'desi-wear',
+                categoryLabel: 'Desi Wear',
+                price: 1850,
+                tags: ['Vintage Street'],
+                images: [
+                    'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '10/10 Deadstock Unworn',
+                measurements: { bust: '36"', length: '38"', shoulder: '15"' },
+                description: 'Authentic artisan block-printed breathable cotton kurti featuring indigo botanical motifs and minimal side slits. Authentic hand-spun threads.',
+                stylingNote: 'Layer over white wide-leg trousers or straight linen pants.',
+                isSoldOut: false
+            },
+            {
+                id: 'p4',
+                title: 'Linen Halter Tie-Back Top',
+                category: 'summer-tops',
+                categoryLabel: 'Summer Tops',
+                price: 1450,
+                tags: ['Minimalist'],
+                images: [
+                    'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.0/10 Excellent',
+                measurements: { bust: 'Adjustable (Fits 32"-36")', length: '18"' },
+                description: '100% pure flax linen crop halter top with back string ties. Breathable weave, ideal for warm humid afternoons.',
+                stylingNote: 'Style with chunky gold hoops and a high-waisted linen skirt.',
+                isSoldOut: false
+            },
+            {
+                id: 'p5',
+                title: 'High-Waisted Pleated Tailored Trousers',
+                category: 'bottoms',
+                categoryLabel: 'Bottoms',
+                price: 2650,
+                tags: ['Office Siren'],
+                images: [
+                    'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.5/10 Mint',
+                measurements: { waist: '28"', hips: '38"', rise: '12.5"', length: '41"' },
+                description: 'Ultra-sleek wool blend corporate trousers with double front pleats, side slash pockets, and a clean wide leg drop.',
+                stylingNote: 'Pair with sharp pointed pumps and an oversized poplin button-down.',
+                isSoldOut: false
+            },
+            {
+                id: 'p6',
+                title: 'Chunky Cable Knit Varsity Cardigan',
+                category: 'jerseys-knits',
+                categoryLabel: 'Jerseys & Knits',
+                price: 2400,
+                tags: ['Vintage Street'],
+                images: [
+                    'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.0/10 Great Vintage',
+                measurements: { bust: '44"', length: '27"', shoulder: '19"' },
+                description: 'Heavy gauge off-white cable knit cardigan with dark tortoiseshell buttons and deep welt pockets.',
+                stylingNote: 'Button up as a standalone top with vintage wash denim.',
+                isSoldOut: false
+            },
+            {
+                id: 'p7',
+                title: 'Structured Leather Shoulder Bag',
+                category: 'vintage-bags',
+                categoryLabel: 'Vintage Bags',
+                price: 3100,
+                tags: ['Office Siren'],
+                images: [
+                    'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.5/10 Supple Vintage Leather',
+                measurements: { width: '11"', height: '8"', depth: '3"', strapDrop: '10"' },
+                description: '90s minimalist structured baguette handbag crafted in genuine deep espresso glazed leather with antique silver tone buckle hardware.',
+                stylingNote: 'Tuck snugly under arm with a tailored trench coat.',
+                isSoldOut: false
+            },
+            {
+                id: 'p8',
+                title: 'Minimal White Linen Oversized Shirt',
+                category: 'all-white',
+                categoryLabel: 'All White',
+                price: 1900,
+                tags: ['Minimalist'],
+                images: [
+                    'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.5/10 Like New',
+                measurements: { bust: '40"', length: '28"', shoulder: '17.5"' },
+                description: 'Breezy white pure linen shirt featuring chest pocket and understated tonal buttons. Lightweight and ethereal drape.',
+                stylingNote: 'Wear open over a seamless white tank top or swimwear.',
+                isSoldOut: false
+            },
+            {
+                id: 'p9',
+                title: 'Embroidered Chikankari Handloom Kurta',
+                category: 'desi-wear',
+                categoryLabel: 'Desi Wear',
+                price: 2850,
+                tags: ['All White'],
+                images: [
+                    'https://images.unsplash.com/photo-1583391733975-0158a74e5033?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '10/10 Pristine',
+                measurements: { bust: '38"', length: '42"', shoulder: '15"' },
+                description: 'Exquisite white-on-white hand-embroidered Lucknowi Chikankari kurta on sheer georgette cotton. Intricate floral needlework.',
+                stylingNote: 'Pair with silver oxidized jewelry and chikankari trousers.',
+                isSoldOut: false
+            },
+            {
+                id: 'p10',
+                title: '90s Ribbed V-Neck Knit Sweater',
+                category: 'jerseys-knits',
+                categoryLabel: 'Jerseys & Knits',
+                price: 1750,
+                tags: ['Minimalist'],
+                images: [
+                    'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '8.5/10 Vintage Wash',
+                measurements: { bust: '36"', length: '24"' },
+                description: 'Fitted slate grey ribbed knit sweater with plunging neckline and elongated sleeves.',
+                stylingNote: 'Great for autumn layering with gold neck chains.',
+                isSoldOut: true // Sold Out State test
+            },
+            {
+                id: 'p11',
+                title: 'Cropped Knit Crochet Cami',
+                category: 'summer-tops',
+                categoryLabel: 'Summer Tops',
+                price: 1300,
+                tags: ['Vintage Street'],
+                images: [
+                    'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.0/10 Excellent',
+                measurements: { bust: '32"-35"', length: '16"' },
+                description: 'Hand-crocheted cream camisole with scalloped hem detail and square neckline.',
+                stylingNote: 'Pair with high rise vintage Levi denim shorts.',
+                isSoldOut: false
+            },
+            {
+                id: 'p12',
+                title: 'Minimalist Monogram Vintage Tote Bag',
+                category: 'vintage-bags',
+                categoryLabel: 'Vintage Bags',
+                price: 2950,
+                tags: ['Office Siren'],
+                images: [
+                    'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop'
+                ],
+                condition: '9.0/10 Clean Archive',
+                measurements: { width: '14"', height: '12"', depth: '4"' },
+                description: 'Roomy leather-trimmed fabric canvas tote bag. Fits laptops up to 14 inches with interior zippered security pocket.',
+                stylingNote: 'The ultimate daily companion for office work and coffee runs.',
+                isSoldOut: false
+            }
+        ];
+
+        // Sample Editorial Client Reviews
+        let REVIEWS_DATA = [
+            {
+                id: 'r1',
+                author: 'Samanth A.',
+                item: 'Pinstripe Oversized Poplin Shirt',
+                rating: 5,
+                comment: 'The quality of the poplin shirt blew me away! Better condition than fast fashion stores and the sizing measurements were 100% accurate. Shipping in Dhaka took less than 24 hours!',
+                date: '3 days ago'
+            },
+            {
+                id: 'r2',
+                author: 'Nadia R.',
+                item: 'Structured Leather Shoulder Bag',
+                rating: 5,
+                comment: 'Finding genuine vintage leather items in Bangladesh is so hard, but (name) really delivers. Authentic leather, pristine lining, and gorgeous packaging!',
+                date: '1 week ago'
+            },
+            {
+                id: 'r3',
+                author: 'Taskin S.',
+                item: 'Cream Silk Satin Bow Blouse',
+                rating: 5,
+                comment: 'Unbelievably soft silk. The Office Siren collection is top tier. Will definitely be keeping an eye on drop 05!',
+                date: '2 weeks ago'
+            }
+        ];
+
+        // State Management
+        let cart = JSON.parse(localStorage.getItem('(name)_cart') || '[]');
+        let wishlist = JSON.parse(localStorage.getItem('(name)_wishlist') || '[]');
+        let activeCategoryFilter = 'all';
+        let searchQuery = '';
+        let appliedDiscount = 0; // 0.10 for 10%
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderProducts();
+            renderReviews();
+            updateCartUI();
+            updateWishlistUI();
+            setupEventListeners();
+        });
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const noProductsMsg = document.getElementById('no-products-msg');
+            const itemCountText = document.getElementById('item-count-text');
+
+            // Filter logic
+            let filtered = PRODUCTS_DATA.filter(product => {
+                const matchesCategory = (activeCategoryFilter === 'all') || (product.category === activeCategoryFilter);
+                const matchesSearch = searchQuery === '' || 
+                    product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    product.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    product.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+                return matchesCategory && matchesSearch;
+            });
+
+            // Sorting logic
+            const sortVal = document.getElementById('sort-select').value;
+            if (sortVal === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            itemCountText.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                noProductsMsg.classList.remove('hidden');
+                return;
+            } else {
+                noProductsMsg.classList.add('hidden');
+            }
+
+            grid.innerHTML = filtered.map(product => {
+                const isWishlisted = wishlist.includes(product.id);
+                return `
+                    <div class="product-card group relative flex flex-col justify-between bg-cream-card border border-subtle-border hover:border-charcoal transition duration-300">
+                        
+                        <!-- Product Image Box -->
+                        <div class="relative aspect-[3/4] bg-neutral-100 overflow-hidden cursor-pointer" onclick="openProductModal('${product.id}')">
+                            <img src="${product.images[0]}" alt="${product.title}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                            <img src="${product.images[1] || product.images[0]}" alt="${product.title}" class="secondary-img absolute inset-0 w-full h-full object-cover">
+                            
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3 flex flex-col gap-1 z-10">
+                                <span class="bg-cream/90 backdrop-blur-md text-charcoal text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 border border-subtle-border">
+                                    ${product.categoryLabel}
+                                </span>
+                                ${product.isSoldOut ? `
+                                    <span class="bg-accent text-white text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 font-bold">
+                                        SOLD OUT
+                                    </span>
+                                ` : ''}
+                            </div>
+
+                            <!-- Wishlist Toggle Button -->
+                            <button onclick="event.stopPropagation(); toggleWishlist('${product.id}')" 
+                                class="absolute top-3 right-3 p-2 rounded-full bg-cream/80 backdrop-blur-md text-charcoal hover:bg-cream transition z-10"
+                                aria-label="Wishlist">
+                                <i data-lucide="heart" class="w-4 h-4 ${isWishlisted ? 'fill-accent text-accent' : 'stroke-[1.5]'}"></i>
+                            </button>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-4 flex flex-col justify-between flex-1">
+                            <div>
+                                <div class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mb-1">
+                                    SCORE: ${product.condition}
+                                </div>
+                                <h3 class="font-serif-title text-lg font-normal text-charcoal group-hover:underline underline-offset-4 cursor-pointer line-clamp-1" onclick="openProductModal('${product.id}')">
+                                    ${product.title}
+                                </h3>
+                                <p class="text-xs font-mono text-charcoal font-semibold mt-1">
+                                    ৳${product.price.toLocaleString()}
+                                </p>
+                            </div>
+
+                            <!-- Sizing & Measurement Preview -->
+                            <div class="mt-3 pt-3 border-t border-subtle-border text-[10px] font-mono text-neutral-500 flex justify-between items-center">
+                                <span>MEASURE: ${product.measurements.bust ? 'Bust ' + product.measurements.bust : 'Fit Sample'}</span>
+                                <span class="uppercase">${product.tags[0] || 'ARCHIVE'}</span>
+                            </div>
+
+                            <!-- Quick CTA Button -->
+                            <div class="mt-4">
+                                ${product.isSoldOut ? `
+                                    <button disabled class="w-full bg-neutral-200 text-neutral-500 py-2.5 text-[11px] uppercase tracking-widest cursor-not-allowed">
+                                        Archive Reserved
+                                    </button>
+                                ` : `
+                                    <button onclick="addToCart('${product.id}')" class="w-full border border-charcoal text-charcoal py-2.5 text-[11px] uppercase tracking-widest font-semibold hover:bg-charcoal hover:text-cream transition duration-300 flex items-center justify-center gap-2">
+                                        <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+                                        <span>Add To Bag</span>
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        function openProductModal(productId) {
+            const product = PRODUCTS_DATA.find(p => p.id === productId);
+            if (!product) return;
+
+            const modalContent = document.getElementById('modal-product-content');
+            modalContent.innerHTML = `
+                <!-- Left: Image Gallery -->
+                <div class="md:col-span-6 space-y-4">
+                    <div class="aspect-[3/4] bg-neutral-100 border border-subtle-border overflow-hidden">
+                        <img id="main-modal-img" src="${product.images[0]}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex gap-3">
+                        ${product.images.map((img, idx) => `
+                            <button onclick="document.getElementById('main-modal-img').src='${img}'" class="w-16 h-20 border border-subtle-border overflow-hidden hover:border-charcoal">
+                                <img src="${img}" class="w-full h-full object-cover">
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Right: Product Details -->
+                <div class="md:col-span-6 flex flex-col justify-between h-full">
+                    <div>
+                        <div class="flex items-center gap-2 text-[10px] uppercase font-mono tracking-widest text-neutral-500 mb-2">
+                            <span>${product.categoryLabel}</span>
+                            <span>•</span>
+                            <span>1-OF-1 ARCHIVE</span>
+                        </div>
+                        <h2 class="font-serif-title text-3xl sm:text-4xl font-normal text-charcoal mb-2">${product.title}</h2>
+                        <div class="text-xl font-mono font-bold text-charcoal mb-4">৳${product.price.toLocaleString()}</div>
+
+                        <div class="p-3 bg-cream-card border border-subtle-border text-xs mb-6 font-mono space-y-1">
+                            <div class="text-neutral-500 font-bold uppercase mb-1">Exact Garment Measurements:</div>
+                            ${Object.entries(product.measurements).map(([key, val]) => `
+                                <div class="flex justify-between uppercase">
+                                    <span class="text-neutral-400">${key}:</span>
+                                    <span class="text-charcoal font-semibold">${val}</span>
+                                </div>
+                            `).join('')}
+                            <div class="flex justify-between border-t border-subtle-border pt-1 mt-1">
+                                <span class="text-neutral-400">Condition Score:</span>
+                                <span class="text-emerald-700 font-bold">${product.condition}</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-neutral-600 font-light leading-relaxed mb-4">${product.description}</p>
+                        
+                        <div class="p-3 bg-cream-dark border-l-2 border-charcoal text-xs italic font-serif text-neutral-700 mb-6">
+                            "Styling Note: ${product.stylingNote}"
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        ${product.isSoldOut ? `
+                            <button disabled class="w-full bg-neutral-300 text-neutral-600 py-3 text-xs uppercase tracking-widest font-semibold cursor-not-allowed">Sold Out Archive</button>
+                        ` : `
+                            <button onclick="addToCart('${product.id}'); closeProductModal();" class="w-full bg-charcoal text-cream py-4 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-neutral-800 transition flex items-center justify-center gap-2">
+                                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                                <span>Add To Bag — ৳${product.price.toLocaleString()}</span>
+                            </button>
+                        `}
+                        <button onclick="toggleWishlist('${product.id}'); closeProductModal();" class="w-full border border-subtle-border text-charcoal py-2.5 text-xs uppercase tracking-widest hover:border-charcoal transition">
+                            Save to Wishlist
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            lucide.createIcons();
+            const modal = document.getElementById('product-modal');
+            const backdrop = document.getElementById('product-modal-backdrop');
+            const container = document.getElementById('product-modal-container');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                container.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            const backdrop = document.getElementById('product-modal-backdrop');
+            const container = document.getElementById('product-modal-container');
+
+            backdrop.classList.add('opacity-0');
+            container.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function addToCart(productId) {
+            const product = PRODUCTS_DATA.find(p => p.id === productId);
+            if (!product || product.isSoldOut) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            saveCart();
+            updateCartUI();
+            showToast(`Added "${product.title}" to your Bag.`);
+            openCartDrawer();
+        }
+
+        function updateCartQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            saveCart();
+            updateCartUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('(name)_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const cartContainer = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-count-badge');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="text-center py-16">
+                        <i data-lucide="shopping-bag" class="w-10 h-10 stroke-[1] text-neutral-400 mx-auto mb-3"></i>
+                        <p class="font-serif-title text-xl text-charcoal">Your Bag is Empty</p>
+                        <p class="text-xs text-neutral-500 font-mono mt-1 uppercase">Explore the archive to add curated pieces</p>
+                    </div>
+                `;
+            } else {
+                cartContainer.innerHTML = cart.map(item => `
+                    <div class="flex gap-4 p-3 bg-cream-card border border-subtle-border relative group">
+                        <img src="${item.images[0]}" class="w-16 h-20 object-cover bg-neutral-100">
+                        <div class="flex-1 flex flex-col justify-between text-xs">
+                            <div>
+                                <h4 class="font-serif-title text-base text-charcoal leading-tight">${item.title}</h4>
+                                <span class="text-[10px] font-mono text-neutral-500 uppercase">${item.categoryLabel}</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="flex items-center border border-subtle-border bg-white">
+                                    <button onclick="updateCartQuantity('${item.id}', -1)" class="px-2 py-0.5 hover:bg-neutral-100">-</button>
+                                    <span class="px-2 font-mono text-[11px]">${item.quantity}</span>
+                                    <button onclick="updateCartQuantity('${item.id}', 1)" class="px-2 py-0.5 hover:bg-neutral-100">+</button>
+                                </div>
+                                <span class="font-mono font-bold text-charcoal">৳${(item.price * item.quantity).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart('${item.id}')" class="text-neutral-400 hover:text-charcoal p-1">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            // Price calculations
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const discount = subtotal * appliedDiscount;
+            const shipping = subtotal >= 3000 || subtotal === 0 ? 0 : 80;
+            const total = Math.max(0, subtotal - discount + shipping);
+
+            document.getElementById('cart-subtotal-text').textContent = `৳${subtotal.toLocaleString()}`;
+            document.getElementById('cart-discount-text').textContent = `-৳${discount.toLocaleString()}`;
+            document.getElementById('cart-shipping-text').textContent = shipping === 0 ? 'FREE' : `৳${shipping}`;
+            document.getElementById('cart-total-text').textContent = `৳${total.toLocaleString()}`;
+
+            // Free shipping threshold logic (৳3,000)
+            const target = 3000;
+            const progress = Math.min(100, (subtotal / target) * 100);
+            document.getElementById('shipping-progress-bar').style.width = `${progress}%`;
+            document.getElementById('shipping-percent-text').textContent = `${Math.round(progress)}%`;
+            if (subtotal >= target) {
+                document.getElementById('shipping-progress-text').textContent = "🎉 You unlocked Free Express Shipping!";
+            } else {
+                document.getElementById('shipping-progress-text').textContent = `Add ৳${(target - subtotal).toLocaleString()} for Free Shipping`;
+            }
+
+            // Sync checkout summary modal
+            document.getElementById('checkout-summary-subtotal').textContent = `৳${subtotal.toLocaleString()}`;
+            document.getElementById('checkout-summary-shipping').textContent = `৳${shipping}`;
+            document.getElementById('checkout-summary-total').textContent = `৳${total.toLocaleString()}`;
+
+            lucide.createIcons();
+        }
+
+        function toggleWishlist(productId) {
+            const idx = wishlist.indexOf(productId);
+            if (idx > -1) {
+                wishlist.splice(idx, 1);
+                showToast("Removed item from saved wishlist.");
+            } else {
+                wishlist.push(productId);
+                showToast("Saved item to your wishlist!");
+            }
+            localStorage.setItem('(name)_wishlist', JSON.stringify(wishlist));
+            updateWishlistUI();
+            renderProducts();
+        }
+
+        function updateWishlistUI() {
+            const countBadge = document.getElementById('wishlist-count-badge');
+            countBadge.textContent = wishlist.length;
+            if (wishlist.length > 0) {
+                countBadge.classList.remove('hidden');
+            } else {
+                countBadge.classList.add('hidden');
+            }
+
+            const container = document.getElementById('wishlist-items-container');
+            if (wishlist.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-neutral-400 font-mono text-xs uppercase">
+                        No saved archive items yet
+                    </div>
+                `;
+            } else {
+                const items = PRODUCTS_DATA.filter(p => wishlist.includes(p.id));
+                container.innerHTML = items.map(p => `
+                    <div class="flex gap-4 p-3 bg-cream-card border border-subtle-border items-center justify-between">
+                        <img src="${p.images[0]}" class="w-12 h-16 object-cover">
+                        <div class="flex-1 text-xs">
+                            <h4 class="font-serif-title text-sm text-charcoal leading-tight">${p.title}</h4>
+                            <span class="font-mono text-charcoal font-bold">৳${p.price.toLocaleString()}</span>
+                        </div>
+                        <button onclick="addToCart('${p.id}')" class="bg-charcoal text-cream text-[10px] uppercase px-3 py-1.5 font-semibold">
+                            Bag
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function renderReviews() {
+            const grid = document.getElementById('reviews-grid');
+            grid.innerHTML = REVIEWS_DATA.map(r => `
+                <div class="p-6 bg-cream border border-subtle-border flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="flex text-amber-500">
+                                ${Array(r.rating).fill('<i data-lucide="star" class="w-3.5 h-3.5 fill-amber-500"></i>').join('')}
+                            </div>
+                            <span class="text-[10px] font-mono text-neutral-400">${r.date}</span>
+                        </div>
+                        <p class="text-xs text-neutral-600 font-light italic leading-relaxed mb-4">"${r.comment}"</p>
+                    </div>
+                    <div class="pt-3 border-t border-subtle-border flex justify-between items-center text-[10px] font-mono">
+                        <span class="font-bold text-charcoal uppercase">${r.author}</span>
+                        <span class="text-neutral-400 truncate max-w-[120px]">${r.item}</span>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-charcoal text-cream text-xs px-4 py-3 border border-neutral-700 shadow-xl flex items-center gap-3 transition-all duration-300 opacity-0 transform translate-y-2 pointer-events-auto';
+            toast.innerHTML = `
+                <i data-lucide="info" class="w-4 h-4 text-emerald-400"></i>
+                <span class="font-sans">${message}</span>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-2');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Drawer Navigation Helpers
+        function openCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            const content = document.getElementById('cart-drawer-content');
+            drawer.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                content.classList.remove('translate-x-full');
+            }, 10);
+        }
+
+        function closeCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            const content = document.getElementById('cart-drawer-content');
+            backdrop.classList.add('opacity-0');
+            content.classList.add('translate-x-full');
+            setTimeout(() => drawer.classList.add('hidden'), 300);
+        }
+
+        function openWishlistDrawer() {
+            const drawer = document.getElementById('wishlist-drawer');
+            const backdrop = document.getElementById('wishlist-backdrop');
+            const content = document.getElementById('wishlist-drawer-content');
+            drawer.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                content.classList.remove('translate-x-full');
+            }, 10);
+        }
+
+        function closeWishlistDrawer() {
+            const drawer = document.getElementById('wishlist-drawer');
+            const backdrop = document.getElementById('wishlist-backdrop');
+            const content = document.getElementById('wishlist-drawer-content');
+            backdrop.classList.add('opacity-0');
+            content.classList.add('translate-x-full');
+            setTimeout(() => drawer.classList.add('hidden'), 300);
+        }
+
+        function setupEventListeners() {
+            // Cart Triggers
+            document.getElementById('open-cart-btn').addEventListener('click', openCartDrawer);
+            document.getElementById('close-cart-btn').addEventListener('click', closeCartDrawer);
+            document.getElementById('cart-backdrop').addEventListener('click', closeCartDrawer);
+
+            // Wishlist Triggers
+            document.getElementById('open-wishlist-btn').addEventListener('click', openWishlistDrawer);
+            document.getElementById('close-wishlist-btn').addEventListener('click', closeWishlistDrawer);
+            document.getElementById('close-wishlist-bottom-btn').addEventListener('click', closeWishlistDrawer);
+            document.getElementById('wishlist-backdrop').addEventListener('click', closeWishlistDrawer);
+
+            // Mobile Menu
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileDrawer = document.getElementById('mobile-menu-drawer');
+            const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
+            const mobileContent = document.getElementById('mobile-menu-content');
+            const closeMobileBtn = document.getElementById('close-mobile-menu-btn');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileDrawer.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileBackdrop.classList.remove('opacity-0');
+                    mobileContent.classList.remove('-translate-x-full');
+                }, 10);
+            });
+
+            function closeMobileMenu() {
+                mobileBackdrop.classList.add('opacity-0');
+                mobileContent.classList.add('-translate-x-full');
+                setTimeout(() => mobileDrawer.classList.add('hidden'), 300);
+            }
+
+            closeMobileBtn.addEventListener('click', closeMobileMenu);
+            mobileBackdrop.addEventListener('click', closeMobileMenu);
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // Search Modal
+            const searchModal = document.getElementById('search-modal');
+            const searchInput = document.getElementById('search-input');
+            document.getElementById('open-search-btn').addEventListener('click', () => {
+                searchModal.classList.remove('hidden');
+                searchInput.focus();
+            });
+            document.getElementById('close-search-btn').addEventListener('click', () => {
+                searchModal.classList.add('hidden');
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim();
+                renderProducts();
+            });
+
+            document.querySelectorAll('.search-tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    searchInput.value = tag.textContent;
+                    searchQuery = tag.textContent;
+                    renderProducts();
+                });
+            });
+
+            // Category Cards Quick Filter
+            document.querySelectorAll('.category-card-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const cat = btn.getAttribute('data-category');
+                    activeCategoryFilter = cat;
+                    
+                    // Update Filter Pills
+                    document.querySelectorAll('.filter-btn').forEach(pill => {
+                        if (pill.getAttribute('data-filter') === cat) {
+                            pill.classList.add('bg-charcoal', 'text-cream');
+                            pill.classList.remove('bg-white', 'text-charcoal');
+                        } else {
+                            pill.classList.remove('bg-charcoal', 'text-cream');
+                            pill.classList.add('bg-white', 'text-charcoal');
+                        }
+                    });
+
+                    renderProducts();
+                    document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Category Filter Pills
+            document.querySelectorAll('.filter-btn').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    activeCategoryFilter = pill.getAttribute('data-filter');
+                    document.querySelectorAll('.filter-btn').forEach(p => {
+                        p.classList.remove('bg-charcoal', 'text-cream');
+                        p.classList.add('bg-white', 'text-charcoal');
+                    });
+                    pill.classList.add('bg-charcoal', 'text-cream');
+                    pill.classList.remove('bg-white', 'text-charcoal');
+                    renderProducts();
+                });
+            });
+
+            // Office Siren Edit Filter Banner Trigger
+            document.getElementById('filter-office-siren-btn').addEventListener('click', () => {
+                searchQuery = 'Office Siren';
+                document.getElementById('search-input').value = 'Office Siren';
+                renderProducts();
+                document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Sort Select Listener
+            document.getElementById('sort-select').addEventListener('change', renderProducts);
+
+            // Reset Filters
+            document.getElementById('reset-filters-btn').addEventListener('click', () => {
+                activeCategoryFilter = 'all';
+                searchQuery = '';
+                document.getElementById('search-input').value = '';
+                renderProducts();
+            });
+
+            // Apply Promo Code
+            document.getElementById('apply-promo-btn').addEventListener('click', () => {
+                const code = document.getElementById('promo-input').value.trim().toUpperCase();
+                const msg = document.getElementById('promo-message');
+                if (code === '(name)10') {
+                    appliedDiscount = 0.10;
+                    msg.textContent = '✓ 10% Discount Code Applied!';
+                    msg.className = 'text-[11px] font-mono mb-2 text-emerald-700 block';
+                    document.getElementById('discount-row').classList.remove('hidden');
+                } else {
+                    msg.textContent = '✕ Invalid promo code. Try "(name)10".';
+                    msg.className = 'text-[11px] font-mono mb-2 text-accent block';
+                }
+                updateCartUI();
+            });
+
+            // Checkout Modal Trigger
+            const checkoutModal = document.getElementById('checkout-modal');
+            const checkoutBackdrop = document.getElementById('checkout-backdrop');
+            const checkoutContainer = document.getElementById('checkout-modal-container');
+
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+                if (cart.length === 0) {
+                    showToast('Your bag is empty.');
+                    return;
+                }
+                closeCartDrawer();
+                checkoutModal.classList.remove('hidden');
+                setTimeout(() => {
+                    checkoutBackdrop.classList.remove('opacity-0');
+                    checkoutContainer.classList.remove('scale-95', 'opacity-0');
+                }, 10);
+            });
+
+            function closeCheckout() {
+                checkoutBackdrop.classList.add('opacity-0');
+                checkoutContainer.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => checkoutModal.classList.add('hidden'), 300);
+            }
+
+            document.getElementById('close-checkout-modal-btn').addEventListener('click', closeCheckout);
+
+            // Checkout Submission Form
+            document.getElementById('checkout-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                closeCheckout();
+
+                // Clear cart & generate order ID
+                const orderId = '#RV-' + Math.floor(10000 + Math.random() * 90000);
+                document.getElementById('confirmed-order-id').textContent = orderId;
+                
+                cart = [];
+                saveCart();
+                updateCartUI();
+
+                // Show Success Modal
+                document.getElementById('order-success-modal').classList.remove('hidden');
+            });
+
+            document.getElementById('close-success-btn').addEventListener('click', () => {
+                document.getElementById('order-success-modal').classList.add('hidden');
+            });
+
+            // Review Modal Trigger
+            const reviewModal = document.getElementById('review-modal');
+            document.getElementById('write-review-btn').addEventListener('click', () => {
+                reviewModal.classList.remove('hidden');
+            });
+            document.getElementById('close-review-modal-btn').addEventListener('click', () => {
+                reviewModal.classList.add('hidden');
+            });
+
+            document.getElementById('review-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const newRev = {
+                    id: 'r' + (REVIEWS_DATA.length + 1),
+                    author: document.getElementById('rev-author').value,
+                    item: document.getElementById('rev-item').value,
+                    rating: parseInt(document.getElementById('rev-rating').value),
+                    comment: document.getElementById('rev-comment').value,
+                    date: 'Just now'
+                };
+                REVIEWS_DATA.unshift(newRev);
+                renderReviews();
+                reviewModal.classList.add('hidden');
+                showToast("Thank you! Your review has been published.");
+                document.getElementById('review-form').reset();
+            });
+
+            // Newsletter Form
+            document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showToast("Subscribed! You will receive early archive drop notices.");
+                e.target.reset();
+            });
+
+            // Product Modal Backdrop Close
+            document.getElementById('close-product-modal-btn').addEventListener('click', closeProductModal);
+            document.getElementById('product-modal-backdrop').addEventListener('click', closeProductModal);
+        }
+    </script>
 </body>
 </html>
