@@ -8,7 +8,7 @@
 //   ALLOWED_ORIGIN      optional, e.g. https://syzygy.bd (defaults to *)
 import { UTApi } from 'uploadthing/server';
 
-const UPLOADTHING_TOKEN = 'PASTE_YOUR_UPLOADTHING_TOKEN_HERE';
+const UPLOADTHING_TOKEN='eyJhcGlLZXkiOiJza19saXZlXzlkMGE0ZjliODhiMmNjODBhMmE5ZDNiNGNhMDdhZjhmZWM3MjdlZmQ2ZGNjYjBlN2U4ZTIwYzkxMjY3ZDMzMmYiLCJhcHBJZCI6InBzazFneXBndHoiLCJyZWdpb25zIjpbInNlYTEiXX0=';
 
 export const config = { api: { bodyParser: false } };
 

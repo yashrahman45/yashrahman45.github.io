@@ -13,9 +13,11 @@ export const firebaseConfig = {
 
 // Where the admin panel saves uploaded product photos.
 //   'storage' → Firebase Storage (best for speed; needs the Blaze plan on new projects)
+//   'uploadthing' → uploads straight from the admin page to UploadThing (no server needed; the token is
+//                   saved privately in Firestore the first time you upload, see README)
 //   'inline'  → resized photos are stored inside the product document (free, but heavier pages)
 // If a Storage upload fails, the admin panel falls back to 'inline' automatically.
-export const imageMode = 'inline';
+export const imageMode = 'uploadthing';
 
 // UploadThing (recommended). Deploy api/upload.js (see README) and paste its URL here,
 // e.g. 'https://syzygy.vercel.app/api/upload' or just '/api/upload' if the site is on the same Vercel project.

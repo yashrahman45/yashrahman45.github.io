@@ -168,6 +168,7 @@ a.brand.lg{display:inline-flex;align-items:center;gap:10px}
 .tile:hover .tile-cta,.tile:focus-visible .tile-cta{opacity:1;transform:none}
 @media(hover:none){.tile-cta{opacity:1;transform:none}}
 @media(min-width:800px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}.tile:last-child{aspect-ratio:4/5;grid-column:auto}}
+@media(min-width:800px){.tile.fill{grid-column:span var(--sp);aspect-ratio:var(--ar)}}
 
 /* product grid + card */
 .grid{display:grid;gap:clamp(24px,3vw,44px) clamp(10px,1.4vw,20px);grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -879,7 +880,7 @@ function art(p,view=0){
   let tf='';
   if(view===1)tf=`translate(400 500) scale(${ZOOM[at]}) rotate(-5) translate(${-f[0]} ${-f[1]})`;
   if(view===2)tf='translate(400 500) rotate(16) scale(.88) translate(-400 -500)';
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">${DEFS}<rect width="800" height="1000" fill="url(#${view===2?'bgl':'bg'})"/><g filter="url(#ds)" transform="${tf}">${body}</g><rect width="800" height="1000" filter="url(#gr)"/><text x="36" y="962" font-family="monospace" font-size="20" letter-spacing="4" fill="#fff" fill-opacity=".42">SZG-${String(p.i+1).padStart(3,'0')} / ${p.fin.toUpperCase()}</text></svg>`;
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">${DEFS}<rect width="800" height="1000" fill="url(#${view===2?'bgl':'bg'})"/><g filter="url(#ds)" transform="${tf}">${body}</g><rect width="800" height="1000" filter="url(#gr)"/>${p.id.startsWith('cat-')?'':`<text x="36" y="962" font-family="monospace" font-size="20" letter-spacing="4" fill="#fff" fill-opacity=".42">SZG-${String(p.i+1).padStart(3,'0')} / ${p.fin.toUpperCase()}</text>`}</svg>`;
   return artCache[k]='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
 }
 const VIEWN=['Front','Detail','Studio'];
@@ -1236,8 +1237,16 @@ function reviewsHtml(){
 function viewHome(){
   const mq=(SETTINGS.announcements||[]).map(a=>phrase(esc(a))).join('');
   const cnt=id=>P.filter(p=>p.c===id).length;
-  const tiles=CATS.map((c,i)=>`<a class="tile rv" style="--i:${i%3}" href="#c-${c.id}" data-go="c-${c.id}"><span class="tile-n">${pad(i+1)}</span><span class="tile-cta">Shop ${ic('arr','sm')}</span><img loading="lazy" src="${c.image||art(pick(c.rep),i%2?2:0)}" alt="" width="800" height="1000"><span class="tile-t"><b>${c.name}</b><i>${cnt(c.id)} pieces</i></span></a>`).join('')
-   +`<a class="tile rv" href="#styles" data-go="styles"><span class="tile-n">09</span><span class="tile-cta">Shop ${ic('arr','sm')}</span><img loading="lazy" src="${SETTINGS.imgStyles||art(pick('spike-crown-ring'),2)}" alt="" width="800" height="1000"><span class="tile-t"><b>Shop by style</b><i>8 styles</i></span></a>`;
+  const catImg=(c,i)=>{
+    if(c.image)return c.image;
+    const rp=byId(c.rep),p=(rp&&rp.c===c.id?rp:null)||P.find(x=>x.c===c.id);
+    if(p)return art(p,i%2?2:0);
+    const [at,av]=CAT_ART[c.id]||['accessory','pins'];
+    return art({...PH,id:'cat-'+c.id,at,av,i,imgs:[]},i%2?2:0);
+  };
+  const nTiles=CATS.length+1,rem=nTiles%3,sp=rem?4-rem:1;
+  const tiles=CATS.map((c,i)=>`<a class="tile rv" style="--i:${i%3}" href="#c-${c.id}" data-go="c-${c.id}"><span class="tile-n">${pad(i+1)}</span><span class="tile-cta">Shop ${ic('arr','sm')}</span><img loading="lazy" src="${catImg(c,i)}" alt="" width="800" height="1000"><span class="tile-t"><b>${c.name}</b><i>${cnt(c.id)} pieces</i></span></a>`).join('')
+   +`<a class="tile rv${rem?' fill':''}" style="--sp:${sp};--ar:${sp*4}/5" href="#styles" data-go="styles"><span class="tile-n">${pad(nTiles)}</span><span class="tile-cta">Shop ${ic('arr','sm')}</span><img loading="lazy" src="${SETTINGS.imgStyles||art(P.find(x=>x.st.length)||{...PH,id:'cat-styles',imgs:[]},2)}" alt="" width="800" height="1000"><span class="tile-t"><b>Shop by style</b><i>${STYLES.length} styles</i></span></a>`;
   const dark=P.filter(p=>p.st.includes('dark')||p.st.includes('gothic'));
   const srows=STYLES.map((s,i)=>`<a class="srow ${i===0?'on':''}" href="#s-${s.id}" data-go="s-${s.id}" data-sid="${s.id}"><span class="mono">${pad(i+1)}</span><div><h3>${s.name}</h3><p>${s.d}</p></div>${ic('arr')}</a>`).join('');
   return `
@@ -1261,7 +1270,7 @@ function viewHome(){
 </div></section>
 <div class="marq" aria-hidden="true"><div class="marq-t">${mq}${mq}</div></div>
 
-<section class="sec wrap" aria-labelledby="cat-h">${secHead('<span id="cat-h">Shop by<br>category</span>','','','09 collections')}<div class="tiles">${tiles}</div></section>
+<section class="sec wrap" aria-labelledby="cat-h">${secHead('<span id="cat-h">Shop by<br>category</span>','','',pad(nTiles)+' collections')}<div class="tiles">${tiles}</div></section>
 
 <section class="sec wrap" style="padding-top:0" aria-labelledby="new-h">${secHead('<span id="new-h">New in</span>','Shop all new','new')}<div class="grid">${P.filter(p=>p.b==='new').slice(0,4).map(card).join('')}</div></section>
 

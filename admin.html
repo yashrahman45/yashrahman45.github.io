@@ -362,12 +362,54 @@ async function toBlob(file,max,q){
   const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(bmp,0,0,c.width,c.height);
   return new Promise(r=>c.toBlob(r,'image/jpeg',q));
 }
+/* ---- UploadThing, straight from the browser (no server function) ----
+   The token lives in Firestore at private/uploadthing, which only admins can read (see firestore.rules).
+   The upload URL is signed here with WebCrypto, then the file is PUT to UploadThing's ingest server. */
+let utCfg=null;
+const b64u=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const djb2=s=>{let h=5381,i=s.length;while(i)h=(h*33)^s.charCodeAt(--i);return (h&0xbfffffff)|((h>>>1)&0x40000000)};
+const shuf=(str,seed)=>{const c=str.split(''),n=djb2(seed);for(let i=0;i<c.length;i++){const j=((n%(i+1))+i)%c.length;[c[i],c[j]]=[c[j],c[i]]}return c.join('')};
+const hmacHex=async(msg,key)=>{const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(key),{name:'HMAC',hash:'SHA-256'},false,['sign']);return [...new Uint8Array(await crypto.subtle.sign('HMAC',k,new TextEncoder().encode(msg)))].map(b=>b.toString(16).padStart(2,'0')).join('')};
+function parseUtToken(t){try{const j=JSON.parse(atob(String(t).trim()));if(j.apiKey&&j.appId&&j.regions&&j.regions.length)return j}catch(e){}return null}
+async function utConfig(){
+  if(utCfg)return utCfg;
+  const ref=dref('private','uploadthing');let tok='';
+  try{const d=await F.getDoc(ref);if(d.exists())tok=d.data().token||''}catch(e){console.warn(e)}
+  let cfg=parseUtToken(tok);
+  if(!cfg){
+    tok=prompt('Paste your UploadThing token (uploadthing.com → your app → API Keys). It is saved privately in Firestore, readable by admins only.')||'';
+    cfg=parseUtToken(tok);
+    if(!cfg)throw new Error('That is not a valid UploadThing token');
+    await F.setDoc(ref,{token:tok.trim()});
+  }
+  return utCfg=cfg;
+}
+async function uploadToUploadThing(blob,name){
+  const cfg=await utConfig();
+  const {default:Sqids,defaultOptions}=await import('https://cdn.jsdelivr.net/npm/sqids@0.3.0/+esm');
+  const alphabet=shuf(defaultOptions.alphabet,cfg.appId);
+  const key=new Sqids({alphabet,minLength:12}).encode([Math.abs(djb2(cfg.appId))])+b64u(Date.now()+'-'+Math.random().toString(36).slice(2,8)+'-'+name);
+  const u=new URL(`https://${cfg.regions[0]}.ingest.uploadthing.com/${key}`);
+  u.search=new URLSearchParams({expires:String(Date.now()+3600000),'x-ut-identifier':cfg.appId,'x-ut-file-name':name,'x-ut-file-size':String(blob.size),'x-ut-file-type':blob.type||'image/jpeg','x-ut-content-disposition':'inline'}).toString();
+  u.searchParams.append('signature','hmac-sha256='+await hmacHex(u.toString(),cfg.apiKey));
+  const fd=new FormData();fd.append('file',blob,name);
+  const r=await fetch(u,{method:'PUT',body:fd});
+  let j={};try{j=await r.json()}catch(e){}
+  if(!r.ok){if(r.status===401||r.status===403)utCfg=null;throw new Error((j&&(j.error||j.message))||('HTTP '+r.status))}
+  return j.ufsUrl||j.url||`https://${cfg.appId}.ufs.sh/f/${key}`;
+}
 async function uploadImage(file,folder){
   if(uploadEndpoint){
     try{
       const blob=await toBlob(file,1600,.86),tok=await auth.currentUser.getIdToken();
       const r=await fetch(uploadEndpoint,{method:'POST',headers:{authorization:'Bearer '+tok,'content-type':'image/jpeg','x-file-name':(file.name||'photo').replace(/\.\w+$/,'')+'.jpg'},body:blob});
       const j=await r.json();if(!r.ok||!j.url)throw new Error(j.error||r.status);return j.url;
+    }catch(e){console.warn(e);toast('UploadThing upload failed: '+e.message,true);throw e}
+  }
+  if(imageMode==='uploadthing'){
+    try{
+      const blob=await toBlob(file,1600,.86);
+      return await uploadToUploadThing(blob,(file.name||'photo').replace(/\.\w+$/,'').replace(/[^\w-]+/g,'-').slice(0,60)+'.jpg');
     }catch(e){console.warn(e);toast('UploadThing upload failed: '+e.message,true);throw e}
   }
   if(imageMode==='storage'){
