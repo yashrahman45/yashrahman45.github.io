@@ -15,10 +15,31 @@ service cloud.firestore {
     match /styles/{id}     { allow read: if true; allow write: if isAdmin(); }
     match /products/{id}   { allow read: if true; allow write: if isAdmin(); }
 
-    // Visitors only see published reviews.
+    // Visitors only see published reviews. Anyone can send one, but it starts unpublished.
     match /reviews/{id} {
       allow read: if resource.data.published == true || isAdmin();
-      allow write: if isAdmin();
+      allow create: if request.resource.data.published == false
+        && request.resource.data.keys().hasOnly(['name', 'text', 'rating', 'productId', 'photo', 'published', 'createdAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.text is string && request.resource.data.text.size() <= 1000
+        && request.resource.data.rating is number && request.resource.data.rating >= 1 && request.resource.data.rating <= 5
+        && (!('photo' in request.resource.data) || (request.resource.data.photo is string && request.resource.data.photo.size() <= 150000));
+      allow update, delete: if isAdmin();
+    }
+
+    // Coupons: a shopper can look up one code by its exact name, but cannot list them all.
+    match /coupons/{code} {
+      allow get: if true;
+      allow list, write: if isAdmin();
+    }
+
+    // Order tracking: holds only the status, courier and a hash of the phone number.
+    match /tracks/{no} {
+      allow get: if true;
+      allow create: if request.resource.data.status == 'new'
+        && request.resource.data.keys().hasOnly(['no', 'status', 'courier', 'trackingNo', 'ph', 'createdAt'])
+        && request.resource.data.ph is string && request.resource.data.ph.size() <= 100;
+      allow list, update, delete: if isAdmin();
     }
 
     // Anyone can place an order. Only admins can read or change orders.

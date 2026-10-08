@@ -3,11 +3,18 @@
 <title>Syzygy</title>
 <meta name="description" content="Syzygy (syzygy.bd) — alternative accessories for after dark. Belts, rings, chains, glasses and fake piercings, shipped across Bangladesh with cash on delivery.">
 <meta name="theme-color" content="#0a0a0a">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta property="og:site_name" content="Syzygy">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="Syzygy — accessories for after dark">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Syzygy","alternateName":"syzygy.bd","url":"https://syzygy.bd","sameAs":["https://www.instagram.com/syzygy.bd/"]}</script>
 <meta property="og:description" content="Belts, rings, chains, glasses and fake piercings. Shipped across Bangladesh.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=UnifrakturCook:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=UnifrakturCook:wght@700&family=Hind+Siliguri:wght@400;500;600;700&display=swap">
 <style>
 /* Layout concept: full-bleed editorial grid ruled by hairlines. Oversized condensed caps sit over silver-on-black product plates. The blackletter wordmark is the single gothic gesture; everything else stays plain, sharp and square. Eclipse alignment (syzygy) is the recurring motif. */
 :root{
@@ -46,6 +53,10 @@ h1,h2,h3,h4,p{margin:0}
 .disp{font-family:var(--f-display);font-weight:900;font-stretch:62%;text-transform:uppercase;line-height:.86;letter-spacing:-.01em;text-wrap:balance}
 .h2{font-size:clamp(2.8rem,9vw,8.5rem)}
 .brand{font-family:var(--f-black);line-height:1}
+.logo{display:block;mix-blend-mode:screen;object-fit:contain}
+a.brand.lg{display:inline-flex;align-items:center;gap:10px}
+#loader .logo{width:clamp(110px,24vw,170px);height:auto}
+.foot .logo{width:84px;height:84px;margin-bottom:10px}
 
 /* loader */
 #loader{position:fixed;inset:0;z-index:500;background:var(--bg);display:grid;place-items:center;align-content:center;gap:22px;animation:loaderOut .6s var(--ease) 2.4s forwards}
@@ -499,6 +510,29 @@ select option,select optgroup{background:#161616;color:#f3f3f0}
 #toast div.on{transform:none;opacity:1}
 #toast button{border-bottom:1px solid var(--ink);padding-bottom:2px}
 
+/* v2 additions */
+:root[lang=bn]{--f-body:"Hind Siliguri","Noto Sans Bengali",system-ui,sans-serif;--f-display:"Hind Siliguri","Noto Sans Bengali",sans-serif;--f-mono:"Hind Siliguri","Noto Sans Bengali",sans-serif}
+:root[lang=bn] *{letter-spacing:0!important}
+:root[lang=bn] .disp{font-stretch:100%;line-height:1.05}
+.lang{font:600 12px/1 var(--f-mono);letter-spacing:.04em}
+.opts label.na span{opacity:.4;text-decoration:line-through}
+.opts input:checked+span{text-decoration:none}
+.area{border:0;padding:0;margin:0;display:grid;gap:8px}
+.pnote{font-size:13px;line-height:1.5;color:#cfcfca;border:1px dashed var(--line-2);padding:12px}
+.alt-ord{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.alt-ord .mono{grid-column:1/-1}
+.alt-ord .btn{min-height:44px;padding:0 10px;font-size:11px}
+.trk-f{display:grid;gap:14px}
+.trk{list-style:none;display:grid;gap:0;margin:18px 0 0;padding:0;border-left:1px solid var(--line-2)}
+.trk li{position:relative;padding:0 0 22px 22px;color:var(--mute)}
+.trk li::before{content:"";position:absolute;left:-6px;top:3px;width:11px;height:11px;background:var(--bg);border:1px solid var(--line-2)}
+.trk li.done{color:var(--fg)}
+.trk li.done::before{background:var(--fg);border-color:var(--fg)}
+.trk li.bad{color:var(--sale)}.trk li.bad::before{background:var(--sale);border-color:var(--sale)}
+.trk-i{border:1px solid var(--line-2);padding:14px;display:grid;gap:6px;margin-top:6px}
+.rev-img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);background:#000}
+.rev-act{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.rate{display:flex;gap:6px}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .marq-t{animation:none!important}
@@ -509,7 +543,7 @@ select option,select optgroup{background:#161616;color:#f3f3f0}
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div id="loader" aria-hidden="true"><span class="brand">Syzygy</span><i></i></div>
+<div id="loader" aria-hidden="true"><img class="logo" src="logo.jpg" alt="" width="170" height="170"><span class="brand">Syzygy</span><i></i></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></symbol>
@@ -545,8 +579,9 @@ select option,select optgroup{background:#161616;color:#f3f3f0}
         </ul>
       </nav>
     </div>
-    <a class="brand" href="#home" data-go="home" aria-label="Syzygy home">Syzygy</a>
+    <a class="brand lg" href="#home" data-go="home" aria-label="Syzygy home"><img class="logo" src="logo.jpg" alt="" width="38" height="38"><span>Syzygy</span></a>
     <div class="hdr-r">
+      <button class="ibtn lang" id="lang-b" data-lang aria-label="Language">বাং</button>
       <button class="ibtn" data-open="search" aria-label="Search" aria-controls="search"><svg class="ic"><use href="#i-search"/></svg></button>
       <button class="ibtn" data-go="saved" aria-label="Saved items"><svg class="ic"><use href="#i-heart"/></svg><span class="cnt" id="wish-n" data-n="0">0</span></button>
       <button class="ibtn" data-open="cart" aria-label="Open bag" aria-controls="cart"><svg class="ic"><use href="#i-bag"/></svg><span class="cnt" id="bag-n" data-n="0">0</span></button>
@@ -560,6 +595,7 @@ select option,select optgroup{background:#161616;color:#f3f3f0}
   <div class="wrap">
     <div class="foot-cols">
       <div>
+        <img class="logo" src="logo.jpg" alt="Syzygy logo" width="84" height="84" loading="lazy">
         <p class="brand" style="font-size:44px;margin-bottom:14px">Syzygy</p>
         <p>Alternative accessories for people who dress after dark. Belts, rings, chains, glasses and piercings, shipped across Bangladesh.</p>
       </div>
@@ -568,6 +604,7 @@ select option,select optgroup{background:#161616;color:#f3f3f0}
         <li><button data-info="shipping">Shipping</button></li>
         <li><button data-info="returns">Returns &amp; refunds</button></li>
         <li><button data-info="sizing">Size guide</button></li>
+        <li><button data-track>Track order</button></li>
         <li><button data-info="contact">Contact</button></li>
       </ul></div>
       <div><h4>Legal</h4><ul>
@@ -630,9 +667,27 @@ select option,select optgroup{background:#161616;color:#f3f3f0}
 <script type="module">
 import {SEED} from './seed.js';
 import {firebaseConfig} from './firebase-config.js';
+import {BN,BNRE} from './i18n-bn.js';
+
+/* ============ language (English / বাংলা) ============ */
+const LANG=(()=>{try{return localStorage.getItem('szg.lang')==='bn'?'bn':'en'}catch(e){return 'en'}})();
+const trS=s=>{const k=String(s).trim();if(!k)return s;let v=BN[k];if(v===undefined){for(const [re,f] of BNRE){const m=k.match(re);if(m){v=f(...m.slice(1));break}}}return v===undefined?s:String(s).replace(k,()=>v)};
+function trTree(root){
+  if(LANG!=='bn'||!root)return;
+  if(root.nodeType===3){const t=trS(root.nodeValue);if(t!==root.nodeValue)root.nodeValue=t;return}
+  if(root.nodeType!==1||/^(SCRIPT|STYLE)$/.test(root.tagName))return;
+  const w=document.createTreeWalker(root,4);let n;
+  while((n=w.nextNode())){if(n.parentNode&&/^(SCRIPT|STYLE)$/.test(n.parentNode.tagName))continue;const t=trS(n.nodeValue);if(t!==n.nodeValue)n.nodeValue=t}
+  [root,...root.querySelectorAll('[placeholder],[aria-label],[title]')].forEach(e=>['placeholder','aria-label','title'].forEach(a=>{if(e.hasAttribute&&e.hasAttribute(a)){const v=e.getAttribute(a),t=trS(v);if(t!==v)e.setAttribute(a,t)}}));
+}
+if(LANG==='bn'){
+  document.documentElement.lang='bn';
+  new MutationObserver(ms=>{for(const m of ms){if(m.type==='characterData')trTree(m.target);else m.addedNodes.forEach(trTree)}}).observe(document.body,{childList:true,subtree:true,characterData:true});
+}
+
 
 /* ============ DATA LAYER ============ */
-const CONFIG={instagram:'https://www.instagram.com/syzygy.bd/',whatsapp:'',email:'',freeShip:3000,ship:{dhaka:70,other:130},promo:{code:'',pct:0},dropEnds:new Date(0)};
+const CONFIG={instagram:'https://www.instagram.com/syzygy.bd/',whatsapp:'',email:'',freeShip:3000,ship:{dhaka:70,other:130},promo:{code:'',pct:0},pay:{bkash:'',nagad:''},siteUrl:'',ogImage:'',dropEnds:new Date(0)};
 const CATSPEC={
  belts:{Width:'35 mm',Fits:'Waist 28–40 in'},
  'fake-piercing':{Fit:'Clip-on, no piercing needed',Sold:'As shown'},
@@ -646,7 +701,7 @@ const CATSPEC={
 const CAT_ART={belts:['belt','studs'],'fake-piercing':['piercing','septum'],glasses:['glasses','slim'],jewelry:['jewelry','dagger'],bracelets:['bracelet','cuff'],rings:['ring','band'],necklaces:['necklace','cross'],accessories:['accessory','pins']};
 let CATS=[],STYLES=[],P=[],IDX={},CAT={},STY={},REVIEWS=[],SETTINGS={},REVIEW_SAMPLE=false,fb=null;
 const byId=id=>IDX[id];
-const PH={id:'ph',n:'',c:'',p:0,w:0,s:0,b:'',st:[],m:'',fin:'silver',at:'ring',av:'band',d:'',i:0,o:null,drop:false,imgs:[],hay:''};
+const PH={id:'ph',n:'',c:'',p:0,w:0,s:0,vs:[],sizes:[],colors:[],b:'',st:[],m:'',fin:'silver',at:'ring',av:'band',d:'',i:0,o:null,drop:false,imgs:[],hay:''};
 const pick=id=>byId(id)||P[0]||PH;
 
 function applyData(d,sample){
@@ -657,6 +712,9 @@ function applyData(d,sample){
   CONFIG.freeShip=Number(s.freeShip)||3000;
   CONFIG.ship={dhaka:Number(s.shipDhaka)||0,other:Number(s.shipOther)||0};
   CONFIG.promo={code:String(s.promoCode||'').trim().toUpperCase(),pct:Number(s.promoPct)||0};
+  CONFIG.pay={bkash:String(s.bkashNo||'').trim(),nagad:String(s.nagadNo||'').trim()};
+  CONFIG.siteUrl=String(s.siteUrl||'').trim().replace(/\/+$/,'');
+  CONFIG.ogImage=/^https:\/\//.test(s.ogImage||'')?s.ogImage:'';
   CONFIG.dropEnds=s.dropEnds?new Date(s.dropEnds):new Date(0);
   const ord=(a,b)=>(a.order??0)-(b.order??0);
   const tax=c=>({id:c.id,name:c.name||c.id,d:c.desc||'',rep:c.rep||'',image:c.image||''});
@@ -668,13 +726,15 @@ function applyData(d,sample){
     const styles=Array.isArray(r.styles)?r.styles:[],[dat,dav]=CAT_ART[r.cat]||['accessory','pins'];
     const imgs=(Array.isArray(r.images)?r.images:[]).filter(Boolean);
     const o=r.options&&Array.isArray(r.options.vals)&&r.options.vals.length?{label:r.options.label||'Option',vals:r.options.vals}:null;
+    const vs=(Array.isArray(r.variants)?r.variants:[]).map(v=>({size:String(v.size||'').trim(),color:String(v.color||'').trim(),s:Math.max(0,Math.floor(Number(v.stock)||0))})).filter(v=>v.size||v.color);
+    const sizes=[...new Set(vs.map(v=>v.size).filter(Boolean))],colors=[...new Set(vs.map(v=>v.color).filter(Boolean))];
     const price=Number(r.price)||0,was=Number(r.was)>price?Number(r.was):0;
-    return {id:r.id,n:r.name||r.id,c:r.cat,p:price,w:was,s:Math.max(0,Number(r.stock)||0),b:r.badge||'',st:styles,m:r.material||'',fin:r.finish||'silver',
-      at:r.art||dat,av:r.artVar||dav,d:r.desc||'',i,o,drop:!!r.drop,imgs,
+    return {id:r.id,n:(LANG==='bn'&&r.nameBn)||r.name||r.id,c:r.cat,p:price,w:was,s:vs.length?vs.reduce((a,v)=>a+v.s,0):Math.max(0,Number(r.stock)||0),vs,sizes,colors,b:r.badge||'',st:styles,m:r.material||'',fin:r.finish||'silver',
+      at:r.art||dat,av:r.artVar||dav,d:(LANG==='bn'&&r.descBn)||r.desc||'',i,o:vs.length?null:o,drop:!!r.drop,imgs,
       hay:[r.name,CAT[r.cat].name,styles.join(' '),r.material,r.finish,r.desc,r.badge==='best'?'bestseller':r.badge].join(' ').toLowerCase()};
   });
   IDX=Object.fromEntries(P.map(p=>[p.id,p]));
-  REVIEWS=(d.reviews||[]).map(r=>({r:Math.max(1,Math.min(5,Number(r.rating)||5)),t:r.text||'',pid:r.productId||'',name:r.name||''})).filter(r=>r.t);
+  REVIEWS=(d.reviews||[]).map(r=>({r:Math.max(1,Math.min(5,Number(r.rating)||5)),t:r.text||'',pid:r.productId||'',name:r.name||'',photo:/^(data:image\/|https:\/\/)/.test(r.photo||'')?r.photo:''})).filter(r=>r.t);
   REVIEW_SAMPLE=!!sample;
 }
 async function initFirebase(){
@@ -714,6 +774,9 @@ const pad=n=>String(n).padStart(2,'0');
 const ic=(n,c='')=>`<svg class="ic ${c}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const off=p=>p.w?Math.round((1-p.p/p.w)*100):0;
 const stockLbl=p=>p.s<=0?['Sold out','st-out']:p.s<=6?['Only '+p.s+' left','st-low']:['In stock','st-ok'];
+const vlabel=v=>[v.size,v.color].filter(Boolean).join(' / ');
+const hasVar=p=>!!(p.vs&&p.vs.length);
+const stockOf=(p,o)=>{if(!hasVar(p))return p.s;const v=p.vs.find(x=>vlabel(x)===o);return v?v.s:0};
 const MOTION=!matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ============ procedural product plates ============ */
@@ -826,14 +889,15 @@ const state={route:'home',open:null,last:null,timers:[],f:{sort:'featured',stock
 let cart=LS.get('szg.cart',[]).filter(l=>byId(l.id));
 let wish=LS.get('szg.wish',[]).filter(id=>byId(id));
 let recent=LS.get('szg.recent',[]).filter(id=>byId(id));
-let promoOn=LS.get('szg.promo',false);
+let promo=LS.get('szg.promo2',null);
+const savePromo=()=>LS.set('szg.promo2',promo);
 const saveCart=()=>LS.set('szg.cart',cart);
 
 /* ============ components ============ */
 const price=p=>`<span class="price"><b>${money(p.p)}</b>${p.w?`<s>${money(p.w)}</s>`:''}</span>`;
 const badges=p=>{let h='';if(p.s<=0)h+='';if(p.b==='new')h+='<span class="badge">New</span>';if(p.b==='best')h+='<span class="badge o">Best seller</span>';if(p.w)h+=`<span class="badge s">−${off(p)}%</span>`;return h?`<div class="badges">${h}</div>`:''};
 function card(p,i=0){
-  const [sl,sc]=stockLbl(p),needOpt=!!p.o;
+  const [sl,sc]=stockLbl(p),needOpt=!!p.o||hasVar(p);
   return `<article class="card rv" style="--i:${i%8}">
   <div class="card-media">
     <a class="card-link" href="#p-${p.id}" data-go="p-${p.id}" aria-label="${esc(p.n)}, ${money(p.p)}"><img class="a" loading="lazy" decoding="async" width="800" height="1000" src="${art(p,0)}" alt="${esc(p.n)}"><img class="b" loading="lazy" decoding="async" width="800" height="1000" src="${art(p,1)}" alt=""></a>
@@ -847,11 +911,33 @@ function card(p,i=0){
     <div class="card-meta"><span>${CAT[p.c].name}</span><span class="${sc}">${sl}</span></div>
   </div></article>`;
 }
+function optsHtml(p,ns){
+  if(hasVar(p)){
+    const first=p.vs.find(v=>v.s>0)||p.vs[0];
+    const grp=(label,vals,name,cur)=>`<div><div class="opt-l"><span class="mono">${label}</span>${name==='size'&&(p.c==='rings'||p.c==='belts')?`<button class="mono mute" data-info="sizing" type="button" style="text-decoration:underline">Size guide</button>`:''}</div><div class="opts" role="radiogroup" aria-label="${label}">${vals.map(v=>`<label><input type="radio" name="${ns}-${name}" value="${esc(v)}" ${v===cur?'checked':''}><span>${esc(v)}</span></label>`).join('')}</div></div>`;
+    return (p.sizes.length?grp('Size',p.sizes,'size',first.size):'')+(p.colors.length?grp('Color',p.colors,'color',first.color):'');
+  }
+  if(!p.o)return '';
+  return `<div><div class="opt-l"><span class="mono">${p.o.label}</span>${p.c==='rings'||p.c==='belts'?`<button class="mono mute" data-info="sizing" type="button" style="text-decoration:underline">Size guide</button>`:''}</div>
+      <div class="opts" role="radiogroup" aria-label="${p.o.label}">${p.o.vals.map((v,i)=>`<label><input type="radio" name="${ns}-opt" value="${esc(v)}" ${i===(p.c==='rings'?2:p.o.vals.length>3?1:0)?'checked':''}><span>${esc(v)}</span></label>`).join('')}</div></div>`;
+}
+function refreshBuy(box){
+  const p=byId(box.dataset.id);if(!p||!hasVar(p))return;
+  const cur=n=>{const r=$('input[name$="-'+n+'"]:checked',box);return r?r.value:''};
+  const size=cur('size'),color=cur('color');
+  $$('input[name$="-size"]',box).forEach(i=>i.closest('label').classList.toggle('na',!p.vs.some(v=>v.size===i.value&&(!color||v.color===color)&&v.s>0)));
+  $$('input[name$="-color"]',box).forEach(i=>i.closest('label').classList.toggle('na',!p.vs.some(v=>v.color===i.value&&(!size||v.size===size)&&v.s>0)));
+  const v=p.vs.find(x=>x.size===size&&x.color===color),n=v?v.s:0;
+  const st=n<=0?['Sold out','st-out']:n<=6?['Only '+n+' left','st-low']:['In stock','st-ok'];
+  const el=$('[data-stock]',box);if(el){el.textContent=st[0];el.className='mono '+st[1]+' stock'}
+  $$('[data-buy],[data-buynow]',box).forEach(b=>{b.disabled=n<=0});
+  const b1=$('[data-buy]',box);if(b1)b1.textContent=n<=0?'Sold out':'Add to bag';
+  const o=$('.qty output',box);if(o)o.textContent=Math.max(1,Math.min(parseInt(o.textContent,10)||1,Math.max(1,Math.min(n,10))));
+}
 function buybox(p,ns){
   const [sl,sc]=stockLbl(p);
   return `<div class="buybox" data-id="${p.id}">
-    ${p.o?`<div><div class="opt-l"><span class="mono">${p.o.label}</span>${p.c==='rings'||p.c==='belts'?`<button class="mono mute" data-info="sizing" type="button" style="text-decoration:underline">Size guide</button>`:''}</div>
-      <div class="opts" role="radiogroup" aria-label="${p.o.label}">${p.o.vals.map((v,i)=>`<label><input type="radio" name="${ns}-opt" value="${esc(v)}" ${i===(p.c==='rings'?2:p.o.vals.length>3?1:0)?'checked':''}><span>${esc(v)}</span></label>`).join('')}</div></div>`:''}
+    ${optsHtml(p,ns)}
     <div class="buy-row">
       <div class="qty" role="group" aria-label="Quantity"><button type="button" data-qty="-1" aria-label="Decrease quantity">${ic('minus','sm')}</button><output aria-live="polite">1</output><button type="button" data-qty="1" aria-label="Increase quantity">${ic('plus','sm')}</button></div>
       <button class="btn primary" data-buy ${p.s<=0?'disabled':''}>${p.s<=0?'Sold out':'Add to bag'}</button>
@@ -860,7 +946,8 @@ function buybox(p,ns){
       <button class="btn" data-buynow ${p.s<=0?'disabled':''}>Buy now</button>
       <button class="wbtn" data-wish="${p.id}" aria-pressed="${wish.includes(p.id)}" aria-label="Save to wishlist">${ic('heart')}</button>
     </div>
-    <p class="mono ${sc} stock">${sl}</p>
+    ${CONFIG.whatsapp?`<button class="btn block" type="button" data-wa-prod>Order on WhatsApp</button>`:''}
+    <p class="mono ${sc} stock" data-stock>${sl}</p>
   </div>`;
 }
 const grid=(list,empty='Nothing here yet.')=>list.length?`<div class="grid">${list.map(card).join('')}</div>`:`<p class="mute">${empty}</p>`;
@@ -888,18 +975,25 @@ function toast(msg,act){
 }
 
 /* ============ cart ============ */
+function promoCalc(sub){
+  if(!promo)return {amt:0,free:false,why:''};
+  if(sub<(promo.min||0))return {amt:0,free:false,why:'min'};
+  if(promo.type==='ship')return {amt:0,free:true,why:''};
+  return {amt:promo.type==='flat'?Math.min(promo.val,sub):Math.round(sub*promo.val/100),free:false,why:''};
+}
 function totals(shipFee){
   let sub=0,was=0,count=0;
   cart.forEach(l=>{const p=byId(l.id);sub+=p.p*l.q;was+=(p.w||p.p)*l.q;count+=l.q});
-  const promo=promoOn?Math.round(sub*CONFIG.promo.pct/100):0;
-  const after=sub-promo;
-  const ship=(!sub||after>=CONFIG.freeShip)?0:(shipFee==null?0:shipFee);
-  return {sub,was,count,sale:was-sub,promo,after,ship,total:after+ship};
+  const pc=promoCalc(sub),pr=Math.min(pc.amt,sub);
+  const after=sub-pr;
+  const ship=(!sub||after>=CONFIG.freeShip||pc.free)?0:(shipFee==null?0:shipFee);
+  return {sub,was,count,sale:was-sub,promo:pr,promoFree:pc.free,promoWhy:pc.why,after,ship,total:after+ship};
 }
 function addToCart(id,opt,qty=1){
-  const p=byId(id);if(!p||p.s<=0)return false;
+  const p=byId(id);if(!p)return false;
+  const cap=stockOf(p,opt||'');if(cap<=0)return false;
   const l=cart.find(x=>x.id===id&&x.o===(opt||''));
-  if(l)l.q=Math.min(p.s,l.q+qty);else cart.push({id,o:opt||'',q:Math.min(p.s,qty)});
+  if(l)l.q=Math.min(cap,l.q+qty);else cart.push({id,o:opt||'',q:Math.min(cap,qty)});
   saveCart();renderCart();
   const b=$('#bag-n');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');
   return true;
@@ -921,9 +1015,11 @@ function renderCart(){
   foot.hidden=false;
   const left=Math.max(0,CONFIG.freeShip-t.after),pct=Math.min(1,t.after/CONFIG.freeShip);
   body.innerHTML=`<div class="free"><p class="mono">${left>0?`Add ${money(left)} for free delivery`:'Free delivery unlocked'}</p><div class="meter"><i style="transform:scaleX(${pct})"></i></div></div><ul>${cart.map(lineHtml).join('')}</ul>`;
-  foot.innerHTML=`<form class="promo-f" data-form="promo"><label class="sr" for="pc">Promo code</label><input id="pc" placeholder="Promo code" autocomplete="off" value="${promoOn?CONFIG.promo.code:''}"><button type="submit">${promoOn?'Remove':'Apply'}</button></form><p class="msg" id="pmsg"></p>
-  <div class="sum"><div><span>Subtotal</span><span>${money(t.sub)}</span></div>${t.sale?`<div class="sv"><span>You save on sale items</span><span>−${money(t.sale)}</span></div>`:''}${t.promo?`<div class="sv"><span>Code ${CONFIG.promo.code}</span><span>−${money(t.promo)}</span></div>`:''}<div><span>Delivery</span><span class="mute">${t.after>=CONFIG.freeShip?'Free':'At checkout'}</span></div><div class="tot"><span>Total</span><span>${money(t.total)}</span></div></div>
-  <button class="btn primary block" data-checkout>Checkout ${ic('arr')}</button><button class="btn block" data-close>Continue shopping</button>`;
+  foot.innerHTML=`<form class="promo-f" data-form="promo"><label class="sr" for="pc">Promo code</label><input id="pc" placeholder="Promo code" autocomplete="off" value="${promo?esc(promo.code):''}"><button type="submit">${promo?'Remove':'Apply'}</button></form><p class="msg ${t.promoWhy?'err':''}" id="pmsg">${t.promoWhy?'This code needs '+money(promo.min)+' or more.':''}</p>
+  <div class="sum"><div><span>Subtotal</span><span>${money(t.sub)}</span></div>${t.sale?`<div class="sv"><span>You save on sale items</span><span>−${money(t.sale)}</span></div>`:''}${t.promo?`<div class="sv"><span>Code ${esc(promo.code)}</span><span>−${money(t.promo)}</span></div>`:''}<div><span>Delivery</span><span class="mute">${t.after>=CONFIG.freeShip||t.promoFree?'Free':'At checkout'}</span></div><div class="tot"><span>Total</span><span>${money(t.total)}</span></div></div>
+  <button class="btn primary block" data-checkout>Checkout ${ic('arr')}</button>
+  <div class="alt-ord"><p class="mono mute">Or order by message</p>${CONFIG.whatsapp?'<button class="btn" data-wa>WhatsApp</button>':''}<button class="btn" data-ig>Instagram DM</button></div>
+  <button class="btn block" data-close>Continue shopping</button>`;
 }
 
 /* ============ search ============ */
@@ -954,7 +1050,29 @@ const INFO={
  terms:{t:'Terms of service',h:`<p>Prices are in Bangladeshi taka and include VAT where applicable. We confirm every order by phone or message before dispatch.</p><p>Photos are close to the real product. Small differences in colour and finish can happen.</p>`}
 };
 function openInfo(k){const i=INFO[k];if(!i)return;const o=SETTINGS['policy_'+k],body=o?String(o).split(/\n+/).filter(Boolean).map(x=>`<p>${esc(x)}</p>`).join(''):i.h;$('#info-in').innerHTML=`<div class="info"><h2 class="disp">${i.t}</h2>${body}</div>`;openPanel('infoM')}
-const DIST=['Dhaka','Chattogram','Sylhet','Rajshahi','Khulna','Barishal','Rangpur','Mymensingh','Gazipur','Narayanganj','Cumilla','Other district'];
+const normPhone=p=>String(p).replace(/\D/g,'').slice(-10);
+async function phoneHash(p){
+  const d=normPhone(p);
+  try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('szg:'+d));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+  catch(e){return 'plain:'+d}
+}
+async function lookupCode(code){
+  const bad={ok:false,msg:'That code is not valid.'};
+  if(!/^[A-Z0-9_-]{2,30}$/.test(code))return bad;
+  if(CONFIG.promo.code&&code===CONFIG.promo.code&&CONFIG.promo.pct)return {ok:true,promo:{code,type:'pct',val:CONFIG.promo.pct,min:0}};
+  if(!fb)return bad;
+  try{
+    const sn=await fb.getDoc(fb.doc(fb.db,'coupons',code));
+    if(!sn.exists())return bad;
+    const c=sn.data();
+    if(c.active===false)return bad;
+    if(c.expires&&new Date(c.expires)<new Date())return {ok:false,msg:'That code has expired.'};
+    if(c.maxUses>0&&(c.used||0)>=c.maxUses)return {ok:false,msg:'That code has been fully used.'};
+    const type=['pct','flat','ship'].includes(c.type)?c.type:'pct',val=Number(c.value)||0;
+    if(type!=='ship'&&val<=0)return bad;
+    return {ok:true,promo:{code,type,val,min:Number(c.minOrder)||0}};
+  }catch(e){console.warn(e);return {ok:false,msg:'Could not check the code. Try again.'}}
+}
 function openCheckout(){
   if(!cart.length){openPanel('cart');return}
   $('#checkout-in').innerHTML=`<div class="co"><form class="co-form" data-form="checkout" novalidate>
@@ -963,43 +1081,145 @@ function openCheckout(){
     <div class="f2"><div class="fld"><label for="c-name">Full name</label><input id="c-name" name="name" autocomplete="name" required><span class="e" id="e-name"></span></div>
     <div class="fld"><label for="c-phone">Phone</label><input id="c-phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="01XXXXXXXXX" required><span class="e" id="e-phone"></span></div></div>
     <div class="fld"><label for="c-addr">Delivery address</label><textarea id="c-addr" name="addr" autocomplete="street-address" required></textarea><span class="e" id="e-addr"></span></div>
-    <div class="fld"><label for="c-dist">District</label><select id="c-dist" name="dist" style="height:48px;width:100%;text-transform:none;font-size:15px;letter-spacing:0">${DIST.map(d=>`<option>${d}</option>`).join('')}</select></div>
+    <fieldset class="fld area"><legend>Delivery area</legend><div class="opts">
+      <label><input type="radio" name="area" value="dhaka" checked><span>Inside Dhaka · ${money(CONFIG.ship.dhaka)}</span></label>
+      <label><input type="radio" name="area" value="other"><span>Outside Dhaka · ${money(CONFIG.ship.other)}</span></label></div></fieldset>
+    <div class="fld"><label for="c-dist">District / area</label><input id="c-dist" name="dist" autocomplete="address-level2" placeholder="e.g. Mirpur, Dhaka or Sylhet Sadar" required><span class="e" id="e-dist"></span></div>
     <fieldset class="pay fld"><legend>Payment</legend>
       <label><input type="radio" name="pay" value="cod" checked> Cash on delivery</label>
       <label><input type="radio" name="pay" value="bkash"> bKash (send before dispatch)</label>
       <label><input type="radio" name="pay" value="nagad"> Nagad (send before dispatch)</label></fieldset>
+    <div id="trx-box" hidden style="display:grid;gap:12px"><p class="pnote" id="pnote"></p>
+      <div class="fld"><label for="c-trx">Transaction ID (TrxID)</label><input id="c-trx" name="trx" autocomplete="off" maxlength="24" placeholder="e.g. 9A7B2C3D4E"><span class="e" id="e-trx"></span></div></div>
+    <div class="fld"><label for="c-note">Order note (optional)</label><input id="c-note" name="note" maxlength="200"></div>
     <p class="msg err" id="co-err" role="alert"></p><button class="btn primary block" type="submit" id="co-btn">Place order</button></form>
     <div class="co-side" id="co-side"></div></div>`;
-  renderCoSide();openPanel('checkout','#c-name');
+  renderCoSide();updatePay();openPanel('checkout','#c-name');
 }
-const shipFor=()=>{const d=$('#c-dist');return d&&d.value==='Dhaka'?CONFIG.ship.dhaka:CONFIG.ship.other};
+const shipFor=()=>{const a=$('input[name=area]:checked');return a&&a.value==='other'?CONFIG.ship.other:CONFIG.ship.dhaka};
+function updatePay(){
+  const f=$('.co-form');if(!f)return;
+  const m=f.elements.pay.value,box=$('#trx-box');
+  if(m==='cod'){box.hidden=true;return}
+  const t=totals(shipFor()),num=CONFIG.pay[m],nm=m==='bkash'?'bKash':'Nagad';
+  $('#pnote').textContent=num?`Send ${money(t.total)} to ${nm} ${num} using Send Money, then enter the transaction ID below.`:`Send ${money(t.total)} by ${nm}. We will message you the number after you place the order. Enter the transaction ID below.`;
+  box.hidden=false;
+}
 function renderCoSide(){
   const t=totals(shipFor()),s=$('#co-side');if(!s)return;
   s.innerHTML=`<h3 class="mono">Order summary</h3><ul class="mini-l">${cart.map(l=>{const p=byId(l.id);return `<li><img src="${art(p,0)}" alt="" width="52" height="65"><div class="t"><b>${esc(p.n)}</b><br><span class="mute">${esc(l.o||CAT[p.c].name)} × ${l.q}</span></div><span>${money(p.p*l.q)}</span></li>`}).join('')}</ul>
-  <div class="sum"><div><span>Subtotal</span><span>${money(t.sub)}</span></div>${t.promo?`<div class="sv"><span>Code ${CONFIG.promo.code}</span><span>−${money(t.promo)}</span></div>`:''}<div><span>Delivery</span><span>${t.ship?money(t.ship):'Free'}</span></div><div class="tot"><span>Total</span><span>${money(t.total)}</span></div></div>`;
+  <div class="sum"><div><span>Subtotal</span><span>${money(t.sub)}</span></div>${t.promo?`<div class="sv"><span>Code ${esc(promo.code)}</span><span>−${money(t.promo)}</span></div>`:''}${t.promoFree?`<div class="sv"><span>Code ${esc(promo.code)}</span><span>Free delivery</span></div>`:''}<div><span>Delivery</span><span>${t.ship?money(t.ship):'Free'}</span></div><div class="tot"><span>Total</span><span>${money(t.total)}</span></div></div>`;
 }
 async function submitCheckout(f){
   const v=n=>f.elements[n].value.trim();let ok=true;
   const err=(k,m)=>{$('#e-'+k).textContent=m;if(m)ok=false};
+  const payM=f.elements.pay.value;
   err('name',v('name').length<2?'Enter your full name.':'');
   err('phone',/^(\+?88)?01[3-9]\d{8}$/.test(v('phone').replace(/[\s-]/g,''))?'':'Enter a valid Bangladeshi mobile number.');
   err('addr',v('addr').length<8?'Enter your full delivery address.':'');
+  err('dist',v('dist').length<2?'Enter your district or area.':'');
+  err('trx',payM!=='cod'&&!/^[A-Za-z0-9]{6,24}$/.test(v('trx'))?'Enter the transaction ID from your payment.':'');
   if(!ok){const first=$('.e:not(:empty)',f);if(first)f.elements[first.id.slice(2)].focus();return}
   const btn=$('#co-btn'),ce=$('#co-err');ce.textContent='';
-  const t=totals(shipFor()),no='SZG-'+Math.floor(10000+Math.random()*89999),pay={cod:'Cash on delivery',bkash:'bKash',nagad:'Nagad'}[f.elements.pay.value];
+  const t=totals(shipFor()),no='SZG-'+Math.floor(100000+Math.random()*900000),pay={cod:'Cash on delivery',bkash:'bKash',nagad:'Nagad'}[payM];
   if(fb){
     btn.disabled=true;btn.textContent='Placing order…';
     try{
-      await fb.addDoc(fb.collection(fb.db,'orders'),{no,status:'new',createdAt:fb.serverTimestamp(),
-        customer:{name:v('name'),phone:v('phone'),addr:v('addr'),district:f.elements.dist.value},
-        pay:f.elements.pay.value,promo:promoOn?CONFIG.promo.code:'',
+      const ph=await phoneHash(v('phone')),b=fb.writeBatch(fb.db);
+      b.set(fb.doc(fb.collection(fb.db,'orders')),{no,status:'new',createdAt:fb.serverTimestamp(),
+        customer:{name:v('name'),phone:v('phone'),addr:v('addr'),district:v('dist')},area:f.elements.area.value,
+        pay:payM,trx:payM==='cod'?'':v('trx'),note:v('note'),promo:(t.promo||t.promoFree)&&promo?promo.code:'',lang:LANG,
         items:cart.map(l=>{const p=byId(l.id);return {id:l.id,name:p.n,opt:l.o,qty:l.q,price:p.p}}),
         totals:{sub:t.sub,promo:t.promo,ship:t.ship,total:t.total}});
+      b.set(fb.doc(fb.db,'tracks',no),{no,status:'new',courier:'',trackingNo:'',ph,createdAt:fb.serverTimestamp()});
+      await b.commit();
     }catch(e){console.warn(e);ce.textContent='We could not place your order. Check your connection and try again.';btn.disabled=false;btn.textContent='Place order';return}
   }
   const name=esc(v('name').split(' ')[0]);
-  cart=[];saveCart();renderCart();
-  $('#checkout-in').innerHTML=`<div class="done-box"><p class="mono mute">Order ${no}</p><h2 class="disp">Order<br>placed</h2><p style="max-width:44ch">Thanks, ${name}. Your ${money(t.total)} order is in. We will confirm it by phone or message before dispatch. Payment: ${pay}.${fb?'':' (Demo mode: nothing was saved.)'}</p><button class="btn primary" data-close data-go="home">Back to the store ${ic('arr')}</button></div>`;
+  cart=[];promo=null;savePromo();saveCart();renderCart();
+  $('#checkout-in').innerHTML=`<div class="done-box"><p class="mono mute">Order ${no}</p><h2 class="disp">Order<br>placed</h2><p style="max-width:44ch">Thanks, ${name}. Your ${money(t.total)} order is in. We will confirm it by phone or message before dispatch. Payment: ${pay}.${fb?' Keep your order number: you can track it with your phone number.':' (Demo mode: nothing was saved.)'}</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" data-close data-go="home">Back to the store ${ic('arr')}</button>${fb?'<button class="btn" data-track>Track order</button>':''}</div></div>`;
+}
+
+/* tracking */
+function openTrack(){
+  if(state.open&&state.open!=='infoM')closePanel(true);
+  $('#info-in').innerHTML=`<div class="info"><h2 class="disp">Track order</h2><form class="trk-f" data-form="track" novalidate>
+    <div class="fld"><label for="t-no">Order number</label><input id="t-no" name="no" placeholder="SZG-123456" autocomplete="off"></div>
+    <div class="fld"><label for="t-ph">Phone used for the order</label><input id="t-ph" name="phone" inputmode="tel" placeholder="01XXXXXXXXX"></div>
+    <button class="btn primary" type="submit">Track</button><p class="msg" id="t-msg" role="status"></p></form><div id="t-out"></div></div>`;
+  openPanel('infoM','#t-no');
+}
+const TRK=[['new','Order placed'],['confirmed','Confirmed'],['shipped','Shipped'],['delivered','Delivered']];
+function trackHtml(d){
+  const at=TRK.findIndex(x=>x[0]===d.status),dt=d.updatedAt&&d.updatedAt.toDate?d.updatedAt.toDate().toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+  const steps=d.status==='cancelled'?'<li class="bad">Cancelled</li>':TRK.map(([k,l],i)=>`<li class="${i<=at?'done':''}">${l}</li>`).join('');
+  return `<ol class="trk">${steps}</ol>${d.courier||d.trackingNo?`<div class="trk-i mono">${d.courier?`<span>Courier: ${esc(d.courier)}</span>`:''}${d.trackingNo?`<span>Tracking no: ${esc(d.trackingNo)}</span>`:''}</div>`:''}${dt?`<p class="mono mute" style="margin-top:12px">Updated ${dt}</p>`:''}`;
+}
+async function trackOrder(f){
+  const no=f.elements.no.value.trim().toUpperCase(),m=$('#t-msg'),out=$('#t-out');out.innerHTML='';
+  const say=(t,c)=>{m.textContent=t;m.className='msg '+(c||'')};
+  if(!/^SZG-\d{4,8}$/.test(no)||normPhone(f.elements.phone.value).length<10){say('Enter your order number and phone number.','err');return}
+  if(!fb){say('Tracking needs the store to be connected to Firebase.','err');return}
+  say('Looking…');
+  try{
+    const sn=await fb.getDoc(fb.doc(fb.db,'tracks',no));
+    if(!sn.exists()||sn.data().ph!==await phoneHash(f.elements.phone.value)){say('No order found with those details.','err');return}
+    say('');out.innerHTML=trackHtml(sn.data());
+  }catch(e){console.warn(e);say('Could not look that up right now. Try again.','err')}
+}
+
+/* order by message */
+function orderText(){
+  const t=totals();
+  return 'Hi Syzygy, I would like to order:\n'+cart.map(l=>{const p=byId(l.id);return `• ${p.n}${l.o?' ('+l.o+')':''} × ${l.q} — ${money(p.p*l.q)}`}).join('\n')+`\nSubtotal: ${money(t.sub)}${t.promo&&promo?'\nCode '+promo.code+': −'+money(t.promo):''}\nDelivery is charged by area.\n\nName:\nPhone:\nAddress:`;
+}
+const igHandle=()=>(CONFIG.instagram.match(/instagram\.com\/([^/?#]+)/)||[])[1]||'syzygy.bd';
+function openWa(text){
+  if(!CONFIG.whatsapp){toast('WhatsApp number is not set yet.');return}
+  window.open('https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(text),'_blank','noopener');
+}
+async function openIg(text){
+  try{await navigator.clipboard.writeText(text);toast('Order copied. Paste it in the DM.')}catch(e){toast('Open Instagram and send us your bag.')}
+  window.open('https://ig.me/m/'+igHandle(),'_blank','noopener');
+}
+
+/* reviews */
+async function shrink(file){
+  const bmp=await createImageBitmap(file);let max=720,q=.62,out='';
+  for(let i=0;i<4;i++){
+    const sc=Math.min(1,max/Math.max(bmp.width,bmp.height)),c=document.createElement('canvas');c.width=Math.round(bmp.width*sc);c.height=Math.round(bmp.height*sc);
+    const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(bmp,0,0,c.width,c.height);
+    out=c.toDataURL('image/jpeg',q);if(out.length<=140000)return out;max*=.8;q-=.08;
+  }
+  return out.length<=145000?out:'';
+}
+function openReview(pid){
+  if(state.open&&state.open!=='infoM')closePanel(true);
+  $('#info-in').innerHTML=`<div class="info"><h2 class="disp">Write a review</h2><form class="trk-f" data-form="review" novalidate>
+    <div class="fld"><label for="rv-name">Your name</label><input id="rv-name" name="name" maxlength="60" autocomplete="name"></div>
+    <fieldset class="fld area"><legend>Rating</legend><div class="opts">${[5,4,3,2,1].map(n=>`<label><input type="radio" name="rating" value="${n}" ${n===5?'checked':''}><span>${n} ★</span></label>`).join('')}</div></fieldset>
+    <div class="fld"><label for="rv-p">Which piece?</label><select id="rv-p" name="pid" style="height:48px;width:100%;text-transform:none;font-size:15px;letter-spacing:0"><option value="">Not about one piece</option>${P.map(p=>`<option value="${esc(p.id)}" ${p.id===pid?'selected':''}>${esc(p.n)}</option>`).join('')}</select></div>
+    <div class="fld"><label for="rv-t">Your review</label><textarea id="rv-t" name="text" maxlength="600"></textarea></div>
+    <div class="fld"><label for="rv-f">Photo (optional)</label><input id="rv-f" name="photo" type="file" accept="image/*"></div>
+    <button class="btn primary" type="submit">Send review</button><p class="msg" id="rv-msg" role="status"></p></form></div>`;
+  openPanel('infoM','#rv-name');
+}
+async function submitReview(f){
+  const m=$('#rv-msg'),say=(t,c)=>{m.textContent=t;m.className='msg '+(c||'')};
+  const name=f.elements.name.value.trim(),text=f.elements.text.value.trim();
+  if(!fb){say('Reviews need the store to be connected to Firebase.','err');return}
+  if(name.length<2||text.length<8){say('Add your name and a few words about the piece.','err');return}
+  if(Date.now()-LS.get('szg.rv',0)<120000){say('Please wait a couple of minutes before sending another.','err');return}
+  const btn=$('button[type=submit]',f);btn.disabled=true;say('Sending…');
+  try{
+    let photo='';const file=f.elements.photo.files[0];
+    if(file){photo=await shrink(file);if(!photo){say('That photo is too large. Try a smaller one.','err');btn.disabled=false;return}}
+    const doc={name,text,rating:Number(f.elements.rating.value)||5,productId:f.elements.pid.value,published:false,createdAt:fb.serverTimestamp()};
+    if(photo)doc.photo=photo;
+    await fb.addDoc(fb.collection(fb.db,'reviews'),doc);
+    LS.set('szg.rv',Date.now());
+    f.innerHTML='<h3 class="disp" style="font-size:2rem">Thank you</h3><p>Your review is in. It shows on the store once we approve it.</p>';
+  }catch(e){console.warn(e);say('Could not send your review. Try again.','err');btn.disabled=false}
 }
 
 /* ============ views ============ */
@@ -1007,11 +1227,11 @@ function secHead(title,link,to,mono){return `<div class="sec-h"><h2 class="disp 
 function phrase(t){return Array.from({length:6},()=>`<span>${t}</span>`).join('')}
 const styleImg=(x,v=2)=>x.image||art(pick(x.rep),v);
 function reviewsHtml(){
-  if(!REVIEWS.length)return '';
-  const avg=REVIEWS.reduce((a,r)=>a+r.r,0)/REVIEWS.length,n=REVIEWS.length;
-  return `<section class="sec wrap" style="padding-top:0" aria-labelledby="rev-h"><div class="rev-top"><div><h2 id="rev-h" class="disp h2">Worn by<br>the few</h2>${REVIEW_SAMPLE?'<p class="note mono">Sample reviews. Connect Firebase and add real reviews in the admin panel.</p>':''}</div>
-  <div class="score"><b>${avg.toFixed(1)}</b><div>${stars(Math.round(avg))}<p class="mono mute" style="margin-top:6px">${n} ${REVIEW_SAMPLE?'sample ':''}review${n>1?'s':''}</p></div></div></div>
-  <div class="revs">${REVIEWS.map((r,i)=>{const p=r.pid?byId(r.pid):null;return `<article class="rev rv" style="--i:${i%3}">${stars(r.r)}<p>${esc(r.t)}</p><footer class="mono">${p?`<a href="#p-${p.id}" data-go="p-${p.id}">${esc(p.n)}</a>`:'<span></span>'}<span>${REVIEW_SAMPLE?'Sample':esc(r.name)}</span></footer></article>`}).join('')}</div></section>`;
+  if(!REVIEWS.length&&!fb)return '';
+  const n=REVIEWS.length,avg=n?REVIEWS.reduce((a,r)=>a+r.r,0)/n:0;
+  return `<section class="sec wrap" style="padding-top:0" aria-labelledby="rev-h"><div class="rev-top"><div><h2 id="rev-h" class="disp h2">Worn by<br>the few</h2>${REVIEW_SAMPLE?'<p class="note mono">Sample reviews. Connect Firebase and add real reviews in the admin panel.</p>':''}${fb?'<div class="rev-act"><button class="btn" data-review="">Write a review</button></div>':''}</div>
+  ${n?`<div class="score"><b>${avg.toFixed(1)}</b><div>${stars(Math.round(avg))}<p class="mono mute" style="margin-top:6px">${n} ${REVIEW_SAMPLE?'sample ':''}review${n>1?'s':''}</p></div></div>`:''}</div>
+  ${n?`<div class="revs">${REVIEWS.map((r,i)=>{const p=r.pid?byId(r.pid):null;return `<article class="rev rv" style="--i:${i%3}">${r.photo?`<img class="rev-img" src="${esc(r.photo)}" alt="Photo from ${esc(r.name)}" loading="lazy">`:''}${stars(r.r)}<p>${esc(r.t)}</p><footer class="mono">${p?`<a href="#p-${p.id}" data-go="p-${p.id}">${esc(p.n)}</a>`:'<span></span>'}<span>${REVIEW_SAMPLE?'Sample':esc(r.name)}</span></footer></article>`}).join('')}</div>`:''}</section>`;
 }
 function viewHome(){
   const mq=(SETTINGS.announcements||[]).map(a=>phrase(esc(a))).join('');
@@ -1149,6 +1369,7 @@ function viewProduct(id){
     <div class="acc"><details open><summary>Details</summary><div class="in"><dl>${Object.entries(specs).map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div></details>
       <details><summary>Delivery</summary><div class="in">Inside Dhaka ${money(CONFIG.ship.dhaka)}, outside ${money(CONFIG.ship.other)}. Free over ${money(CONFIG.freeShip)}. Cash on delivery.</div></details>
       <details><summary>Care</summary><div class="in">Keep dry. Wipe with a soft cloth after wear and store apart from other metal pieces.</div></details></div>
+    ${fb?`<button class="link" style="width:max-content" data-review="${p.id}">Write a review</button>`:''}
   </div></div>
   ${rel.length?`<section class="rail"><h2 class="disp">More ${CAT[p.c].name.toLowerCase()}</h2>${grid(rel)}</section>`:''}
   ${look.length?`<section class="rail"><h2 class="disp">Complete the look</h2>${grid(look)}</section>`:''}
@@ -1160,6 +1381,7 @@ function openQuick(id){
   <div class="qv-info"><div style="display:grid;gap:10px"><p class="mono mute">${CAT[p.c].name}</p><h2 class="disp">${esc(p.n)}</h2></div>
   <div class="p-price">${price(p)}${p.w?`<span class="badge s">−${off(p)}%</span>`:''}</div><p style="color:#d4d4cf">${esc(p.d)}</p>${buybox(p,'qv')}
   <a class="link" style="width:max-content" href="#p-${p.id}" data-go="p-${p.id}">Full details ${ic('arr','sm')}</a></div></div>`;
+  $$('#quick .buybox').forEach(refreshBuy);
   openPanel('quick');
 }
 
@@ -1182,20 +1404,51 @@ function setNav(){
   const r=state.route,key=r==='home'?'':r==='new'?'new':r==='sale'?'sale':r==='styles'||r.startsWith('s-')?'styles':(r.startsWith('c-')||r.startsWith('p-'))?'shop':'';
   $$('#nav [data-navkey]').forEach(a=>{if(a.dataset.navkey===key)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
 }
+function setMeta(sel,attr,val,mk){
+  let e=$(sel);if(!e){if(!mk)return;e=document.createElement(mk.tag);Object.entries(mk.attrs).forEach(([k,v])=>e.setAttribute(k,v));document.head.appendChild(e)}
+  e.setAttribute(attr,val);
+}
+function seo(title,desc,img,ld){
+  const full=title?title+' · Syzygy':'Syzygy — alternative accessories for after dark';
+  document.title=full;
+  const d=desc||'Syzygy (syzygy.bd): alternative accessories for after dark. Belts, rings, chains, glasses and fake piercings, shipped across Bangladesh with cash on delivery.';
+  const im=/^https:\/\//.test(img||'')?img:(CONFIG.ogImage||(CONFIG.siteUrl?CONFIG.siteUrl+'/logo.jpg':''));
+  const base=CONFIG.siteUrl||(location.protocol.startsWith('http')?location.origin+location.pathname:'');
+  setMeta('meta[name=description]','content',d);
+  setMeta('meta[property="og:title"]','content',full);
+  setMeta('meta[property="og:description"]','content',d);
+  if(im){setMeta('meta[property="og:image"]','content',im,{tag:'meta',attrs:{property:'og:image'}});setMeta('meta[name="twitter:image"]','content',im,{tag:'meta',attrs:{name:'twitter:image'}})}
+  if(base){
+    setMeta('meta[property="og:url"]','content',base+(state.route&&state.route!=='home'?'#'+state.route:''),{tag:'meta',attrs:{property:'og:url'}});
+    setMeta('link[rel=canonical]','href',base,{tag:'link',attrs:{rel:'canonical'}});
+  }
+  let s=$('#ld-prod');
+  if(ld){if(!s){s=document.createElement('script');s.id='ld-prod';s.type='application/ld+json';document.head.appendChild(s)}s.textContent=JSON.stringify(ld)}
+  else if(s)s.remove();
+}
 function draw(scrollTo){
   const r=state.route,m=$('#main');clearTimers();
-  let html,title='';
+  let html,title='',desc='',img='',ld=null;
   if(r==='home'||!r)html=viewHome();
-  else if(r==='styles'){html=viewStyles();title='Styles'}
-  else if(r.startsWith('p-')){html=viewProduct(r.slice(2));title=(byId(r.slice(2))||{}).n||'Not found'}
-  else if(resolve(r)){html=viewCollection(r);title=resolve(r).title}
+  else if(r==='styles'){html=viewStyles();title='Styles';desc='Eight ways to wear it. Shop Syzygy by style.'}
+  else if(r.startsWith('p-')){
+    html=viewProduct(r.slice(2));const p=byId(r.slice(2));title=(p||{}).n||'Not found';
+    if(p){
+      desc=(p.d||'').slice(0,155);img=(p.imgs.find(u=>/^https:\/\//.test(u)))||'';
+      ld={'@context':'https://schema.org','@type':'Product',name:p.n,description:p.d,category:CAT[p.c].name,sku:'SZG-'+String(p.i+1).padStart(3,'0'),brand:{'@type':'Brand',name:'Syzygy'},
+        ...(img?{image:p.imgs.filter(u=>/^https:\/\//.test(u))}:{}),
+        offers:{'@type':'Offer',priceCurrency:'BDT',price:p.p,availability:p.s>0?'https://schema.org/InStock':'https://schema.org/OutOfStock',url:(CONFIG.siteUrl||location.origin+location.pathname)+'#p-'+p.id}};
+    }
+  }
+  else if(resolve(r)){html=viewCollection(r);title=resolve(r).title;desc=resolve(r).desc||''}
   else{state.route='home';html=viewHome()}
   m.innerHTML=html;m.classList.remove('pg');void m.offsetWidth;m.classList.add('pg');
-  document.title=title?title+' · Syzygy':'Syzygy';
+  seo(title,desc,img,ld);
   if(!scrollTo)window.scrollTo({top:0,behavior:'instant'});
   if($('#grid'))applyFilters();
   if(state.route==='home'){startCountdown();initHome()}
   if($('#gal'))initGallery();
+  $$('.buybox',m).forEach(refreshBuy);
   revealAll(m);setNav();
 }
 function go(r,scrollId){
@@ -1221,8 +1474,7 @@ function initGallery(){
 
 /* ============ global events ============ */
 function readBuy(box){
-  const id=box.dataset.id,r=$('input[type=radio]:checked',box);
-  return {id,opt:r?r.value:'',qty:parseInt($('.qty output',box).textContent,10)||1};
+  return {id:box.dataset.id,opt:$$('input[type=radio]:checked',box).map(r=>r.value).join(' / '),qty:parseInt($('.qty output',box).textContent,10)||1};
 }
 function toggleWish(id){
   wish=wish.includes(id)?wish.filter(x=>x!==id):[...wish,id];LS.set('szg.wish',wish);
@@ -1232,7 +1484,7 @@ function toggleWish(id){
   if(state.route==='saved'){state.items=wish.map(byId);applyFilters()}
 }
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-go],[data-add],[data-quick],[data-wish],[data-open],[data-close],[data-qty],[data-buy],[data-buynow],[data-remove],[data-line],[data-info],[data-thumb],[data-scroll-row],[data-chip],[data-schip],[data-sug],[data-clear-search],[data-checkout],[data-allresults]');
+  const t=e.target.closest('[data-go],[data-add],[data-quick],[data-wish],[data-open],[data-close],[data-qty],[data-buy],[data-buynow],[data-remove],[data-line],[data-info],[data-thumb],[data-scroll-row],[data-chip],[data-schip],[data-sug],[data-clear-search],[data-checkout],[data-allresults],[data-wa],[data-ig],[data-wa-prod],[data-track],[data-lang],[data-review]');
   if(!t)return;
   if(t.matches('a[data-go]')){
     if(e.metaKey||e.ctrlKey||e.shiftKey)return;
@@ -1242,9 +1494,15 @@ document.addEventListener('click',e=>{
   if(t.hasAttribute('data-close')){closePanel();return}
   if(t.dataset.open){openPanel(t.dataset.open);if(t.dataset.open==='search'){renderSearch()}if(t.dataset.open==='cart')renderCart();return}
   if(t.dataset.quick){openQuick(t.dataset.quick);return}
-  if(t.dataset.add){const p=byId(t.dataset.add);if(p.o){openQuick(p.id)}else if(addToCart(p.id,'',1))toast('Added to bag',true);return}
+  if(t.hasAttribute('data-lang')){try{localStorage.setItem('szg.lang',LANG==='bn'?'en':'bn')}catch(er){}location.reload();return}
+  if(t.hasAttribute('data-track')){e.preventDefault();openTrack();return}
+  if(t.dataset.review!==undefined){openReview(t.dataset.review);return}
+  if(t.hasAttribute('data-wa')){openWa(orderText());return}
+  if(t.hasAttribute('data-ig')){openIg(orderText());return}
+  if(t.hasAttribute('data-wa-prod')){const b=readBuy(t.closest('.buybox')),p=byId(b.id);openWa(`Hi Syzygy, I would like to order:\n• ${p.n}${b.opt?' ('+b.opt+')':''} × ${b.qty} — ${money(p.p*b.qty)}\n\nName:\nPhone:\nAddress:`);return}
+  if(t.dataset.add){const p=byId(t.dataset.add);if(p.o||hasVar(p)){openQuick(p.id)}else if(addToCart(p.id,'',1))toast('Added to bag',true);return}
   if(t.dataset.wish){toggleWish(t.dataset.wish);return}
-  if(t.dataset.qty){const o=$('.qty output',t.closest('.buybox')),p=byId(t.closest('.buybox').dataset.id);o.textContent=Math.max(1,Math.min(Math.min(p.s,10),(parseInt(o.textContent,10)||1)+parseInt(t.dataset.qty,10)));return}
+  if(t.dataset.qty){const o=$('.qty output',t.closest('.buybox')),p=byId(t.closest('.buybox').dataset.id);o.textContent=Math.max(1,Math.min(Math.min(stockOf(p,readBuy(t.closest('.buybox')).opt),10),(parseInt(o.textContent,10)||1)+parseInt(t.dataset.qty,10)));return}
   if(t.hasAttribute('data-buy')||t.hasAttribute('data-buynow')){
     const b=readBuy(t.closest('.buybox'));if(!addToCart(b.id,b.opt,b.qty))return;
     if(t.hasAttribute('data-buynow')){closePanel();setTimeout(openCheckout,120)}
@@ -1252,7 +1510,7 @@ document.addEventListener('click',e=>{
     return;
   }
   if(t.dataset.remove){const [id,o]=t.dataset.remove.split('|');cart=cart.filter(l=>!(l.id===id&&l.o===o));saveCart();renderCart();return}
-  if(t.dataset.line){const [id,o]=t.dataset.line.split('|'),l=cart.find(x=>x.id===id&&x.o===o);if(l){l.q+=parseInt(t.dataset.d,10);const p=byId(id);l.q=Math.min(l.q,p.s);if(l.q<=0)cart=cart.filter(x=>x!==l);saveCart();renderCart()}return}
+  if(t.dataset.line){const [id,o]=t.dataset.line.split('|'),l=cart.find(x=>x.id===id&&x.o===o);if(l){l.q+=parseInt(t.dataset.d,10);const p=byId(id);l.q=Math.min(l.q,stockOf(p,l.o));if(l.q<=0)cart=cart.filter(x=>x!==l);saveCart();renderCart()}return}
   if(t.dataset.info){if(state.open&&state.open!=='infoM')closePanel(true);openInfo(t.dataset.info);return}
   if(t.dataset.thumb!==undefined){const p=byId(t.dataset.id),v=+t.dataset.thumb;$('#qv-main').src=art(p,v);$$('.qv-th button').forEach(b=>b.removeAttribute('aria-current'));t.setAttribute('aria-current','true');return}
   if(t.dataset.scrollRow){const row=$('#best-row');row.scrollBy({left:row.clientWidth*.8*parseInt(t.dataset.scrollRow,10),behavior:'smooth'});return}
@@ -1269,10 +1527,15 @@ document.addEventListener('submit',async e=>{
   if(k==='search'){state.q=$('#q').value;if(state.q.trim()){closePanel();go('results')}}
   if(k==='promo'){
     const v=$('#pc').value.trim().toUpperCase(),m=$('#pmsg');
-    if(promoOn){promoOn=false;LS.set('szg.promo',false);renderCart();return}
-    if(v&&v===CONFIG.promo.code){promoOn=true;LS.set('szg.promo',true);renderCart();toast('Code applied')}
-    else{m.textContent=v?'That code is not valid.':'Enter a promo code.';m.className='msg err'}
+    if(promo){promo=null;savePromo();renderCart();return}
+    if(!v){m.textContent='Enter a promo code.';m.className='msg err';return}
+    m.textContent='Checking…';m.className='msg';
+    const r=await lookupCode(v);
+    if(r.ok){promo=r.promo;savePromo();renderCart();toast('Code applied')}
+    else{m.textContent=r.msg;m.className='msg err'}
   }
+  if(k==='track')trackOrder(f);
+  if(k==='review')submitReview(f);
   if(k==='newsletter'){
     const i=$('#nl-e'),m=$('#nl-m');
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(i.value.trim())){m.textContent='Enter a valid email address.';m.className='msg err';i.setAttribute('aria-invalid','true');i.focus();return}
@@ -1287,7 +1550,9 @@ document.addEventListener('change',e=>{
   const t=e.target;
   if(t.id==='sort'){state.f.sort=t.value;applyFilters()}
   if(t.id==='instock'){state.f.stock=t.checked;applyFilters()}
-  if(t.id==='c-dist')renderCoSide();
+  if(t.name==='area'){renderCoSide();updatePay()}
+  if(t.name==='pay')updatePay();
+  if(t.type==='radio'&&t.closest('.buybox'))refreshBuy(t.closest('.buybox'));
 });
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&state.open){closePanel();return}
@@ -1306,7 +1571,8 @@ function boot(){
   $('#mega-l').innerHTML=CATS.map((c,i)=>`<li><a href="#c-${c.id}" data-go="c-${c.id}"><span>${pad(i+1)}</span>${c.name}</a></li>`).join('')+`<li><a href="#styles" data-go="styles"><span>09</span>Shop by style</a></li>`;
   $('#foot-shop').innerHTML=CATS.map(c=>`<li><a href="#c-${c.id}" data-go="c-${c.id}">${c.name}</a></li>`).join('')+`<li><a href="#styles" data-go="styles">Shop by style</a></li>`;
   $('#foot-soc').innerHTML=`<li><a href="${CONFIG.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">WhatsApp</a></li>`;
-  $('#mn-l').innerHTML=CATS.map((c,i)=>`<a href="#c-${c.id}" data-go="c-${c.id}"><span>${pad(i+1)}</span>${c.name}</a>`).join('')+`<a href="#styles" data-go="styles"><span>09</span>Shop by style</a><a class="sm" href="#new" data-go="new">New arrivals</a><a class="sm" href="#sale" data-go="sale">Sale</a><a class="sm" href="#home" data-go="home" data-scroll="about">About</a><a class="sm" href="#saved" data-go="saved">Saved</a>`;
+  $('#mn-l').innerHTML=CATS.map((c,i)=>`<a href="#c-${c.id}" data-go="c-${c.id}"><span>${pad(i+1)}</span>${c.name}</a>`).join('')+`<a href="#styles" data-go="styles"><span>09</span>Shop by style</a><a class="sm" href="#new" data-go="new">New arrivals</a><a class="sm" href="#sale" data-go="sale">Sale</a><a class="sm" href="#home" data-go="home" data-scroll="about">About</a><a class="sm" href="#saved" data-go="saved">Saved</a><a class="sm" href="#home" data-track>Track order</a>`;
+  $('#lang-b').textContent=LANG==='bn'?'EN':'বাং';
   $('#wish-n').textContent=wish.length;$('#wish-n').dataset.n=wish.length;
   renderCart();
   $('#ann').innerHTML=(SETTINGS.announcements||[]).map((t,i)=>`<p class="${i?'':'on'}">${esc(t)}</p>`).join('');
@@ -1317,6 +1583,7 @@ function boot(){
   const done=()=>$('#loader').classList.add('done');
   Promise.all([document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve(),new Promise(r=>setTimeout(r,700))]).then(done,done);
   setTimeout(done,1800);
+  trTree(document.body);
 }
 boot();
 </script>

@@ -1,7 +1,7 @@
 {
   "hosting": {
     "public": ".",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "README.md", "firestore.rules", "storage.rules"]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "README.md", "firestore.rules", "storage.rules", "api/**", "package.json", "vercel.json"]
   },
   "firestore": { "rules": "firestore.rules" },
   "storage": { "rules": "storage.rules" }

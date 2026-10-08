@@ -1,11 +1,14 @@
 // Vercel serverless function: receives one resized image from the admin panel,
 // checks the caller is a Syzygy admin, then stores it on UploadThing.
-// Env vars (Vercel → Settings → Environment Variables):
-//   UPLOADTHING_TOKEN   from the UploadThing dashboard → API Keys
+// The UploadThing token is set in the constant below (server side only). An env var of the same name wins if set.
+// Never copy this token into index.html, admin.html or firebase-config.js: those files are public.
+// Env vars (Vercel → Settings → Environment Variables), all optional except where you leave a placeholder:
 //   FIREBASE_API_KEY    your Firebase web apiKey
 //   FIREBASE_PROJECT_ID your Firebase project id
 //   ALLOWED_ORIGIN      optional, e.g. https://syzygy.bd (defaults to *)
 import { UTApi } from 'uploadthing/server';
+
+const UPLOADTHING_TOKEN = 'PASTE_YOUR_UPLOADTHING_TOKEN_HERE';
 
 export const config = { api: { bodyParser: false } };
 
@@ -43,7 +46,7 @@ export default async function handler(req, res) {
     if (!/^image\/(jpeg|png|webp)$/.test(type)) return res.status(400).json({ error: 'JPEG, PNG or WebP only' });
     const buf = await readBody(req, 4 * 1024 * 1024);
     const name = String(req.headers['x-file-name'] || 'photo.jpg').replace(/[^\w.\-]/g, '_').slice(0, 80);
-    const ut = new UTApi({ token: process.env.UPLOADTHING_TOKEN });
+    const ut = new UTApi({ token: process.env.UPLOADTHING_TOKEN || UPLOADTHING_TOKEN });
     const out = await ut.uploadFiles(new File([buf], name, { type }));
     if (out.error || !out.data) return res.status(502).json({ error: out.error?.message || 'UploadThing failed' });
     return res.status(200).json({ url: out.data.ufsUrl || out.data.url, key: out.data.key });
